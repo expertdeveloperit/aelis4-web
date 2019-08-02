@@ -1,0 +1,86 @@
+{
+  "name": "aelis4-web-vue",
+  "version": "0.0.1",
+  "description": "A vue template with Element UI & axios for Armellini Logistics Aelis4 project",
+  "author": "Komet Sales Developer Team",
+  "scripts": {
+    "serve": "vue-cli-service serve --mode development",
+    "build:prod": "NODE_ENV=production vue-cli-service build  --dest ../public --no-clean",
+    "build:test": "NODE_ENV=production vue-cli-service build  --dest ../public --no-clean --mode test",
+    "build:uat": "NODE_ENV=production vue-cli-service build  --dest ../public --no-clean --mode uat",
+    "lint": "yarn vue-cli-service lint",
+    "lintExport": "vue-cli-service lint --no-fix --format json > ./reportLint.txt",
+    "test:unit": "vue-cli-service test:unit --maxWorkers=10 --no-cache --forceExit --detectOpenHandles",
+    "test:unit-no-config": "vue-cli-service test:unit",
+    "generate-icons": "vsvg -s ./src/assets/svg -t ./src/assets/compiled-icons"
+  },
+  "dependencies": {
+    "@chenfengyuan/vue-countdown": "1.1.0",
+    "@fortawesome/fontawesome-free": "5.7.2",
+    "auth0-js": "9.10.0",
+    "axios": "0.18.0",
+    "element-ui": "2.9.1",
+    "file-saver": "2.0.1",
+    "js-cookie": "2.2.0",
+    "moment": "2.24.0",
+    "normalize.css": "7.0.0",
+    "nprogress": "0.2.0",
+    "sonarqube-scanner": "^2.4.0",
+    "validator": "10.11.0",
+    "lodash": "4.17.11",
+    "vue": "2.6.10",
+    "vue-i18n": "8.7.0",
+    "vue-moment": "4.0.0",
+    "vue-router": "3.0.1",
+    "vue-svgicon": "3.2.2",
+    "vuex": "3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "3.3.0",
+    "@vue/cli-plugin-eslint": "3.3.0",
+    "@vue/cli-plugin-unit-jest": "3.3.0",
+    "@vue/cli-service": "^3.3.0",
+    "@vue/eslint-config-airbnb": "4.0.0",
+    "@vue/test-utils": "1.0.0-beta.20",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "23.6.0",
+    "chalk": "2.4.1",
+    "eslint": "5.8.0",
+    "eslint-friendly-formatter": "4.0.1",
+    "eslint-plugin-vue": "5.0.0",
+    "eventsource-polyfill": "0.9.6",
+    "gulp": "4.0.0",
+    "lint-staged": "8.1.0",
+    "lodash": "4.17.11",
+    "node-notifier": "5.2.1",
+    "node-sass": "4.9.0",
+    "ora": "3.0.0",
+    "path-to-regexp": "2.4.0",
+    "sass-loader": "7.0.3",
+    "semver": "5.5.0",
+    "shelljs": "0.8.2",
+    "vue-template-compiler": "2.6.10"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  },
+  "engines": {
+    "node": ">= 10.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

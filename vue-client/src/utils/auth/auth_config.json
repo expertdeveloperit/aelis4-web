@@ -1,0 +1,8 @@
+{
+  "domain": "armellini.auth0.com",
+  "audience": "https://aelis.com/api/",
+  "clientId": "q2mFo4IkthhO3qfwGVtQ2K0OpdwNCXiu",
+  "permissionsNamespace": "http://aelis4/permissions",
+  "rolesNamespace": "http://aelis4/roles",
+  "groupsNamespace": "http://aelis4/groups"
+}

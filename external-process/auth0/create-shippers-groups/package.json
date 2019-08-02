@@ -1,0 +1,11 @@
+{
+  "name": "create-shippers-groups",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Render",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "mysql": "2.16.0",
+    "axios": "0.18.0"
+  }
+}

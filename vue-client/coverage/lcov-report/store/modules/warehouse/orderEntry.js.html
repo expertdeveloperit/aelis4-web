@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for store/modules/warehouse/orderEntry.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">store/modules/warehouse</a> orderEntry.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.23% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>116/130</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">80.77% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>21/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.62% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>33/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.23% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>116/130</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Loading, Message } from 'element-ui';
+import moment from 'moment';
+import constants from '@/utils/constants';
+import orderApiService from '@/api/orderService';
+&nbsp;
+const searchSection = ['search-section'];
+&nbsp;
+const orderEntry = {
+  namespaced: true,
+  state: {
+    settings: {
+      shipperAccountId: null,
+      minCubesPerBox: null
+    },
+    orderAddSuccess: false,
+    orderUpdateSuccess: false,
+    isEditingRow: false,
+    actualFilters: {
+      shipDate: null,
+      status: null,
+      createdByUsername: null,
+      orderNumber: null,
+      consigneeAccountId: null,
+      page: constants.TABLES.DEFAULT_PAGE,
+      rows: constants.TABLES.DEFAULT_LIMIT,
+      shipperAccountId: null,
+      pageResults: true,
+      orderField: null,
+      orderDirection: null
+    },
+    loadingSearch: false,
+    filtersOpen: searchSection,
+    cutoff: {
+      isClosed: false,
+      limitDateMillis: 0,
+      limitDateMillisNewShipDate: 0
+    },
+    shipDatePickerOptions: {
+      disabledDate(time) {
+<span class="cstat-no" title="statement not covered" >        return moment(time.getTime()).isBefore(Date.now(), 'day');</span>
+      }
+    },
+    actualFiltersUnits: {
+      rows: constants.TABLES.DEFAULT_LIMIT,
+      page: constants.TABLES.DEFAULT_PAGE,
+      pageResults: true
+    },
+    searchUnitResponse: {},
+    headerUnitList: {},
+    list: [],
+    total: 0
+  },
+  mutations: {
+    SAVE: (state, orderAddSuccess) =&gt; {
+      state.orderAddSuccess = orderAddSuccess;
+    },
+    SET_UPDATE: (state, orderUpdateSuccess) =&gt; {
+      state.orderUpdateSuccess = orderUpdateSuccess;
+    },
+    SET_EDIT: (state, isEditingRow) =&gt; {
+      state.isEditingRow = isEditingRow;
+    },
+    SET_ORDERS: (state, { ordersList, total, filters }) =&gt; {
+      if (ordersList) {
+        ordersList.map((order) =&gt; {
+          order.edit = false;
+          return order;
+        });
+      }
+      state.list = ordersList || [];
+      state.total = total;
+      state.actualFilters = filters || {};
+    },
+    SET_SUMMARY_FILTERS: (state, filters) =&gt; {
+      state.actualFilters = filters;
+    },
+    SET_LOADING: (state, loadingSearch) =&gt; {
+      state.loadingSearch = loadingSearch;
+    },
+    SET_CUTOFF_CLOSED: (state, isCLosed) =&gt; {
+      state.cutoff.isClosed = isCLosed;
+    },
+    SET_CUTOFF_LIMIT_DATE: (state, cutoffLimitDate) =&gt; {
+      if (cutoffLimitDate) {
+        const cutoffLimitDateMillis = moment(cutoffLimitDate).valueOf() - moment().valueOf();
+        state.cutoff.limitDateMillis = cutoffLimitDateMillis &gt; 0 ? cutoffLimitDateMillis : 0;
+        state.cutoff.isClosed = state.cutoff.limitDateMillis === 0 || false;
+      } else {
+        state.cutoff.limitDateMillis = 0;
+        state.cutoff.isClosed = true;
+      }
+    },
+    SET_CUTOFF_LIMIT_DATE_NEW_SHIP_DATE: (state, cutoffLimitDate) =&gt; {
+      if (cutoffLimitDate) {
+        const cutoffLimitDateMillis = moment(cutoffLimitDate).valueOf() - moment().valueOf();
+        state.cutoff.limitDateMillisNewShipDate = cutoffLimitDateMillis &gt; 0 ? cutoffLimitDateMillis : 0;
+      } else {
+        state.cutoff.limitDateMillisNewShipDate = 0;
+      }
+    },
+    SET_SETTINGS: (state, settings) =&gt; {
+      state.settings = settings;
+      state.actualFilters.shipperAccountId = settings.shipperAccountId;
+      state.shipDatePickerOptions = {
+        disabledDate(time) {
+<span class="cstat-no" title="statement not covered" >          return moment(time.getTime()).isBefore(Date.now(), 'day')</span>
+            || moment(time.getTime()).isAfter(moment().add(settings[constants.SETTINGS.shipDateFutureDays] || 0, 'days'), 'day');
+        }
+      };
+    },
+    SET_UNIT_DETAILS: (state, { data, filters }) =&gt; {
+      state.actualFiltersUnits = filters;
+      state.headerUnitList = data.unitsConsolidate;
+      state.searchUnitResponse = data.searchResponse;
+    }
+  },
+  actions: {
+    save({ commit, state }, orderToSave) {
+      commit('SET_EDIT', false);
+      return new Promise((resolve, reject) =&gt; {
+        const orderToSaveSend = Object.assign({}, orderToSave);
+        orderToSaveSend.shipDate = moment(orderToSave.shipDate.getTime()).format(constants.DATES.DEFAULT_DISPLAY_FORMAT_SHORT);
+        orderToSaveSend.shipperAccountId = state.settings.shipperAccountId;
+        orderApiService.save(orderToSaveSend).then((response) =&gt; {
+          commit('SAVE', true);
+          resolve(response);
+        }).catch((error) =&gt; {
+          commit('SAVE', false);
+          reject(error);
+        });
+      });
+    },
+    setEditingRow({ commit }, isEditingRow) {
+      commit('SET_EDIT', isEditingRow);
+    },
+    update({ commit }, { unitsConsolidateId, orderToUpdate }) {
+      return new Promise((resolve, reject) =&gt; {
+        orderApiService.update(unitsConsolidateId, orderToUpdate).then((response) =&gt; {
+          commit('SET_UPDATE', true);
+          resolve(response);
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+<span class="cstat-no" title="statement not covered" >          commit('SET_UPDATE', false);</span>
+<span class="cstat-no" title="statement not covered" >          reject(error);</span>
+        });
+      });
+    },
+    setSummaryFilters({ commit, state }, filters) {
+      const filtersUpdated = Object.assign(state.actualFilters, filters);
+      commit('SET_SUMMARY_FILTERS', filtersUpdated);
+    },
+    search({ commit, state }, filters) {
+      commit('SET_LOADING', true);
+      commit('SET_EDIT', false);
+      const filtersUpdated = Object.assign(state.actualFilters, filters);
+      return new Promise((resolve, reject) =&gt; {
+        filtersUpdated.orderNumber = filtersUpdated.orderNumber ? <span class="branch-0 cbranch-no" title="branch not covered" >filtersUpdated.orderNumber.trim() </span>: null;
+        filtersUpdated.shipDate = filtersUpdated.shipDate || new Date();
+        orderApiService.search(filtersUpdated).then((response) =&gt; {
+          const { data, totalRows } = response;
+          commit('SET_ORDERS', { ordersList: data, total: totalRows, filters: filtersUpdated });
+          commit('SET_LOADING', false);
+          resolve(data);
+        }).catch((error) =&gt; {
+          commit('SET_ORDERS', [], 0, filtersUpdated);
+          commit('SET_LOADING', false);
+          reject(error);
+        });
+      });
+    },
+    finalize({ commit, state }) {
+      commit('SET_EDIT', false);
+      Message.closeAll();
+      return new Promise((resolve, reject) =&gt; {
+        orderApiService.finalizeShipments(state.actualFilters).then((response) =&gt; {
+          resolve(response);
+        }).catch((error) =&gt; {
+          reject(error);
+        });
+      });
+    },
+    changeShipDate({ commit, state }, newShipDate) {
+      commit('SET_EDIT', false);
+      return new Promise((resolve, reject) =&gt; {
+        const newShipDateToSend = moment(newShipDate.getTime()).format(constants.DATES.DEFAULT_BACKEND_FORMAT);
+        orderApiService.changeShipDate(state.actualFilters, newShipDateToSend).then((response) =&gt; {
+          resolve(response);
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+<span class="cstat-no" title="statement not covered" >          reject(error);</span>
+        });
+      });
+    },
+    delete({ commit }, id) {
+      commit('SET_EDIT', false);
+      return orderApiService.deleteShipments(id);
+    },
+    setCutoffClosed({ commit }, isCLosed) {
+      commit('SET_CUTOFF_CLOSED', isCLosed);
+    },
+    getCutoffLimitDate({ commit, state }) {
+      return new Promise((resolve, reject) =&gt; {
+        const shipDate = state.actualFilters.shipDate instanceof Date ? moment(state.actualFilters.shipDate.getTime()).format(constants.DATES.DEFAULT_BACKEND_FORMAT) : state.actualFilters.shipDate;
+        orderApiService.getCutoffLimitDate(state.actualFilters.shipperAccountId, shipDate).then((response) =&gt; {
+          const { data } = response;
+          commit('SET_CUTOFF_LIMIT_DATE', data);
+          resolve(response);
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+<span class="cstat-no" title="statement not covered" >          commit('SET_CUTOFF_LIMIT_DATE', null);</span>
+<span class="cstat-no" title="statement not covered" >          reject(error);</span>
+        });
+      });
+    },
+    getCutoffLimitDateNewShipdate({ commit, state }, newShipDate) {
+      return new Promise((resolve, reject) =&gt; {
+        const newShipDateToSend = moment(newShipDate).format(constants.DATES.DEFAULT_BACKEND_FORMAT);
+        orderApiService.getCutoffLimitDate(state.actualFilters.shipperAccountId, newShipDateToSend).then((response) =&gt; {
+          const { data } = response;
+          commit('SET_CUTOFF_LIMIT_DATE_NEW_SHIP_DATE', data);
+          resolve(response);
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+<span class="cstat-no" title="statement not covered" >          commit('SET_CUTOFF_LIMIT_DATE_NEW_SHIP_DATE', null);</span>
+<span class="cstat-no" title="statement not covered" >          reject(error);</span>
+        });
+      });
+    },
+    getSettings({ rootGetters, commit }) {
+      return new Promise((resolve, reject) =&gt; {
+        orderApiService.getSettings(rootGetters.user.shipperAccountNumber).then((response) =&gt; {
+          const { data } = response;
+          commit('SET_SETTINGS', data);
+          resolve(data);
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+<span class="cstat-no" title="statement not covered" >          commit('SET_SETTINGS', {});</span>
+<span class="cstat-no" title="statement not covered" >          reject(error);</span>
+        });
+      });
+    },
+    findUnits({ commit, state }, filters) {
+      commit('SET_LOADING', true);
+      return new Promise((resolve, reject) =&gt; {
+        const filtersToSend = Object.assign(state.actualFiltersUnits, filters);
+        orderApiService.findUnits(filtersToSend).then((response) =&gt; {
+          const { data } = response;
+          commit('SET_UNIT_DETAILS', { data, filters: filtersToSend });
+          commit('SET_LOADING', false);
+          resolve(response);
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+<span class="cstat-no" title="statement not covered" >          commit('SET_UNIT_DETAILS', { data: {}, filters: {} });</span>
+<span class="cstat-no" title="statement not covered" >          commit('SET_LOADING', false);</span>
+<span class="cstat-no" title="statement not covered" >          reject(error);</span>
+        });
+      });
+    },
+    deleteUnit(store, id) {
+      return orderApiService.deleteUnit(id);
+    },
+    async printUnit(store, unitId) {
+      const loading = Loading.service(constants.LOADING.PRINT_CONFIG);
+      const response = await orderApiService.printUnit(unitId);
+      loading.close();
+      return response;
+    },
+    async printUnitsConsolidate(store, unitsConsolidateId) {
+      const loading = Loading.service(constants.LOADING.PRINT_CONFIG);
+      const response = await orderApiService.printUnitsConsolidate(unitsConsolidateId);
+      loading.close();
+      return response;
+    },
+    async printLabelsMassive({ commit, state }) {
+      commit('SET_EDIT', false);
+      Message.closeAll();
+      const loading = Loading.service(constants.LOADING.PRINT_CONFIG);
+      const response = await orderApiService.printLabelsMassive(state.actualFilters);
+      loading.close();
+      return response;
+    }
+  }
+};
+&nbsp;
+export default orderEntry;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 26 2019 15:55:50 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

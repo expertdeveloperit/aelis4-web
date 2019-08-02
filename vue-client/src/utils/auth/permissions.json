@@ -1,0 +1,79 @@
+{
+    "DATA_ENTRY": {
+        "ADD_SHIPMENT": { 
+            "name": "addShipment:dataEntry", 
+            "cutOffValidation": "before", 
+            "applyOnOrderStatus": null 
+        },
+        "ADD_SHIPMENT_AFTER_CUTOFF": { 
+            "name": "addShipmentAfterCutOff:dataEntry", 
+            "cutOffValidation": "after", 
+            "applyOnOrderStatus": null 
+        },
+        "CHANGE_NUMBER_OF_UNITS_AFTER_CUTTOF_PENDING":  { 
+            "name": "changeNumberOfUnitsAfterCuttOfPending:dataEntry", 
+            "cutOffValidation": "after",
+            "applyOnOrderStatus": 0
+        },
+        "CHANGE_NUMBER_OF_UNITS_BEFORE_CUTTOF_PENDING": { 
+            "name": "changeNumberOfUnitsBeforeCuttOfPending:dataEntry",
+            "cutOffValidation": "before",
+            "applyOnOrderStatus": 0
+        },
+        "CHANGE_SHIP_DATE": { 
+            "name": "changeShipDate:dataEntry",
+            "cutOffValidation": null,
+            "applyOnOrderStatus": null
+        },
+        "DELETE_AFTER_CUTOFF_FINALIZED": { 
+            "name": "deleteAfterCutOffFinalized:dataEntry",
+            "cutOffValidation": "after",
+            "applyOnOrderStatus": 1
+        },
+        "DELETE_AFTER_CUTOFF_PENDING": { 
+            "name": "deleteAfterCutOffPending:dataEntry",
+            "cutOffValidation": "after",
+            "applyOnOrderStatus": 0
+        },
+        "DELETE_BEFORE_CUTOFF_FINALIZED": { 
+            "name": "deleteBeforeCutOffFinalized:dataEntry",
+            "cutOffValidation": "before",
+            "applyOnOrderStatus": 1
+        },
+        "DELETE_BEFORE_CUTOFF_PENDING": { 
+            "name": "deleteBeforeCutOffPending:dataEntry",
+            "cutOffValidation": "before",
+            "applyOnOrderStatus": 0
+        },
+        "EDIT_AFTER_CUTOFF_FINALIZED": { 
+            "name": "editAfterCutOffFinalized:dataEntry", 
+            "cutOffValidation": "after",
+            "applyOnOrderStatus": 1
+        },  
+        "EDIT_AFTER_CUTOFF_PENDING": { 
+            "name": "editAfterCutOffPending:dataEntry",   
+            "cutOffValidation": "after",
+            "applyOnOrderStatus": 0
+        },  
+        "EDIT_BEFORE_CUTOFF_FINALIZED": { 
+            "name": "editBeforeCutOffFinalized:dataEntry",  
+            "cutOffValidation": "before",
+            "applyOnOrderStatus": 1
+        },
+        "EDIT_BEFORE_CUTOFF_PENDING": { 
+            "name": "editBeforeCutOffPending:dataEntry", 
+            "cutOffValidation": "before",
+            "applyOnOrderStatus": 0
+        },   
+        "FINALIZE_AFTER_CUTOFF": { 
+            "name": "finalizeAfterCutOff:dataEntry",    
+            "cutOffValidation": "after",
+            "applyOnOrderStatus": null
+        },     
+        "FINALIZE_BEFORE_CUTOFF": { 
+            "name": "finalizeBeforeCutOff:dataEntry",
+            "cutOffValidation": "before",
+            "applyOnOrderStatus": null
+        }
+    }
+}

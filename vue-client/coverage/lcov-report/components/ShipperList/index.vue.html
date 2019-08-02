@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/ShipperList/index.vue</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">components/ShipperList</a> index.vue
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.49% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>32/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">68.18% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>15/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.49% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>32/37</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
+  &lt;div class="shipper-container"&gt;
+    &lt;div class="shipper-group"&gt;
+      &lt;transition name="slide"&gt;
+        &lt;div class="shipper-list" v-if="show"&gt;
+          &lt;div class="title"&gt;{{ $t('shipperComponent.shipperList') }}&lt;/div&gt;
+          &lt;div class="search-shippers-div"&gt;
+            &lt;el-input
+              v-model="searchText"
+              v-alphanumeric-validation
+              maxlength="50"
+              clearable
+              @change="search"
+              class="inline-input"
+              size="mini"
+              suffix-icon="el-icon-search"
+              id="search-shipper-list"
+              ref="search-shipper-list"
+            &gt;&lt;/el-input&gt;
+          &lt;/div&gt;
+          &lt;div
+            class="list"
+            infinite-scroll-immediate
+            infinite-scroll-distance="100"
+            v-infinite-scroll="search"
+            infinite-scroll-disabled="disabled"
+          &gt;
+            &lt;div v-bind:key="shipper.id" v-for="shipper in shippers.list" class="list-item"&gt;
+              &lt;span class="span-name"&gt;{{ shipper.name }} - {{ shipper.number }}&lt;/span&gt;
+              &lt;span class="span-check"&gt;
+                &lt;el-radio
+                  v-model="user.shipperAccountNumber"
+                  :label="shipper.number"
+                  @change="change(shipper)"
+                &gt;&amp;nbsp;&lt;/el-radio&gt;
+              &lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;p class="loading-shippers" v-if="shippers.loading"&gt;
+            &lt;img src="@/assets/svg/loading.svg" alt="loading" /&gt;
+          &lt;/p&gt;
+          &lt;p class="scroll-ellipsis" v-if="!noMore &amp;&amp; !shippers.loading"&gt;...&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/transition&gt;
+      &lt;div class="shipper-selected"&gt;
+        &lt;span class="shipper-label"&gt;{{ user.shipperAccountLabel }}&lt;/span&gt;
+        &lt;span class="shipper-change"&gt;
+          &lt;el-button
+            icon="fa fa-random"
+            size="mini"
+            circle
+            @click="openList"
+            v-if="shippers.multipleShippers &amp;&amp; user.shipperAccountNumber"
+          &gt;&lt;/el-button&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="shipper-container-overlay" v-if="show"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&nbsp;
+&lt;script&gt;
+import { Loading } from 'element-ui';
+import { mapGetters } from 'vuex';
+import constants from '@/utils/constants';
+&nbsp;
+export default {
+  name: 'shipperList',
+  props: {
+    /* The vuex string array actions to be called when select, this actions will be called in the order position in waterfall mode. */
+    actionStrSelectChained: {
+      type: Array,
+      default: null
+    }
+  },
+  data() {
+    return {
+      show: false,
+      searchText: ''
+    };
+  },
+  computed: {
+    ...mapGetters([
+      'shippers',
+      'user',
+      'orderEntry'
+    ]),
+    noMore() {
+      return this.shippers.list.length &gt;= this.shippers.totalRows;
+    },
+    disabled() {
+<span class="branch-1 cbranch-no" title="branch not covered" >      return this.shippers.loading || this.noMore;</span>
+    }
+  },
+  methods: {
+    search(resetSearch) {
+      // If sarch text is changed or reset search is mandatory we call to resetShipperList
+<span class="missing-if-branch" title="else path not taken" >E</span>      if ((this.searchText !== this.shippers.filters.search) || resetSearch) {
+        this.$store.dispatch('account/resetShipperList');
+      }
+      return this.$store.dispatch('account/getShipperListScroll', this.searchText);
+    },
+    async change(shipperSelected) {
+      this.$store.dispatch('setUserShipperAccount', shipperSelected);
+      const loading = Loading.service(constants.LOADING.DEFAULT_CONFIG);
+      await this.callSelectAction();
+<span class="cstat-no" title="statement not covered" >      loading.close();</span>
+<span class="cstat-no" title="statement not covered" >      this.show = false;</span>
+    },
+    openList() {
+      this.show = !this.show;
+      // Its necessary nextTick because we need to wait the component render.
+<span class="missing-if-branch" title="else path not taken" >E</span>      if (this.show) {
+        this.$nextTick(() =&gt; {
+          this.$refs['search-shipper-list'].focus();
+        });
+      }
+    },
+    async callSelectAction() {
+<span class="missing-if-branch" title="else path not taken" >E</span>      if (this.actionStrSelectChained) {
+        for (const action of this.actionStrSelectChained) {
+<span class="missing-if-branch" title="else path not taken" >E</span>          if (action === 'orderEntry/getSettings') {
+            const res = await this.$store.dispatch(action);
+            this.orderEntry.settings.minCubesPerBox = res.__ob__.value.minCubesPerBox;
+            // this.orderEntry.settings.minCubesPerBox = res.__ob__.value.minCubesPerBox ? res.__ob__.value : '0.9461';
+          } else {
+<span class="cstat-no" title="statement not covered" >            await this.$store.dispatch(action);</span>
+          }
+        }
+      }
+    }
+  },
+  async mounted() {
+    const resetSearch = true;
+    if (this.user.shipperAccountNumber) {
+      this.callSelectAction();
+      // Call reset search but without loading because the shippers is already selected, and no need await.
+      this.search(resetSearch);
+    } else {
+      const loading = Loading.service(constants.LOADING.DEFAULT_CONFIG);
+      await this.search(resetSearch);
+      this.show = this.shippers.list &amp;&amp; this.shippers.list.length &gt; 1;
+&nbsp;
+      // SHIPPERS Users Normal Flow: If the list of shippers only returns 1, then we select it by default.
+<span class="missing-if-branch" title="else path not taken" >E</span>      if (this.shippers.list &amp;&amp; this.shippers.list.length === 1) {
+        this.change(this.shippers.list[0]);
+      }
+      loading.close();
+    }
+&nbsp;
+    // Its necessary nextTick because we need to wait the component render.
+<span class="missing-if-branch" title="if path not taken" >I</span>    if (this.show) {
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >      this.$nextTick(() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >        this.$refs['search-shipper-list'].focus();</span>
+      });
+    }
+  }
+};
+&lt;/script&gt;
+&nbsp;
+&lt;style rel="stylesheet/scss" lang="scss"&gt;
+    .shipper-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        .shipper-group {
+            position: fixed;
+            width: 600px;
+            z-index: 1000;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            .shipper-selected {
+                text-align: center;
+                width: 300px;
+                color: #43425D;
+                font-size: 10px;
+                font-weight: bold;
+                position: relative;
+                border-radius: 5px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-content: center;
+                .is-circle {
+                    padding: 1px 2px 2px 2px;
+                    background-color: #43425D;
+                    color: white;
+                    margin-left: 7px;
+                }
+                i {
+                    font-size: 9px;
+                    cursor: pointer;
+                    padding: 1px 1px 0px 1px;
+                }
+                &amp;:before {
+                    content: "";
+                    position: absolute;
+                    background-color: #cdd7df;
+                    top: -4%;
+                    bottom: -11%; left: -3%; right: -3%;
+                    border-radius: 5px;
+                    z-index: -1;
+                    height: 35px;
+                    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.16);
+                    transform: perspective(10em) rotateX(-30deg);
+                }
+                .shipper-label {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 260px;
+                    display: inline-block;
+                    margin-top: 9px;
+                }
+                .shipper-change {
+                    margin-top: 7px;
+                }
+            }
+            .shipper-list {
+                width: 400px;
+                height: 440px;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.16);
+                .title {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-content: center;
+                    height: 60px;
+                    background-color: #00335B;
+                    color: white;
+                    font-size: 18px;
+                }
+                .search-shippers-div {
+                    padding: 20px 40px 10px 40px;
+                }
+                .list {
+                    background-color: white;
+                    color: #00335B;
+                    height: 280px;
+                    overflow: auto;
+                    font-size: 12px;
+                    .list-item {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 35px;
+                        border-bottom: solid 1px #dbd9d9;
+                        margin: 0px 25px;
+                        .span-name {
+                            width: 90%;
+                            text-align: right;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            padding: 0px 20px;
+                        }
+                        .span-check {
+                            width: 10%;
+                            text-align: left;
+                        }
+                    }
+                }
+                .loading-shippers {
+                    text-align: center;
+                    margin-top: 0px;
+                    img {
+                        width: 40px;
+                    }
+                }
+                .scroll-ellipsis {
+                    text-align: center;
+                    margin-top: 0px;
+                }
+            }
+        }
+    }
+    .shipper-container-overlay {
+        min-height: calc(100vh - 50px);
+        width: 100%;
+        position: fixed;
+        overflow: hidden;
+        background-color: #d3d2d2;
+        opacity: 0.5;
+        z-index: 2;
+    }
+&lt;/style&gt;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 26 2019 15:55:50 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

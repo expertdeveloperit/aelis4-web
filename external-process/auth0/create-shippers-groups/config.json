@@ -1,0 +1,7 @@
+{
+    "auth0_client_id": "59k6jQuXpB8FcYmZ2iHvAtPkFztY67ol",
+    "auth0_audience": "urn:auth0-authz-api",
+    "auth0_grant_type": "client_credentials",
+    "auth0_issuer": "https://armellini.auth0.com/oauth/token",
+    "auth0_authorization_extension_api": "https://armellini.us8.webtask.io/adf6e2f2b84784b57522e3b19dfc9201/api/"
+}   

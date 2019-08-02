@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for views/warehouse/orderEntry/components/AddConsigneeShipperButton.vue</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">views/warehouse/orderEntry/components</a> AddConsigneeShipperButton.vue
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>28/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.22% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.33% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>28/30</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
+&lt;span&gt;
+  &lt;el-button id="btn-open-dialog-add-consignee-shipper" icon="el-icon-plus" size="mini" @click="dialogVisible = true" class="button-action-default"&gt;&lt;/el-button&gt;
+  &lt;el-dialog
+    :close-on-click-modal="false"
+    v-on:open="handleOpen"
+    :title="$t('warehouse.orderEntry.accounts.shipperConsignee')"
+    :visible.sync="dialogVisible"
+    width="40%"
+    id="add-consignee-shipper-dialog"
+    :before-close="handleClose"&gt;
+    &lt;div class="explanation-add-shipper-consignee"&gt;
+      &lt;span&gt;{{ $t('warehouse.orderEntry.accounts.addConsigneeShipperRelationExplanation') }}&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div id="add-consignee-shipper-div"&gt;
+      &lt;autocomplete
+        :model.sync="consigneeAccountId"
+        :url="urlConsignee"
+        labelField="name"
+        labelFieldLastWithDash="number"
+        :selectAction="handleSearch"
+        :enterKeyAction="handleSearch"
+        :shipperAccountId="orderEntry.settings.shipperAccountId"
+        :placeholder="$t('warehouse.orderEntry.accounts.enterConsigneeCustomerAccount')"
+        classCss="width-85p"
+        valueField="id"
+        id="add-consignee-autocomplete"
+        ref="add-consignee-autocomplete"/&gt;
+        &lt;span&gt;
+          &lt;el-tooltip class="item" effect="dark" :content="$t('warehouse.orderEntry.search')" placement="top-start"&gt;
+            &lt;el-button id="add-consignee-search-button" @click="handleSearch" icon="el-icon-search" size="mini" class="button-action-default"&gt;&lt;/el-button&gt;
+          &lt;/el-tooltip&gt;
+        &lt;/span&gt;
+&nbsp;
+        &lt;div class="consignee-account-info" v-if="consigneeSelected.name"&gt;
+          &lt;div&gt;
+            &lt;b&gt;&lt;i class="far fa-user"&gt;&lt;/i&gt; {{ consigneeSelected.name }} - {{ consigneeSelected.number }}&lt;/b&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;i class="el-icon-location-outline"&gt;&lt;/i&gt; {{ consigneeSelected.address }}, {{ consigneeSelected.state }}, {{ consigneeSelected.city }} {{ consigneeSelected.zipCode }}
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;i class="el-icon-phone-outline"&gt;&lt;/i&gt; {{ consigneeSelected.phone }}
+          &lt;/div&gt;
+        &lt;/div&gt;
+&nbsp;
+        &lt;div class="consignee-days-of-service-info" v-if="consigneeSelected.name"&gt;
+          &lt;table cellspacing="0" cellpadding="0" border="0" class="dark-blue-table el-table consignee-days-of-service-table"&gt;
+            &lt;thead&gt;
+              &lt;tr class=""&gt;
+                &lt;th colspan="7" rowspan="1" class="is-leaf"&gt;
+                  &lt;div class="cell"&gt;{{ $t('common.daysOfService') }}&lt;/div&gt;
+                &lt;/th&gt;
+              &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+              &lt;tr&gt;
+                &lt;td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.monday, 'disabled-day': !consigneeSelected.daysOfService.monday }"&gt;
+                  &lt;div class="cell"&gt;{{ $t('days.mondayShort') }}&lt;/div&gt;
+                &lt;/td&gt;
+                &lt;td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.tuesday, 'disabled-day': !consigneeSelected.daysOfService.tuesday }"&gt;
+                  &lt;div class="cell"&gt;{{ $t('days.tuesdayShort') }}&lt;/div&gt;
+                &lt;/td&gt;
+                &lt;td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.wednesday, 'disabled-day': !consigneeSelected.daysOfService.wednesday }"&gt;
+                  &lt;div class="cell"&gt;{{ $t('days.wednesdayShort') }}&lt;/div&gt;
+                &lt;/td&gt;
+                &lt;td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.thursday, 'disabled-day': !consigneeSelected.daysOfService.thursday }"&gt;
+                  &lt;div class="cell"&gt;{{ $t('days.thursdayShort') }}&lt;/div&gt;
+                &lt;/td&gt;
+                &lt;td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.friday, 'disabled-day': !consigneeSelected.daysOfService.friday }"&gt;
+                  &lt;div class="cell"&gt;{{ $t('days.fridayShort') }}&lt;/div&gt;
+                &lt;/td&gt;
+                &lt;td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.saturday, 'disabled-day': !consigneeSelected.daysOfService.saturday }"&gt;
+                  &lt;div class="cell"&gt;{{ $t('days.saturdayShort') }}&lt;/div&gt;
+                &lt;/td&gt;
+                &lt;td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.sunday, 'disabled-day': !consigneeSelected.daysOfService.sunday }"&gt;
+                  &lt;div class="cell"&gt;{{ $t('days.sundayShort') }}&lt;/div&gt;
+                &lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;span v-if="!haveDaysOfService &amp;&amp; consigneeSelected.name"&gt;{{ $t('warehouse.orderEntry.accounts.consigneeDontHaveDaysOfService') }}&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div slot="footer" class="dialog-footer"&gt;
+      &lt;el-tooltip class="item" v-if="consigneeSelected.name" effect="dark" :content="$t('warehouse.orderEntry.addConsignee')" placement="top-start"&gt;
+        &lt;el-button id="btn-add-consignee-shipper" icon="el-icon-plus" size="mini" @click="handleAddConsigneeShipperRelation" class="button-action-default" &gt;&lt;/el-button&gt;
+      &lt;/el-tooltip&gt;
+      &lt;el-tooltip class="item" v-if="consigneeSelected.name" effect="dark" :content="$t('warehouse.orderEntry.clear')" placement="top-start"&gt;
+        &lt;el-button id="btn-clear-consignee-info" icon="fa fa-eraser" size="mini" @click="clear" class="button-action-default" &gt;&lt;/el-button&gt;
+      &lt;/el-tooltip&gt;
+    &lt;/div&gt;
+  &lt;/el-dialog&gt;
+&lt;/span&gt;
+&lt;/template&gt;
+&nbsp;
+&lt;script&gt;
+import { Message } from 'element-ui';
+import { mapGetters } from 'vuex';
+import constants from '@/utils/constants';
+import apiConstants from '@/utils/apiConstants';
+import Autocomplete from '@/components/Autocomplete';
+&nbsp;
+export default {
+  components: { Autocomplete },
+  computed: {
+    ...mapGetters([
+      'orderEntry',
+      'user'
+    ])
+  },
+  data() {
+    return {
+      dialogVisible: false,
+      consigneeAccountId: null,
+      consigneeSelected: {},
+      urlConsignee: apiConstants.END_POINTS.ACCOUNTS.CONSIGNEE_BY_TYPE,
+      haveDaysOfService: false
+    };
+  },
+  methods: {
+    handleClose(done) {
+      this.clear();
+      done();
+    },
+    handleOpen() {
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >      this.$nextTick(() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >        this.$refs['add-consignee-autocomplete'].$el.getElementsByTagName('input')[0].focus();</span>
+      });
+    },
+    async handleAddConsigneeShipperRelation() {
+<span class="fstat-no" title="function not covered" >      const confirm = await this.$confirm(`${this.$t('warehouse.orderEntry.accounts.addConsigneeShipperRelationConfirm')}`, { confirmButtonText: this.$t('common.yes') }).catch(() =&gt; {});</span>
+<span class="missing-if-branch" title="if path not taken" >I</span>      if (!confirm) { return false; }
+      Message.closeAll();
+      const loading = this.$loading(constants.LOADING.DEFAULT_CONFIG);
+&nbsp;
+      try {
+        await this.$store.dispatch('account/addConsigneeShipperRelation', { shipperAccountId: this.orderEntry.actualFilters.shipperAccountId, consigneeAccountId: this.consigneeSelected.id });
+        this.$message.success(this.$t('warehouse.orderEntry.accounts.addConsigneeShipperRelationSuccess'));
+        this.dialogVisible = false;
+        this.clear();
+      } catch (error) {
+        return false;
+      } finally {
+        loading.close();
+      }
+      return true;
+    },
+    handleSearch(item) {
+      Object.assign(this.consigneeSelected, item);
+<span class="branch-6 cbranch-no" title="branch not covered" ><span class="branch-5 cbranch-no" title="branch not covered" ><span class="branch-4 cbranch-no" title="branch not covered" ><span class="branch-3 cbranch-no" title="branch not covered" ><span class="branch-2 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >      this.haveDaysOfService = this.consigneeSelected.daysOfService.monday || this.consigneeSelected.daysOfService.tuesday || this.consigneeSelected.daysOfService.wednesday || this.consigneeSelected.daysOfService.thursday || this.consigneeSelected.daysOfService.friday || this.consigneeSelected.daysOfService.saturday || this.consigneeSelected.daysOfService.sunday;</span></span></span></span></span></span>
+      this.clearAutocomplete();
+    },
+    clear() {
+      this.consigneeSelected = {};
+      this.clearAutocomplete();
+      this.$refs['add-consignee-autocomplete'].$el.getElementsByTagName('input')[0].focus();
+    },
+    clearAutocomplete() {
+      this.consigneeAccountId = null;
+      this.$refs['add-consignee-autocomplete'].clearLocalModel();
+    }
+  }
+};
+&lt;/script&gt;
+&lt;style rel="stylesheet/scss" lang="scss"&gt;
+#btn-open-dialog-add-consignee-shipper {
+  margin-left: 10px;
+}
+#add-consignee-search-button {
+  float: right;
+}
+#btn-clear-consignee-info {
+  margin-right: 20px;
+}
+#add-consignee-shipper-div {
+  padding-right: 20px;
+  padding-left: 20px;
+  .consignee-account-info {
+    margin-top: 20px;
+  }
+  .consignee-days-of-service-info {
+    margin-top: 20px;
+    margin-bottom: 12px;
+    .consignee-days-of-service-table {
+      th {
+        text-align: center;
+        font-size: 14px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+      td {
+        font-weight: bold;
+        border-left: 2px solid #fafffa;
+        text-align: center;
+        text-transform: uppercase;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        &amp;:first-of-type {
+          border-left: none;
+        }
+      }
+      .enabled-day {
+        color: #008D00;
+        background-color: rgba(0, 141, 0, 0.15);
+      }
+      .disabled-day {
+        color: #9b9b9b;
+        background-color: #EFEFEF;
+      }
+    }
+  }
+}
+.explanation-add-shipper-consignee{
+        margin-top: -18px;
+        margin-bottom: 17px;
+        color: #838181;
+}
+&lt;/style&gt;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 26 2019 15:55:50 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>
