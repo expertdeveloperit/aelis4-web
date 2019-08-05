@@ -56,5 +56,14 @@ export default {
     margin-right: 7px;
     height: 14px;
 }
+@media only screen and (max-width: 400px) {
+.app-view-title {
+    display: flex;
+    flex-wrap: wrap;
+}
+.app-view-container {
+    margin: 15px 15px;;
+}
+}
 
 </style>

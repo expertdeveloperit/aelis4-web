@@ -205,7 +205,7 @@ export default {
     title: 'Extension Request',
     FAQ: 'Do you have questions?',
     searchSection: 'Search Section',
-    submit: 'submit',
+    submit: 'Submit',
     aelTerminal: 'AEL Terminal',
     shipper: 'Shipper',
     orderNumber: ' Order Number',

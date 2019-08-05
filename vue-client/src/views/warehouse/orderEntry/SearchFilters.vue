@@ -131,6 +131,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { Loading } from 'element-ui';
 import constants from '@/utils/constants';
 import apiConstants from '@/utils/apiConstants';
 import Autocomplete from '@/components/Autocomplete';

@@ -2,45 +2,112 @@
   <el-col :span="24">
     <el-collapse v-model="orderEntry.filtersOpen">
       <el-collapse-item
-        :title="$t('extensionRequest.searchSection')"
+        :title="$t('warehouse.orderEntry.searchSection')"
         name="search-section"
         id="search-section"
       >
-        <el-form>
-          <div class="demo-input-size">
-            <el-input
-              size="mini"
+        <el-form
+          :model="searchForm"
+          ref="searchForm"
+          id="search-form"
+          label-position="right"
+          size="mini"
+          inline
+        >
+          <el-form-item prop="consigneeAccountId" class="consignee-filter consignee-wrp">
+            <autocomplete
               :placeholder="$t('extensionRequest.shipper')"
-              class="el-input--mini-new"
-            ></el-input>
-            <span class="title-input">{{ $t('extensionRequest.aelTerminal') }}</span>
-            <el-dropdown size="mini" split-button type="primary" class="el-dropdown-new drop-sp">
-              MIA
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>Action 1</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <span class="title-input">{{ $t('extensionRequest.receivingDate') }}</span>
-            <el-date-picker
-              v-model="value1"
-              type="date"
-              :placeholder="$t('extensionRequest.dateFormat')"
-              class="el-dropdown-new drop-sp date-dob"
-            ></el-date-picker>
-            <span class="title-input">{{ $t('extensionRequest.extensionStatus') }}</span>
-            <el-dropdown size="mini" split-button type="primary" class="el-dropdown-new drop-sp">
-              {{$t('extensionRequest.none')}}
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>Action 1</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <el-input
+              v-model="searchText"
+              v-alphanumeric-validation
+              maxlength="50"
+              clearable
+              @change="search"
+              class="inline-input"
               size="mini"
+              suffix-icon="el-icon-search"
+              id="search-shipper-list"
+              ref="search-shipper-list"
+            />
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="$t('warehouse.orderEntry.addConsignee')"
+              placement="top-start"
+            >
+              <add-consignee-shipper-button />
+            </el-tooltip>
+          </el-form-item>
+          <el-form-item
+            class="aelTerminal"
+            :label="$t('extensionRequest.aelTerminal')"
+            prop="status"
+          >
+            <el-select
+              v-model="searchForm.status"
+              id="searchForm-status"
+              ref="filter-status"
+              @change="handleSearch"
+            >
+              <el-option
+                v-for="item in orderStatusOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item
+            :label="$t('extensionRequest.receivingDate')"
+            prop="shipDate"
+            class="el_label receivingDate"
+          >
+            <el-date-picker
+              ref="filter-datepicker"
+              @change="handleChangeDate"
+              v-model="searchForm.placeholder"
+              format="MM/dd/yyyy"
+              :placeholder="$t('extensionRequest.dateFormat')"
+              :picker-options="orderEntry.shipDatePickerOptions"
+              class="el-dropdown-new drop-sp date-dob"
+              type="date"
+              id="searchForm-ship-date"
+            ></el-date-picker>
+          </el-form-item>
+          <el-form-item
+            :label="$t('extensionRequest.extensionStatus')"
+            prop="status"
+            class="title-input"
+          >
+            <el-select
+              v-model="searchForm.placeholder"
+              :placeholder="$t('extensionRequest.none')"
+              id="searchForm-status"
+              ref="filter-status"
+              @change="handleSearch"
+            >
+              <el-option
+                v-for="item in orderStatusOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item prop="orderNumber" class="el-input--mini-new-status ordernumber">
+            <el-input
+              v-model="searchForm.orderNumber"
+              ref="filter-order-number"
+              v-alphanumeric-validation
+              maxlength="25"
+              clearable
               :placeholder="$t('extensionRequest.orderNumber')"
-              class="el-input--mini-new-status ordernumber"
+              @clear="handleSearch"
+              v-on:keyup.enter.native="handleSearch"
+              class="inline-input"
+              id="searchForm-order-number"
             ></el-input>
-            <el-button class="el_button-new">Default</el-button>
-          </div>
+          </el-form-item>
+          <el-button class="el_button-new">{{$t('extensionRequest.submit')}}</el-button>
         </el-form>
       </el-collapse-item>
     </el-collapse>
@@ -49,37 +116,148 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { Loading } from 'element-ui';
+import constants from '@/utils/constants';
+import apiConstants from '@/utils/apiConstants';
+import Autocomplete from '@/components/Autocomplete';
 
 export default {
-  name: 'SearchFilter',
+  name: 'SearchFilters',
+  components: { Autocomplete },
   computed: {
     ...mapGetters([
-      'orderEntry'
+      'orderEntry',
+      // 'user'
     ])
   },
   data() {
     return {
-      pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() > Date.now();
-        }
+      searchForm: {
+        shipDate: new Date(),
+        status: constants.ORDER_ENTRY.ORDER_STATUS[0].value,
+        createdByUsername: constants.ORDER_ENTRY.CREATED_BY_OPTIONS[0].value,
+        orderNumber: null,
+        consigneeAccountId: null,
+        consigneeName: null,
+        page: constants.TABLES.DEFAULT_PAGE
       },
-      value1: ''
+      activeCollapsibleName: ['search-section'],
+      orderStatusOptions: constants.ORDER_ENTRY.ORDER_STATUS,
+      orderCreatedByOptions: constants.ORDER_ENTRY.CREATED_BY_OPTIONS,
+      urlConsignee: apiConstants.END_POINTS.ACCOUNTS.CONSIGNEE_BY_SHIPPER
+      // value1: '',
     };
+  },
+  methods: {
+    search(resetSearch) {
+      // If sarch text is changed or reset search is mandatory we call to resetShipperList
+      if ((this.searchText !== this.shippers.filters.search) || resetSearch) {
+        this.$store.dispatch('account/resetShipperList');
+      }
+      return this.$store.dispatch('account/getShipperListScroll', this.searchText);
+    },
+    handleSearch() {
+      this.searchForm.consigneeName = this.$refs['filter-consignee'].getLocalModel();
+      this.$store.dispatch('orderEntry/search', this.searchForm).then(() => {
+        this.$store.dispatch('orderEntry/getCutoffLimitDate');
+      });
+    },
+    /* The datepicker has an issue when change manually, the focus lost. */
+    handleChangeDate() {
+      this.handleSearch();
+      this.$refs['filter-status'].focus();
+    }
+  },
+  async mounted() {
+    const resetSearch = true;
+    if (this.user.shipperAccountNumber) {
+      this.callSelectAction();
+      // Call reset search but without loading because the shippers is already selected, and no need await.
+      this.search(resetSearch);
+    } else {
+      const loading = Loading.service(constants.LOADING.DEFAULT_CONFIG);
+      await this.search(resetSearch);
+      this.show = this.shippers.list && this.shippers.list.length > 1;
+      // SHIPPERS Users Normal Flow: If the list of shippers only returns 1, then we select it by default.
+      if (this.shippers.list && this.shippers.list.length === 1) {
+        this.change(this.shippers.list[0]);
+      }
+      loading.close();
+    }
+    // Its necessary nextTick because we need to wait the component render.
+    if (this.show) {
+      this.$nextTick(() => {
+        this.$refs['search-shipper-list'].focus();
+      });
+    }
   }
 };
 </script>
+
 <style rel="stylesheet/scss" lang="scss">
-.el-input--mini-new {
-    font-size: 12px;
-    margin-left: 5px;
-    width: 26%;
+#search-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    label {
+      font-size: 10px;
+      padding-left: 15px;
+    }
+    .consignee-filter {
+        width: 30%;
+        white-space: nowrap;
+        margin-right: 0;
+        padding-right: 10px;
+        .el-form-item__content {
+            width: 100%;
+            .el-autocomplete {
+              width: 100%;
+            }
+        }
+    }
+    .aelTerminal {
+      width: 15%;
+      margin-right: 0 !important;
+      padding-right: 10px;
+      display: flex !important;
+      .el-form-item__content {
+         width: calc(100% - 92px);
+      }
+    }
+    .receivingDate {
+        width: 18%;
+         margin-right: 0 !important;
+      padding-right: 10px;
+      display: flex !important;
+        .el-form-item__content {
+         width: calc(100% - 99px);
+         .date-dob input {
+           width: 100%;
+         }
+        }
+    }
+    .title-input {
+      width: 18%;
+      display: flex;
+      margin: 0 !important;
+      padding-right: 10px;
+      .el-form-item__content {
+        width: calc(100% - 110px);
+      }
+    }
+    .ordernumber {
+         width: 15%;
+      margin: 0 !important;
+      margin-right: auto;
+      .el-form-item__content{
+        width: calc(96% - 48px);
+      }
+    }
+    #form-search-button {
+      margin-right: 10px;
+    }
 }
-.el-input--mini-new-status {
-    font-size: 12px;
-    margin-left: 25px;
-    width: 15%;
-}
+
 .el_button-new {
   height: 28px;
     padding: 0 16px;
@@ -89,46 +267,76 @@ export default {
     font-size: 12px;
     border-color: #01355f;
     color: #01355f;
+
 }
-.drop-sp .el-button--mini {
-    padding: 7px 8px;
-    background-color: transparent;
-    color: #DCDFE6;
-    border-color: #DCDFE6;
-}
-.drop-sp .el-dropdown__caret-button {
-      padding: 7px 0;
+.ordernumber input {
+  text-align: center;
 }
 .el-input__icon.el-icon-date {
   display: none;
-}
-.drop-sp .el-dropdown__icon {
-    font-size: 12px;
-    margin: 0 6px 0 0;
-}
-.drop-sp.el-dropdown .el-dropdown__caret-button:before {
-  display: none;
-}
-.drop-sp {
-    margin: 0 0 0 7px;
-}
-.el-button-group .drop-sp .el-button--primary:first-child {
-      border-right-color:transparent;
-}
-.title-input {
-    margin-left: 25px;
-    font-size: 11px;
-    color: #a9a9a9;
 }
 .date-dob {
       width: auto !important;
 }
 .date-dob input {
-      padding: 0 13px !important;
+     padding: 0 13px !important;
     width: 110px;
     height: 28px;
 }
-.ordernumber input {
-  text-align: center;
+
+.el_label {
+    line-height: 28px;
+    font-size: 10px;
+    color: #aba9a9;
+}
+@media only screen and (max-width: 1400px) {
+  #search-form {
+
+    .consignee-filter {
+        width: 20%;
+
+    }
+    .aelTerminal {
+      width: 17%;
+    }
+    .receivingDate {
+      width: 20%;
+    }
+    .title-input {
+      width: 21%;
+    }
+    .ordernumber {
+         width: 17%;
+    }
+  }
+}
+@media only screen and (max-width: 1365px) {
+  #search-form {
+
+    .consignee-filter {
+        width: 100%;
+        padding-right: 0;
+    }
+    .aelTerminal, .receivingDate, .title-input {
+         width: 33.333%;
+    }
+    .ordernumber {
+         width: calc(96% - 65px);
+         .el-form-item__content {
+            width: 100%;
+        }
+    }
+  }
+}
+@media only screen and (max-width: 767px) {
+  #search-form {
+    .aelTerminal, .receivingDate, .title-input, .aelTerminal .el-form-item__content .el-select, .receivingDate .el-date-editor, .title-input .el-select {
+         width: 100% !important;
+         padding-right: 0;
+    }
+    .title-input {
+      margin-bottom: 18px !important;
+    }
+  }
 }
 </style>

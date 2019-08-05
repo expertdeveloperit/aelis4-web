@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import { Loading } from 'element-ui';
 import { mapGetters } from 'vuex';
+import { Loading } from 'element-ui';
 import constants from '@/utils/constants';
 
 export default {
