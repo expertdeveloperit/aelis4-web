@@ -20,6 +20,17 @@
           </div>
         </el-col>
       </el-row>
+      <div class="block pag">
+        <span class="demonstration"></span>
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage3"
+          :page-size="10"
+          layout="prev,pager, next, jumper"
+          :total="10"
+        ></el-pagination>
+      </div>
     </div>
   </span>
 </template>
@@ -27,19 +38,25 @@
 
 import SearchFilter from './SearchFilter';
 import SearchSummary from './SearchSummary';
-// import ExtensionDetailsDialog from './extensionDetailsDialog';
 
 export default {
   name: 'extensionRequest',
   components: {
     SearchFilter,
     SearchSummary
-    // ExtensionDetailsDialog
+  },
+  methods: {
+    handleSizeChange(val) {
+      console.log(`${val} items per page`);
+    },
+    handleCurrentChange(val) {
+      console.log(`current page: ${val}`);
+    }
   },
   data() {
-    // return {
-    //   actionSelectChained: ['orderEntry/getSettings', 'orderEntry/search', 'orderEntry/getCutoffLimitDate']
-    // };
+    return {
+      currentPage3: 1
+    };
   }
 };
 </script>
@@ -78,5 +95,34 @@ export default {
     padding-right: 15px;
   }
 }
+.pag {
+    text-align: center;
+    .btn-prev, .btn-next {
+      font-size: 16px;
+      padding: 0 !important;
+      background: transparent !important;
+      min-width: auto;
+      margin: 0 10px;
+      .fa {
+        font-size: 12px;
+      }
+  }
+  .number {
+    background: transparent;
+    min-width: 20px;
+  }
+  .el-pagination__jump{
+     margin-left: 12px;
+  }
+  span.el-pagination__jump {
+    font-size: 10px;
+    margin-left: 3px;
+}
+.el-input {
+  width: 45px;
+      font-size: 12px;
+}
+}
+
 
 </style>

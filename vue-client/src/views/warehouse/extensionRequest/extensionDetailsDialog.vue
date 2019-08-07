@@ -10,9 +10,10 @@
       v-on:open="handleOpen"
       :title="$t('extensionRequest.extensionDetails')"
       :visible.sync="dialogVisible"
-      width="85%"
-      :before-close="handleClose"
+      max-width="400px"
+      class="extension-dialog"
     >
+      <!-- :before-close="handleClose" -->
       <el-form
         :model="form"
         :rules="formRules"
@@ -21,212 +22,43 @@
         label-position="top"
         size="mini"
       >
-        <el-col :span="24">
-          <el-col :md="9" :sm="12" :xs="24" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.consignee')" prop="consigneeAccountId">
-              <autocomplete
-                :model.sync="form.consigneeAccountId"
-                :url="urlConsignee"
-                :shipperAccountId="orderEntry.settings.shipperAccountId"
-                labelField="name"
-                labelFieldLastWithDash="number"
-                valueField="id"
-                id="form-consignee"
-                ref="form-consignee"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :md="4" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.unitOfMeasure')" prop="unitOfMeasure">
-              <el-select v-model="form.unitOfMeasure" id="form-unit-of-measure">
-                <el-option
-                  v-for="item in unitOfMeasureOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :md="3" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.measure')" prop="measure">
-              <el-select v-model="form.measure" id="form-measure">
-                <el-option
-                  v-for="item in measureOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                  ref="measure"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :md="5" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.shipDate')" prop="shipDate">
-              <el-date-picker
-                v-model="form.shipDate"
-                @change="handleChangeDate"
-                :default-value="orderEntry.actualFilters.shipDate"
-                style="width: 100%"
-                format="MM/dd/yyyy"
-                :picker-options="orderEntry.shipDatePickerOptions"
-                type="date"
-                id="form-ship-date"
-              ></el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :md="3" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.numberOfUnitsShort')" prop="totalUnits">
-              <el-input-number
-                v-model="form.totalUnits"
-                v-numeric-validation
-                :precision="0"
-                :min="0"
-                :max="999"
-                class="inline-input width-100p"
-                id="form-number-units"
-                ref="unit"
-              ></el-input-number>
-            </el-form-item>
-          </el-col>
-        </el-col>
-        <el-col :span="24">
-          <el-col :md="2" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.length')" prop="length">
-              <el-input-number
-                v-model="form.length"
-                v-numeric-validation
-                :controls="false"
-                :precision="3"
-                :min="0"
-                :max="999.999"
-                class="inline-input width-100p"
-                id="form-length"
-                ref="length"
-              ></el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :md="2" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.width')" prop="width">
-              <el-input-number
-                v-model="form.width"
-                v-numeric-validation
-                :controls="false"
-                :precision="3"
-                :min="0"
-                :max="999.999"
-                class="inline-input width-100p"
-                id="form-width"
-                ref="width"
-              ></el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :md="2" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.height')" prop="height">
-              <el-input-number
-                v-model="form.height"
-                v-numeric-validation
-                :controls="false"
-                :precision="3"
-                :min="0"
-                :max="999.999"
-                class="inline-input width-100p"
-                id="form-height"
-                ref="height"
-              ></el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :md="3" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.product')" prop="productCode">
-              <autocomplete
-                :model.sync="form.productCode"
-                :modelAdditional.sync="form.productDescription"
-                :strict="false"
-                :url="urlProduct"
-                labelField="description"
-                labelfieldSelected="code"
-                valueField="code"
-                valueFieldAdditional="description"
-                :maxlength="5"
-                id="form-product"
-                ref="form-product"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :md="6" :sm="24" :xs="24" class="form-vertical-item">
-            <el-form-item
-              :label="$t('warehouse.orderEntry.productDescription')"
-              prop="productDescription"
-            >
-              <el-input
-                v-model="form.productDescription"
-                v-alphanumeric-validation
-                maxlength="30"
-                clearable
-                class="inline-input"
-                id="form-product-description"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :md="3" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.poNumber')" prop="po">
-              <el-input
-                v-model="form.po"
-                v-alphanumeric-validation
-                maxlength="25"
-                clearable
-                class="inline-input"
-                id="form-po-number"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :md="3" :sm="12" :xs="12" class="form-vertical-item">
-            <el-form-item :label="$t('warehouse.orderEntry.farmName')" prop="farmName">
-              <el-input
-                v-model="form.farmName"
-                v-alphanumeric-validation
-                maxlength="100"
-                clearable
-                class="inline-input"
-                id="form-farm-name"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :md="3" :sm="12" :xs="12" class="form-vertical-item">
-            <div class="el-form-item el-form-item--mini">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                :content="$t('warehouse.orderEntry.addOrder')"
-                placement="top-start"
-              >
-                <el-button
-                  id="form-save-button"
-                  @click="submitForm()"
-                  icon="el-icon-plus"
-                  size="mini"
-                  class="button-action-default margin-t-38"
-                ></el-button>
-              </el-tooltip>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                :content="$t('warehouse.orderEntry.clear')"
-                placement="top-start"
-              >
-                <el-button
-                  id="form-refresh-button"
-                  @click="resetForm()"
-                  icon="fa fa-eraser"
-                  size="mini"
-                  class="button-action-default"
-                ></el-button>
-              </el-tooltip>
-            </div>
-          </el-col>
-        </el-col>
+        <div>
+          <div class="ex-detail">
+            <p>Case</p>
+            <p>Shipper Account</p>
+            <p>Shipper Name</p>
+            <p>Email Address</p>
+            <p>Time</p>
+            <p>Wait</p>
+          </div>
+          <div class="ex-button">
+            <el-button type="primary" @click="dialogVisible = false" class="pending-btn">Confirm</el-button>
+          </div>
+        </div>
+        <div>
+          <span class="shipment-table">{{$t('extensionRequest.shipmentDetails')}}</span>
+          <el-table :data="tableData" style="width: 100%">
+            <el-table-column prop="Consignee" :label="$t('extensionRequest.consignee')"></el-table-column>
+            <el-table-column prop="Dimensions" :label="$t('extensionRequest.dimensions')"></el-table-column>
+            <el-table-column prop="Units" :label="$t('extensionRequest.units')"></el-table-column>
+          </el-table>
+        </div>
       </el-form>
-      <span slot="footer" class="dialog-footer">&nbsp;</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="dialogVisible = false">Confirm</el-button>
+        <div class="block pag">
+          <span class="demonstration"></span>
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage3"
+            :page-size="10"
+            layout="prev,pager, next, jumper"
+            :total="10"
+          ></el-pagination>
+        </div>
+      </span>
     </el-dialog>
   </span>
 </template>
@@ -237,17 +69,43 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 import constants from '@/utils/constants';
 import apiConstants from '@/utils/apiConstants';
-import Autocomplete from '@/components/Autocomplete';
+// import Autocomplete from '@/components/Autocomplete';
 
 const formConsignee = 'form-consignee';
 
 export default {
-  components: { Autocomplete },
+//   components: { Autocomplete },
   computed: {
     ...mapGetters(['orderEntry'])
   },
   data() {
     return {
+      tableData: [{
+        Consignee: 'Bello Blossom LLC',
+        Dimensions: '40*10*5',
+        Units: '3'
+      }, {
+        Consignee: 'Bello Blossom LLC',
+        Dimensions: '40*10*5',
+        Units: '15'
+      }, {
+        Consignee: 'Bello Blossom LLC',
+        Dimensions: '40*10*5',
+        Units: '12'
+      }, {
+        Consignee: 'Bello Blossom LLC',
+        Dimensions: '40*10*5',
+        Units: '4'
+      }, {
+        Consignee: 'Bello Blossom LLC',
+        Dimensions: '40*10*5',
+        Units: '8'
+      }, {
+        Consignee: 'Bello Blossom LLC',
+        Dimensions: '40*10*5',
+        Units: '3'
+      }],
+      currentPage3: 1,
       dialogVisible: false,
       form: {
         consigneeAccountId: null,
@@ -323,6 +181,12 @@ export default {
     };
   },
   methods: {
+    handleSizeChange(val) {
+      console.log(`${val} items per page`);
+    },
+    handleCurrentChange(val) {
+      console.log(`current page: ${val}`);
+    },
     handleOpen() {
       this.form.shipDate = moment(
         this.orderEntry.actualFilters.shipDate,
@@ -438,4 +302,21 @@ export default {
         border: 0 !important;
         padding: 0;
   }
+  .shipment-table {
+    color : #01355F;
+    float: left;
+    padding-bottom: 10px;
+    font-weight: bold;
+  }
+  .extension-dialog .el-dialog {
+    max-width: 400px;
+}
+.ex-detail{
+    width: 50%
+}
+.ex-button{
+    position: relative;
+    bottom: 130px;
+    text-align: right;
+}
 </style>
