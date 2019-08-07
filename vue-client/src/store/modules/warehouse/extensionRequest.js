@@ -1,7 +1,7 @@
 import { Loading, Message } from 'element-ui';
 import moment from 'moment';
-import constants from '@/utils/constants';
-import orderApiService from '@/api/orderService';
+import constants from '../../../utils/constants';
+import orderApiService from '../../../api/orderService';
 
 const searchSection = ['search-section'];
 
@@ -12,21 +12,12 @@ const extensionRequest = {
       shipperAccountId: null,
       minCubesPerBox: null
     },
-    orderAddSuccess: false,
-    orderUpdateSuccess: false,
-    isEditingRow: false,
     actualFilters: {
-      shipDate: null,
+      shipper: null,
+      aelTerminal: null,
+      receivingdate: null,
       status: null,
-      createdByUsername: null,
       orderNumber: null,
-      consigneeAccountId: null,
-      page: constants.TABLES.DEFAULT_PAGE,
-      rows: constants.TABLES.DEFAULT_LIMIT,
-      shipperAccountId: null,
-      pageResults: true,
-      orderField: null,
-      orderDirection: null
     },
     loadingSearch: false,
     filtersOpen: searchSection,

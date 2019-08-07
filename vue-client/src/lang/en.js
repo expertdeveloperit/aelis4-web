@@ -222,6 +222,7 @@ export default {
     requestDate: 'Request Date',
     status: 'Status',
     options: 'Options',
+    extensionDetails: 'Extension Details',
   },
   shipperComponent: {
     shipperList: 'Shipper List'

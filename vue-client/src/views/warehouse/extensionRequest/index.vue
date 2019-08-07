@@ -8,14 +8,14 @@
           {{ $t('extensionRequest.FAQ') }}
         </span>
       </div>
-      <el-row :gutter="24" type="flex" align="stretch">
+      <el-row :gutter="20" type="flex" align="stretch">
         <search-filter />
       </el-row>
       <el-row :gutter="20" type="flex" align="stretch">
         <el-col :span="24">
-          <div class="order-table-container bg-white">
-            <div class="order-table">
-              <table-summary />
+          <div class="search-summary-container bg-white">
+            <div class="search-summary">
+              <search-summary />
             </div>
           </div>
         </el-col>
@@ -26,13 +26,15 @@
 <script>
 
 import SearchFilter from './SearchFilter';
-import TableSummary from './TableSummary';
+import SearchSummary from './SearchSummary';
+// import ExtensionDetailsDialog from './extensionDetailsDialog';
 
 export default {
   name: 'extensionRequest',
   components: {
     SearchFilter,
-    TableSummary
+    SearchSummary
+    // ExtensionDetailsDialog
   },
   data() {
     // return {
@@ -64,6 +66,17 @@ export default {
 .app-view-container {
     margin: 15px 15px;;
 }
+}
+.search-summary-container {
+  margin-top: 20px;
+  position: relative;
+  .search-summary {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 </style>

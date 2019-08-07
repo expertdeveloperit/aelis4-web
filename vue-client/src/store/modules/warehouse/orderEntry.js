@@ -1,7 +1,9 @@
 import { Loading, Message } from 'element-ui';
 import moment from 'moment';
-import constants from '@/utils/constants';
-import orderApiService from '@/api/orderService';
+import constants from '../../../utils/constants';
+import orderApiService from '../../../api/orderService';
+// import constants from '@/utils/constants';
+// import orderApiService from '@/api/orderService';
 
 const searchSection = ['search-section'];
 
@@ -26,7 +28,10 @@ const orderEntry = {
       shipperAccountId: null,
       pageResults: true,
       orderField: null,
-      orderDirection: null
+      orderDirection: null,
+      receivingDate: null,
+      shipper: null,
+      aelTerminal: null
     },
     loadingSearch: false,
     filtersOpen: searchSection,

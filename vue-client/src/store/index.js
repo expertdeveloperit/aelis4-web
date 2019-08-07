@@ -4,6 +4,7 @@ import app from './modules/app';
 import user from './modules/user';
 import uploadXml from './modules/warehouse/uploadXml';
 import orderEntry from './modules/warehouse/orderEntry';
+import extensionRequest from './modules/warehouse/extensionRequest';
 import account from './modules/warehouse/account';
 import getters from './getters';
 
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
     user,
     uploadXml,
     orderEntry,
-    account
+    account,
+    extensionRequest,
   },
   getters
 });

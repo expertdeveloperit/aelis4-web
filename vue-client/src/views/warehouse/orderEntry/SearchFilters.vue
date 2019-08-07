@@ -131,7 +131,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { Loading } from 'element-ui';
 import constants from '@/utils/constants';
 import apiConstants from '@/utils/apiConstants';
 import Autocomplete from '@/components/Autocomplete';
@@ -139,7 +138,7 @@ import AddConsigneeShipperButton from './components/AddConsigneeShipperButton';
 import authRoles from '@/utils/auth/roles';
 
 export default {
-  name: 'SearchFilters',
+  name: 'SearchFilter',
   components: { Autocomplete, AddConsigneeShipperButton },
   computed: {
     ...mapGetters([

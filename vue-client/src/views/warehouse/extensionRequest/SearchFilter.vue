@@ -2,40 +2,32 @@
   <el-col :span="24">
     <el-collapse v-model="orderEntry.filtersOpen">
       <el-collapse-item
-        :title="$t('warehouse.orderEntry.searchSection')"
+        :title="$t('extensionRequest.searchSection')"
         name="search-section"
         id="search-section"
       >
         <el-form
           :model="searchForm"
           ref="searchForm"
-          id="search-form"
+          id="search"
           label-position="right"
           size="mini"
           inline
         >
-          <el-form-item prop="consigneeAccountId" class="consignee-filter consignee-wrp">
+          <el-form-item prop="shipper" class="consignee-filter consignee-wrp">
             <autocomplete
+              :model.sync="searchForm.shipper"
+              :strict="false"
+              :url="urlShipper"
               :placeholder="$t('extensionRequest.shipper')"
-              v-model="searchText"
-              v-alphanumeric-validation
-              maxlength="50"
-              clearable
-              @change="search"
-              class="inline-input"
-              size="mini"
-              suffix-icon="el-icon-search"
+              labelField="name"
+              labelfieldSelected="name"
+              valueField="id"
+              valueFieldAdditional="name"
+              :maxlength="8"
               id="search-shipper-list"
               ref="search-shipper-list"
             />
-            <el-tooltip
-              class="item"
-              effect="dark"
-              :content="$t('warehouse.orderEntry.addConsignee')"
-              placement="top-start"
-            >
-              <add-consignee-shipper-button />
-            </el-tooltip>
           </el-form-item>
           <el-form-item
             class="aelTerminal"
@@ -66,6 +58,7 @@
               @change="handleChangeDate"
               v-model="searchForm.placeholder"
               format="MM/dd/yyyy"
+              clearable
               :placeholder="$t('extensionRequest.dateFormat')"
               :picker-options="orderEntry.shipDatePickerOptions"
               class="el-dropdown-new drop-sp date-dob"
@@ -79,8 +72,8 @@
             class="title-input"
           >
             <el-select
-              v-model="searchForm.placeholder"
               :placeholder="$t('extensionRequest.none')"
+              v-model="searchForm.status"
               id="searchForm-status"
               ref="filter-status"
               @change="handleSearch"
@@ -127,24 +120,25 @@ export default {
   computed: {
     ...mapGetters([
       'orderEntry',
-      // 'user'
+      'user',
+      'shippers',
     ])
   },
   data() {
     return {
       searchForm: {
-        shipDate: new Date(),
+        shipper: '',
+        aelTerminal: '',
+        receivingdate: new Date(),
         status: constants.ORDER_ENTRY.ORDER_STATUS[0].value,
-        createdByUsername: constants.ORDER_ENTRY.CREATED_BY_OPTIONS[0].value,
         orderNumber: null,
-        consigneeAccountId: null,
-        consigneeName: null,
         page: constants.TABLES.DEFAULT_PAGE
       },
       activeCollapsibleName: ['search-section'],
       orderStatusOptions: constants.ORDER_ENTRY.ORDER_STATUS,
       orderCreatedByOptions: constants.ORDER_ENTRY.CREATED_BY_OPTIONS,
-      urlConsignee: apiConstants.END_POINTS.ACCOUNTS.CONSIGNEE_BY_SHIPPER
+      urlConsignee: apiConstants.END_POINTS.ACCOUNTS.CONSIGNEE_BY_SHIPPER,
+      urlShipper: apiConstants.END_POINTS.ACCOUNTS.SHIPPERS
       // value1: '',
     };
   },
@@ -156,16 +150,34 @@ export default {
       }
       return this.$store.dispatch('account/getShipperListScroll', this.searchText);
     },
-    handleSearch() {
-      this.searchForm.consigneeName = this.$refs['filter-consignee'].getLocalModel();
-      this.$store.dispatch('orderEntry/search', this.searchForm).then(() => {
-        this.$store.dispatch('orderEntry/getCutoffLimitDate');
-      });
+    async change(shipperSelected) {
+      this.$store.dispatch('setUserShipperAccount', shipperSelected);
+      const loading = Loading.service(constants.LOADING.DEFAULT_CONFIG);
+      await this.callSelectAction();
+      loading.close();
+      this.show = false;
     },
-    /* The datepicker has an issue when change manually, the focus lost. */
-    handleChangeDate() {
-      this.handleSearch();
-      this.$refs['filter-status'].focus();
+    openList() {
+      this.show = !this.show;
+      // Its necessary nextTick because we need to wait the component render.
+      if (this.show) {
+        this.$nextTick(() => {
+          this.$refs['search-shipper-list'].focus();
+        });
+      }
+    },
+    async callSelectAction() {
+      if (this.actionStrSelectChained) {
+        for (const action of this.actionStrSelectChained) {
+          if (action === 'orderEntry/getSettings') {
+            const res = await this.$store.dispatch(action);
+            this.orderEntry.settings.minCubesPerBox = res.__ob__.value.minCubesPerBox;
+            // this.orderEntry.settings.minCubesPerBox = res.__ob__.value.minCubesPerBox ? res.__ob__.value : '0.9461';
+          } else {
+            await this.$store.dispatch(action);
+          }
+        }
+      }
     }
   },
   async mounted() {
@@ -178,12 +190,14 @@ export default {
       const loading = Loading.service(constants.LOADING.DEFAULT_CONFIG);
       await this.search(resetSearch);
       this.show = this.shippers.list && this.shippers.list.length > 1;
+
       // SHIPPERS Users Normal Flow: If the list of shippers only returns 1, then we select it by default.
       if (this.shippers.list && this.shippers.list.length === 1) {
         this.change(this.shippers.list[0]);
       }
       loading.close();
     }
+
     // Its necessary nextTick because we need to wait the component render.
     if (this.show) {
       this.$nextTick(() => {
@@ -195,7 +209,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-#search-form {
+#search {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -290,7 +304,7 @@ export default {
     color: #aba9a9;
 }
 @media only screen and (max-width: 1400px) {
-  #search-form {
+  #search {
 
     .consignee-filter {
         width: 20%;
@@ -311,7 +325,7 @@ export default {
   }
 }
 @media only screen and (max-width: 1365px) {
-  #search-form {
+  #search{
 
     .consignee-filter {
         width: 100%;
@@ -329,7 +343,7 @@ export default {
   }
 }
 @media only screen and (max-width: 767px) {
-  #search-form {
+  #search {
     .aelTerminal, .receivingDate, .title-input, .aelTerminal .el-form-item__content .el-select, .receivingDate .el-date-editor, .title-input .el-select {
          width: 100% !important;
          padding-right: 0;

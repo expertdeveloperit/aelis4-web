@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { Loading } from 'element-ui';
+import { mapGetters } from 'vuex';
 import constants from '@/utils/constants';
 
 export default {
@@ -83,7 +83,8 @@ export default {
     ...mapGetters([
       'shippers',
       'user',
-      'orderEntry'
+      'orderEntry',
+      // 'extensionRequest'
     ]),
     noMore() {
       return this.shippers.list.length >= this.shippers.totalRows;
