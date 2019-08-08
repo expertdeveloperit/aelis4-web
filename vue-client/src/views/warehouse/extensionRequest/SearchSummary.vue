@@ -4,12 +4,12 @@
       <el-table-column
         prop="extensionHash"
         :label="$t('extensionRequest.extensionHash')"
-        width="120"
+        width="150"
       ></el-table-column>
       <el-table-column
         prop="shipperNameAndAccount"
         :label="$t('extensionRequest.shipperNameAndAccount')"
-        width="300"
+        min-width="300"
       ></el-table-column>
       <el-table-column
         prop="shipperAccount"
@@ -30,30 +30,7 @@
       <el-table-column prop="requestDate" :label="$t('extensionRequest.requestDate')" width="130"></el-table-column>
       <el-table-column prop="status" :label="$t('extensionRequest.status')" width="80">
         <v-icon class="clockimg">
-          <svg
-            version="1.1"
-            id="Capa_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0px"
-            y="0px"
-            viewBox="0 0 13.9 13.9"
-            style="enable-background:new 0 0 13.9 13.9;"
-            xml:space="preserve"
-          >
-            <g>
-              <g>
-                <path
-                  d="M6.9,0C3.1,0,0,3.1,0,6.9s3.1,6.9,6.9,6.9s6.9-3.1,6.9-6.9S10.8,0,6.9,0z M6.9,12.4c-3,0-5.5-2.5-5.5-5.5s2.5-5.5,5.5-5.5
-            s5.5,2.5,5.5,5.5S10,12.4,6.9,12.4z"
-                />
-                <path
-                  d="M10.6,6.7H7.4V3c0-0.3-0.3-0.6-0.6-0.6S6.3,2.7,6.3,3v4.3c0,0.3,0.3,0.6,0.6,0.6h3.7c0.3,0,0.6-0.3,0.6-0.6
-            S10.9,6.7,10.6,6.7z"
-                />
-              </g>
-            </g>
-          </svg>
+          <img src="@/assets/svg/Status-Clock.svg" alt="Status-Clock" />
         </v-icon>
       </el-table-column>
       <el-table-column prop="options" :label="$t('extensionRequest.options ')" width="160">
@@ -114,9 +91,8 @@ export default {
     text-align: center;
 }
 .clockimg {
-  svg {
+  img {
     width: 15px;
-    fill: #f8bc06;
     vertical-align: middle;
   }
 }

@@ -31,7 +31,7 @@ const orderEntry = {
       orderDirection: null,
       receivingDate: null,
       shipper: null,
-      aelTerminal: null
+      aelTerminal: null,
     },
     loadingSearch: false,
     filtersOpen: searchSection,

@@ -223,6 +223,18 @@ export default {
     status: 'Status',
     options: 'Options',
     extensionDetails: 'Extension Details',
+    pending: 'Pending',
+    deny: 'Deny',
+    approved: 'Approved',
+    shipmentDetails: 'Shipment Details',
+    consignee: 'Consignee',
+    dimensions: 'Dimensions',
+    extensionTimecolumn: 'Extension Time:',
+    totalBoxes: 'Total Boxes:',
+    caseHash: 'Case #:',
+    shipperAccountColumn: 'Shipper Account:',
+    shipperName: 'Shipper Name:',
+    emailAddress: 'Email Address:'
   },
   shipperComponent: {
     shipperList: 'Shipper List'

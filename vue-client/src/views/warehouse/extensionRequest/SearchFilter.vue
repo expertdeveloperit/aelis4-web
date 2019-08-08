@@ -24,7 +24,7 @@
               labelfieldSelected="name"
               valueField="id"
               valueFieldAdditional="name"
-              :maxlength="8"
+              :maxlength="15"
               id="search-shipper-list"
               ref="search-shipper-list"
             />
@@ -56,10 +56,9 @@
             <el-date-picker
               ref="filter-datepicker"
               @change="handleChangeDate"
-              v-model="searchForm.placeholder"
+              v-model="searchForm.receivingdate"
               format="MM/dd/yyyy"
               clearable
-              :placeholder="$t('extensionRequest.dateFormat')"
               :picker-options="orderEntry.shipDatePickerOptions"
               class="el-dropdown-new drop-sp date-dob"
               type="date"
@@ -73,7 +72,7 @@
           >
             <el-select
               :placeholder="$t('extensionRequest.none')"
-              v-model="searchForm.status"
+              v-model="searchForm.placeholder"
               id="searchForm-status"
               ref="filter-status"
               @change="handleSearch"
@@ -132,77 +131,19 @@ export default {
         receivingdate: new Date(),
         status: constants.ORDER_ENTRY.ORDER_STATUS[0].value,
         orderNumber: null,
-        page: constants.TABLES.DEFAULT_PAGE
       },
       activeCollapsibleName: ['search-section'],
       orderStatusOptions: constants.ORDER_ENTRY.ORDER_STATUS,
-      orderCreatedByOptions: constants.ORDER_ENTRY.CREATED_BY_OPTIONS,
-      urlConsignee: apiConstants.END_POINTS.ACCOUNTS.CONSIGNEE_BY_SHIPPER,
       urlShipper: apiConstants.END_POINTS.ACCOUNTS.SHIPPERS
-      // value1: '',
     };
   },
   methods: {
-    search(resetSearch) {
-      // If sarch text is changed or reset search is mandatory we call to resetShipperList
-      if ((this.searchText !== this.shippers.filters.search) || resetSearch) {
-        this.$store.dispatch('account/resetShipperList');
-      }
-      return this.$store.dispatch('account/getShipperListScroll', this.searchText);
-    },
     async change(shipperSelected) {
       this.$store.dispatch('setUserShipperAccount', shipperSelected);
       const loading = Loading.service(constants.LOADING.DEFAULT_CONFIG);
       await this.callSelectAction();
       loading.close();
       this.show = false;
-    },
-    openList() {
-      this.show = !this.show;
-      // Its necessary nextTick because we need to wait the component render.
-      if (this.show) {
-        this.$nextTick(() => {
-          this.$refs['search-shipper-list'].focus();
-        });
-      }
-    },
-    async callSelectAction() {
-      if (this.actionStrSelectChained) {
-        for (const action of this.actionStrSelectChained) {
-          if (action === 'orderEntry/getSettings') {
-            const res = await this.$store.dispatch(action);
-            this.orderEntry.settings.minCubesPerBox = res.__ob__.value.minCubesPerBox;
-            // this.orderEntry.settings.minCubesPerBox = res.__ob__.value.minCubesPerBox ? res.__ob__.value : '0.9461';
-          } else {
-            await this.$store.dispatch(action);
-          }
-        }
-      }
-    }
-  },
-  async mounted() {
-    const resetSearch = true;
-    if (this.user.shipperAccountNumber) {
-      this.callSelectAction();
-      // Call reset search but without loading because the shippers is already selected, and no need await.
-      this.search(resetSearch);
-    } else {
-      const loading = Loading.service(constants.LOADING.DEFAULT_CONFIG);
-      await this.search(resetSearch);
-      this.show = this.shippers.list && this.shippers.list.length > 1;
-
-      // SHIPPERS Users Normal Flow: If the list of shippers only returns 1, then we select it by default.
-      if (this.shippers.list && this.shippers.list.length === 1) {
-        this.change(this.shippers.list[0]);
-      }
-      loading.close();
-    }
-
-    // Its necessary nextTick because we need to wait the component render.
-    if (this.show) {
-      this.$nextTick(() => {
-        this.$refs['search-shipper-list'].focus();
-      });
     }
   }
 };
