@@ -36,7 +36,7 @@
 </template>
 <script>
 
-import SearchFilter from './SearchFilter';
+import SearchFilter from './SearchFilters';
 import SearchSummary from './SearchSummary';
 
 export default {

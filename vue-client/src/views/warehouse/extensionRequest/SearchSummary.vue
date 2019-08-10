@@ -1,39 +1,73 @@
 <template>
-  <div>
-    <el-table :data="tableData" stripe style="width: 100%" class="table-ds">
+  <div class="height-100-p">
+    <el-table
+      :data="tableData"
+      size="mini"
+      tooltip-effect="dark"
+      sortable
+      class="dark-blue-table"
+      :empty-text="$t('common.notAbleToFindRecords')"
+      @sort-change="handleSortChange"
+      stripe
+    >
       <el-table-column
         prop="extensionHash"
+        sortable="custom"
         :label="$t('extensionRequest.extensionHash')"
-        width="150"
-      ></el-table-column>
+        width="150px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" :content="scope.row.extensionHash" placement="top">
+            <span>1234</span>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="shipperNameAndAccount"
         :label="$t('extensionRequest.shipperNameAndAccount')"
-        min-width="300"
-      ></el-table-column>
-      <el-table-column
-        prop="shipperAccount"
-        :label="$t('extensionRequest.shipperAccount')"
-        width="120"
-      ></el-table-column>
+        :min-width="10"
+      >
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" :content="scope.row.orderNumber" placement="top">
+            <span>Bello Blossom LLC - M542365</span>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="extensionTime"
         :label="$t('extensionRequest.extensionTime')"
-        width="200"
-      ></el-table-column>
-      <el-table-column prop="units" :label="$t('extensionRequest.units')" width="50"></el-table-column>
+        :min-width="5"
+      >
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" :content="scope.row.orderNumber" placement="top">
+            <span>13:25</span>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+      <el-table-column prop="units" :label="$t('extensionRequest.units')" :min-width="5">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" :content="scope.row.orderNumber" placement="top">
+            <span>3</span>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="shipperContact"
         :label="$t('extensionRequest.shipperContact')"
-        width="200"
+        :min-width="8"
       ></el-table-column>
-      <el-table-column prop="requestDate" :label="$t('extensionRequest.requestDate')" width="130"></el-table-column>
-      <el-table-column prop="status" :label="$t('extensionRequest.status')" width="80">
+      <el-table-column
+        prop="requestDate"
+        :label="$t('extensionRequest.requestDate')"
+        :min-width="8"
+      ></el-table-column>
+      <el-table-column prop="status" :label="$t('extensionRequest.status')" :min-width="4">
         <v-icon class="clockimg">
           <img src="@/assets/svg/Status-Clock.svg" alt="Status-Clock" />
         </v-icon>
       </el-table-column>
-      <el-table-column prop="options" :label="$t('extensionRequest.options ')" width="160">
+      <el-table-column prop="options" :label="$t('extensionRequest.options ')" :min-width="4">
         <extension-details-dialog />
       </el-table-column>
     </el-table>
@@ -51,8 +85,7 @@ export default {
     return {
       tableData: [{
         extensionHash: 60470,
-        shipperNameAndAccount: 'Bello Blossom LLC',
-        shipperAccount: 'M542365',
+        shipperNameAndAccount: 'Bello Blossom LLC - M542365',
         extensionTime: '13:25',
         units: 3,
         shipperContact: 8574125632,
@@ -60,8 +93,7 @@ export default {
       },
       {
         extensionHash: 60470,
-        shipperNameAndAccount: 'Bello Blossom LLC',
-        shipperAccount: 'M542365',
+        shipperNameAndAccount: 'Bello Blossom LLC - M542365',
         extensionTime: '13:25',
         units: 3,
         shipperContact: 8574125632,
@@ -72,38 +104,68 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-.table-ds {
-    padding: 15px;
+.search-summary {
+  padding: 15px;
 }
-.table-ds .has-gutter th {
-    background-color: #0f335b;
-    color: #fff;
-    padding: 5px 0;
-    font-size: 10px;
-    font-weight: 500;
-}
-.table-ds .el-table__row td {
-    padding: 5px 0;
-    font-size: 10px;
-    font-weight: 500;
-}
-.table-ds .has-gutter th, .table-ds .el-table__row td {
-    text-align: center;
-}
-.clockimg {
-  img {
-    width: 15px;
-    vertical-align: middle;
+.el-table__header {
+  th {
+    text-align: center ;
   }
+
 }
-.search-icon{
-  .dialog-btn {
-    width: 17px;
-    padding: 0;
-  }
-  >img{
-    width: 15px;
-    vertical-align: middle;
-  }
+.is-scrolling-none {
+   td {
+    text-align: center ;
+    .cell {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .clockimg {
+         height: 15px;
+        img {
+          height: 15px;
+          width: 15px;
+        }
+      }
+    }
+   }
+}
+#search-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .consignee-filter {
+        width: 65%;
+        white-space: nowrap;
+        .el-form-item__content {
+            width: calc(100% - 95px);
+            .el-autocomplete {
+              width: calc(100% - 54px);
+            }
+        }
+    }
+    .el-date-editor {
+      width: 140px;
+    }
+    .inline-input {
+      width: 140px;
+    }
+    .el-select {
+      width: 140px;
+    }
+    #form-search-button {
+      margin-right: 10px;
+    }
+}
+@media only screen and (min-width: 1680px) {
+#search-form {
+    .consignee-filter {
+        width: 725px;
+        .el-form-item__content {
+            width: 80%;
+        }
+    }
+}
 }
 </style>

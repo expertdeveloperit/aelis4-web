@@ -14,29 +14,32 @@
           size="mini"
           inline
         >
-          <el-form-item prop="shipper" class="consignee-filter consignee-wrp">
+          <el-form-item
+            :label="$t('extensionRequest.shipper')"
+            prop="shipper"
+            class="consignee-filter consignee-wrp"
+          >
             <autocomplete
               :model.sync="searchForm.shipper"
               :strict="false"
               :url="urlShipper"
-              :placeholder="$t('extensionRequest.shipper')"
               labelField="name"
               labelfieldSelected="name"
               valueField="id"
               valueFieldAdditional="name"
-              :maxlength="15"
-              id="search-shipper-list"
+              :maxlength="8"
+              id="searchForm-shipper-list"
               ref="search-shipper-list"
             />
           </el-form-item>
           <el-form-item
             class="aelTerminal"
             :label="$t('extensionRequest.aelTerminal')"
-            prop="status"
+            prop="aelTerminal"
           >
             <el-select
               v-model="searchForm.status"
-              id="searchForm-status"
+              id="searchForm-ael-Terminal"
               ref="filter-status"
               @change="handleSearch"
             >
@@ -56,7 +59,7 @@
             <el-date-picker
               ref="filter-datepicker"
               @change="handleChangeDate"
-              v-model="searchForm.receivingdate"
+              v-model="searchForm.shipDate"
               format="MM/dd/yyyy"
               clearable
               :picker-options="orderEntry.shipDatePickerOptions"
@@ -85,21 +88,39 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item prop="orderNumber" class="el-input--mini-new-status ordernumber">
+          <el-form-item
+            :label="$t('extensionRequest.extensionHash')"
+            prop="orderNumber"
+            class="el-input--mini-new-status ordernumber"
+          >
             <el-input
               v-model="searchForm.orderNumber"
               ref="filter-order-number"
               v-alphanumeric-validation
               maxlength="25"
               clearable
-              :placeholder="$t('extensionRequest.orderNumber')"
               @clear="handleSearch"
               v-on:keyup.enter.native="handleSearch"
               class="inline-input"
               id="searchForm-order-number"
             ></el-input>
           </el-form-item>
-          <el-button class="el_button-new">{{$t('extensionRequest.submit')}}</el-button>
+          <span>
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="$t('warehouse.orderEntry.search')"
+              placement="top-start"
+            >
+              <el-button
+                id="form-search-button"
+                @click="handleSearch"
+                icon="el-icon-search"
+                size="mini"
+                class="button-action-default"
+              ></el-button>
+            </el-tooltip>
+          </span>
         </el-form>
       </el-collapse-item>
     </el-collapse>
@@ -108,7 +129,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { Loading } from 'element-ui';
 import constants from '@/utils/constants';
 import apiConstants from '@/utils/apiConstants';
 import Autocomplete from '@/components/Autocomplete';
@@ -128,7 +148,7 @@ export default {
       searchForm: {
         shipper: '',
         aelTerminal: '',
-        receivingdate: new Date(),
+        shipDate: new Date(),
         status: constants.ORDER_ENTRY.ORDER_STATUS[0].value,
         orderNumber: null,
       },
@@ -138,13 +158,6 @@ export default {
     };
   },
   methods: {
-    async change(shipperSelected) {
-      this.$store.dispatch('setUserShipperAccount', shipperSelected);
-      const loading = Loading.service(constants.LOADING.DEFAULT_CONFIG);
-      await this.callSelectAction();
-      loading.close();
-      this.show = false;
-    }
   }
 };
 </script>
@@ -154,144 +167,112 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    label {
-      font-size: 10px;
-      padding-left: 15px;
-    }
+    padding-left: 5px;
     .consignee-filter {
         width: 30%;
         white-space: nowrap;
         margin-right: 0;
         padding-right: 10px;
         .el-form-item__content {
-            width: 100%;
+            width: calc(100% - 64px);
             .el-autocomplete {
               width: 100%;
             }
         }
     }
     .aelTerminal {
-      width: 15%;
+      width: 13%;
       margin-right: 0 !important;
       padding-right: 10px;
       display: flex !important;
       .el-form-item__content {
-         width: calc(100% - 92px);
+         width: calc(100% - 70px);
+         .el-input__icon {
+               width: 16px;
+         }
+         .el-input__inner {
+            padding-right: 20px;
+          }
       }
     }
     .receivingDate {
-        width: 18%;
+        width: 17%;
          margin-right: 0 !important;
       padding-right: 10px;
       display: flex !important;
         .el-form-item__content {
-         width: calc(100% - 99px);
+         width: calc(100% - 77px);
          .date-dob input {
            width: 100%;
+               padding-right: 10px;
          }
         }
     }
     .title-input {
-      width: 18%;
+      width: 14%;
       display: flex;
       margin: 0 !important;
       padding-right: 10px;
       .el-form-item__content {
-        width: calc(100% - 110px);
+        width: calc(100% - 56px);
       }
     }
     .ordernumber {
-         width: 15%;
+         width:  calc(25% - 55px);
       margin: 0 !important;
       margin-right: auto;
       .el-form-item__content{
-        width: calc(96% - 48px);
+        width:calc(100% - 103px);
       }
     }
     #form-search-button {
-      margin-right: 10px;
+      margin-right: 0;
     }
-}
-
-.el_button-new {
-  height: 28px;
-    padding: 0 16px;
-    margin: 0px 0 0px -50px;
-    box-sizing: border-box;
-    float: right;
-    font-size: 12px;
-    border-color: #01355f;
-    color: #01355f;
-
-}
-.ordernumber input {
-  text-align: center;
-}
-.el-input__icon.el-icon-date {
-  display: none;
-}
-.date-dob {
-      width: auto !important;
-}
-.date-dob input {
-     padding: 0 13px !important;
-    width: 110px;
-    height: 28px;
-}
-
-.el_label {
-    line-height: 28px;
-    font-size: 10px;
-    color: #aba9a9;
-}
-@media only screen and (max-width: 1400px) {
-  #search {
-
-    .consignee-filter {
-        width: 20%;
-
+    .receivingDate .el-date-editor.el-input{
+      width: 100%;
     }
-    .aelTerminal {
-      width: 17%;
-    }
-    .receivingDate {
-      width: 20%;
-    }
-    .title-input {
-      width: 21%;
-    }
-    .ordernumber {
-         width: 17%;
-    }
-  }
 }
 @media only screen and (max-width: 1365px) {
   #search{
-
     .consignee-filter {
         width: 100%;
         padding-right: 0;
     }
-    .aelTerminal, .receivingDate, .title-input {
-         width: 33.333%;
+    .aelTerminal {
+      width: 25%;
     }
-    .ordernumber {
-         width: calc(96% - 65px);
-         .el-form-item__content {
-            width: 100%;
-        }
+    .receivingDate {
+      width: 25%;
     }
-  }
+    .title-input {
+      width: 20%;
+      }
+      .ordernumber {
+        width: calc(30% - 55px);
+      }
+    }
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 992px) {
   #search {
+    .consignee-filter {
+      display: flex;
+    }
     .aelTerminal, .receivingDate, .title-input, .aelTerminal .el-form-item__content .el-select, .receivingDate .el-date-editor, .title-input .el-select {
          width: 100% !important;
          padding-right: 0;
     }
-    .title-input {
-      margin-bottom: 18px !important;
+    .ordernumber {
+      width: calc(100% - 55px);
+      padding-top: 18px;
     }
+    #form-search-button {
+      margin-top: 18px;
+  }
+  }
+  #search .aelTerminal .el-form-item__content, #search .receivingDate .el-form-item__content,  #search .consignee-filter .el-form-item__content, #search .title-input .el-form-item__content  {
+    width: calc(100% - 92px);
+    margin-left: auto;
   }
 }
+
 </style>

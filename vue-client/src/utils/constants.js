@@ -59,9 +59,21 @@ const constants = {
     }, {
       value: 1,
       label: 'Me'
-    }],
-    CONST_VALUE: 0.393701,
-    MAX_VALUE: 106.6667
+    }]
+  },
+  EXTENSION_REQUEST: {
+    ORDER_STATUS: [{
+      value: 0,
+      label: 'Pending'
+    }, {
+      value: 1,
+      label: 'Approved',
+      typeCss: 'warning'
+    }, {
+      value: 2,
+      label: 'Rejected',
+      typeCss: 'success'
+    }]
   },
   TABLES: {
     DEFAULT_PAGE: 1,
