@@ -1,5 +1,5 @@
-import request from '@/utils/request';
-import apiConstants from '@/utils/apiConstants';
+import request from '../utils/request';
+import apiConstants from '../utils/apiConstants';
 
 const accountService = {
   addConsigneeShipperRelation(shipperAccountId, consigneeAccountId) {

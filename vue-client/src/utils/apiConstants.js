@@ -17,6 +17,10 @@ const apiConstants = {
       CONSIGNEE_BY_SHIPPER: '/accounts/consignees-by-shipper',
       SHIPPERS: '/accounts/shippers',
       SIGN_UP_USER_SHIPPER: '/accounts/users'
+    },
+    EXTENSION_REQUEST: {
+      TERMINAL_CODES: '/receiving/warehouse-codes',
+      GRID_SUMMARY: '/receiving/extension-request',
     }
   }
 };

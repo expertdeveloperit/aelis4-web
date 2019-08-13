@@ -131,7 +131,7 @@ export const constantRouterMap = [
           title: 'extensionRequest',
           icon: 'Extension-Request',
           requiresAuth: true,
-          roles: [authRoles.INTERNAL, authRoles.SHIPPER, authRoles.ADMIN]
+          roles: [authRoles.INTERNAL]
         }
       },
       {

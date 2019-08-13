@@ -1,9 +1,7 @@
 <template>
   <span>
     <el-button type="success" plain @click="dialogVisible = true" size="mini" class="dialog-btn">
-      <v-icon class="el-icon-search header-info-dialog-value icon-action" icon="el-icon-plus">
-
-      </v-icon>
+      <v-icon class="el-icon-search header-info-dialog-value icon-action" icon="el-icon-plus"></v-icon>
     </el-button>
     <el-dialog
       :close-on-click-modal="false"

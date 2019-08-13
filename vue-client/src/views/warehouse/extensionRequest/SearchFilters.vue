@@ -24,9 +24,8 @@
               :strict="false"
               :url="urlShipper"
               labelField="name"
-              labelfieldSelected="name"
+              labelFieldLastWithDash="number"
               valueField="id"
-              valueFieldAdditional="name"
               :maxlength="8"
               id="searchForm-shipper-list"
               ref="search-shipper-list"
@@ -38,13 +37,13 @@
             prop="aelTerminal"
           >
             <el-select
-              v-model="searchForm.status"
+              v-model="searchForm.aelTerminal"
               id="searchForm-ael-Terminal"
               ref="filter-status"
               @change="handleSearch"
             >
               <el-option
-                v-for="item in orderStatusOptions"
+                v-for="item in wareHouseCodes"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -132,6 +131,7 @@ import { mapGetters } from 'vuex';
 import constants from '@/utils/constants';
 import apiConstants from '@/utils/apiConstants';
 import Autocomplete from '@/components/Autocomplete';
+import orderApiService from '@/api/orderService';
 
 export default {
   name: 'SearchFilters',
@@ -140,7 +140,7 @@ export default {
     ...mapGetters([
       'orderEntry',
       'user',
-      'shippers',
+      'shippers'
     ])
   },
   data() {
@@ -154,10 +154,30 @@ export default {
       },
       activeCollapsibleName: ['search-section'],
       orderStatusOptions: constants.ORDER_ENTRY.ORDER_STATUS,
-      urlShipper: apiConstants.END_POINTS.ACCOUNTS.SHIPPERS
+      urlShipper: apiConstants.END_POINTS.ACCOUNTS.SHIPPERS,
+      wareHouseCodes: apiConstants.END_POINTS.EXTENSION_REQUEST.TERMINAL_CODES
     };
   },
+  mounted() {
+    this.orderApiService.getTerminalData((res) => {
+      console.log(res);
+    });
+  },
   methods: {
+    async getTerminalData() {
+      const response = await orderApiService.getTerminalData(this.searchForm.aelTerminal);
+      console.log(response);
+    },
+    // handleSearch() {
+    //   this.searchForm.aelTerminal = this.$refs['filter-consignee'].getLocalModel();
+    //   this.$store.dispatch('orderEntry/search', this.searchForm).then(() => {
+    //     this.$store.dispatch('orderEntry/getCutoffLimitDate');
+    //   });
+    // },
+    // handleChangeDate() {
+    //   this.handleSearch();
+    //   this.$refs['filter-status'].focus();
+    // }
   }
 };
 </script>

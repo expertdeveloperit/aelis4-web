@@ -1,8 +1,8 @@
 import fileSaver from 'file-saver';
 import moment from 'moment';
-import request from '@/utils/request';
-import apiConstants from '@/utils/apiConstants';
-import constants from '@/utils/constants';
+import request from '../utils/request';
+import apiConstants from '../utils/apiConstants';
+import constants from '../utils/constants';
 
 const suggestedFileNameHeader = 'suggested-file-name';
 const typeApplicationPdfHeader = 'application/pdf';
@@ -118,6 +118,12 @@ const orderService = {
       responseType: 'blob',
       params: filtersUpdated
     }).then(saveFileBlob);
+  },
+  getTerminalData() {
+    return request({
+      url: `${apiConstants.END_POINTS.EXTENSION_REQUEST.TERMINAL_CODES}`,
+      method: 'get'
+    });
   }
 };
 

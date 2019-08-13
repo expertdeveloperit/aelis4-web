@@ -239,6 +239,18 @@ const orderEntry = {
         });
       });
     },
+    // getTerminalData({ rootGetters, commit }) {
+    //   return new Promise((resolve, reject) => {
+    //     orderApiService.getSettings(rootGetters.user.shipperAccountNumber).then((response) => {
+    //       const { data } = response;
+    //       commit('SET_SETTINGS', data);
+    //       resolve(data);
+    //     }).catch((error) => {
+    //       commit('SET_SETTINGS', {});
+    //       reject(error);
+    //     });
+    //   });
+    // },
     findUnits({ commit, state }, filters) {
       commit('SET_LOADING', true);
       return new Promise((resolve, reject) => {
@@ -277,7 +289,7 @@ const orderEntry = {
       const response = await orderApiService.printLabelsMassive(state.actualFilters);
       loading.close();
       return response;
-    }
+    },
   }
 };
 

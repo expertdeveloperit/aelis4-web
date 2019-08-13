@@ -2,6 +2,7 @@
   <div class="height-100-p">
     <el-table
       :data="tableData"
+      id="extension-data-list"
       size="mini"
       tooltip-effect="dark"
       sortable
@@ -75,6 +76,7 @@
 </template>
 <script>
 import ExtensionDetailsDialog from './extensionDetailsDialog';
+import constants from '@/utils/constants';
 
 export default {
   name: 'SearchSummary',
@@ -84,7 +86,7 @@ export default {
   data() {
     return {
       tableData: [{
-        extensionHash: 60470,
+        extensionHash: '60470',
         shipperNameAndAccount: 'Bello Blossom LLC - M542365',
         extensionTime: '13:25',
         units: 3,
@@ -92,14 +94,28 @@ export default {
         requestDate: '20/12/2019 13:25'
       },
       {
-        extensionHash: 60470,
+        extensionHash: '60470',
         shipperNameAndAccount: 'Bello Blossom LLC - M542365',
         extensionTime: '13:25',
         units: 3,
         shipperContact: 8574125632,
         requestDate: '20/12/2019 13:25'
-      }]
+      }],
+      searchSummary: {
+        id: null,
+      }
     };
+  },
+  method: {
+    handleSortChange(data) {
+      let { prop } = data;
+      const { order } = data;
+      prop = constants.TABLES.ORDER_ENTRY.COLUMNS_MAP_SORT[prop] || prop;
+      this.$store.dispatch('orderEntry/search', {
+        orderField: prop,
+        orderDirection: constants.TABLES.ORDER_DIRECTION[order]
+      });
+    }
   }
 };
 </script>

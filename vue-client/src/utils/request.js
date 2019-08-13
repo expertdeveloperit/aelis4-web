@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Message, MessageBox, Loading } from 'element-ui';
-import constants from '@/utils/constants';
-import authService from '@/utils/auth/auth0Service';
+import constants from './constants';
+import authService from './auth/auth0Service';
 
 // axios
 const request = axios.create({
