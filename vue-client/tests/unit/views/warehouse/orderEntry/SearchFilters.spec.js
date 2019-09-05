@@ -1,12 +1,12 @@
 import ElementUI from 'element-ui';
 import { mount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
-import SearchFilters from '@/views/warehouse/orderEntry/SearchFilters';
-import store from '@/store';
-import i18n from '@/lang';
-import alphanumericValidation from '@/directives/alphanumericValidation';
+import SearchFilters from '../../../../../src/views/warehouse/orderEntry/SearchFilters';
+import store from '../../../../../src/store';
+import i18n from '../../../../../src/lang';
+import alphanumericValidation from '../../../../../src/directives/alphanumericValidation';
 
-describe('@/views/warehouse/orderEntry/SearchFilters', () => {
+describe('../../../../../src/views/warehouse/orderEntry/SearchFilters', () => {
   let localVue;
   beforeEach(() => {
     localVue = createLocalVue();

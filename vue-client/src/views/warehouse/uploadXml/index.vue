@@ -44,7 +44,6 @@ export default {
 .explanation-popover {
     display: none;
 }
-
 @media only screen and (max-width: 768px) {
   .explanation-container {
     display: none;

@@ -187,6 +187,15 @@ describe('@state/modules/warehouse/orderEntry print actions', () => {
     expect(response).toEqual(printResponse);
     expect.assertions(2);
   });
+
+  it('calls actions[orderEntry/printShippingManifest] normal flow', async () => {
+    const response = { data: 'blobfile' };
+    orderApiService.printShippingManifest = jest.fn().mockImplementation(() => Promise.resolve(response));
+    const printResponse = await store.dispatch('orderEntry/printShippingManifest');
+    expect(orderApiService.printShippingManifest).toHaveBeenCalled();
+    expect(response).toEqual(printResponse);
+    expect.assertions(2);
+  });
 });
 
 describe('@state/modules/warehouse/orderEntry delete actions', () => {
@@ -249,9 +258,10 @@ describe('@state/modules/warehouse/orderEntry get settings actions', () => {
   });
 
   it('calls actions[orderEntry/getCutoffLimitDate] successfully with margin', async () => {
-    const limitDateTime = moment().add(2, 'hours').format();
+    const cutoffDateTime = moment().add(2, 'Hours').format();
+    const currentDateTime = moment().format();
     const twoHoursMillisMargin = 7128000;
-    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: limitDateTime }));
+    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: { cutoffDateTime, currentDateTime } }));
     await store.dispatch(getCutoffLimitDateAction);
     expect(store.state.orderEntry.cutoff.limitDateMillis > twoHoursMillisMargin).toBe(true);
     expect(orderApiService.getCutoffLimitDate).toHaveBeenCalled();
@@ -259,8 +269,9 @@ describe('@state/modules/warehouse/orderEntry get settings actions', () => {
   });
 
   it('calls actions[orderEntry/getCutoffLimitDate] no data returned', async () => {
-    const limitDateTime = null;
-    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: limitDateTime }));
+    const cutoffDateTime = null;
+    const currentDateTime = null;
+    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: { cutoffDateTime, currentDateTime } }));
     await store.dispatch(getCutoffLimitDateAction);
     expect(store.state.orderEntry.cutoff.limitDateMillis).toBe(0);
     expect(orderApiService.getCutoffLimitDate).toHaveBeenCalled();
@@ -268,22 +279,24 @@ describe('@state/modules/warehouse/orderEntry get settings actions', () => {
   });
 
   it('calls actions[orderEntry/getCutoffLimitDateNewShipdate] 3 scenarios successfully', async () => {
+    // Test with the limit cutoff time is before the current date time.
     const shipDate = moment();
-    let limitDateTime = moment().subtract(1, 'day').format();
-    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: limitDateTime }));
+    let cutoffDateTime = moment().subtract(1, 'day').format();
+    const currentDateTime = moment().format();
+    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: { cutoffDateTime, currentDateTime } }));
     await store.dispatch(getCutoffLimitDateNewShipdateAction, shipDate);
     expect(store.state.orderEntry.cutoff.limitDateMillisNewShipDate).toBe(0);
     expect(orderApiService.getCutoffLimitDate).toHaveBeenCalled();
-
-    limitDateTime = moment().add(2, 'hours').format();
+    // Test with the limit cutoff time is after the current date time.
+    cutoffDateTime = moment().add(2, 'hours').format();
     const twoHoursMillisMargin = 7128000;
-    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: limitDateTime }));
+    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: { cutoffDateTime, currentDateTime } }));
     await store.dispatch(getCutoffLimitDateNewShipdateAction, shipDate);
     expect(store.state.orderEntry.cutoff.limitDateMillisNewShipDate > twoHoursMillisMargin).toBe(true);
     expect(orderApiService.getCutoffLimitDate).toHaveBeenCalled();
-
-    limitDateTime = null;
-    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: limitDateTime }));
+    // Test with a null API response.
+    cutoffDateTime = null;
+    orderApiService.getCutoffLimitDate = jest.fn().mockImplementation(() => Promise.resolve({ data: { cutoffDateTime, currentDateTime } }));
     await store.dispatch(getCutoffLimitDateNewShipdateAction, shipDate);
     expect(store.state.orderEntry.cutoff.limitDateMillisNewShipDate).toBe(0);
     expect(orderApiService.getCutoffLimitDate).toHaveBeenCalled();
@@ -295,5 +308,11 @@ describe('@state/modules/warehouse/orderEntry get settings actions', () => {
     const isCutoffClosed = true;
     await store.dispatch('orderEntry/setCutoffClosed', isCutoffClosed);
     expect(store.state.orderEntry.cutoff.isClosed).toBe(isCutoffClosed);
+  });
+
+  it('calls actions[orderEntry/setFilterShipDateDisabled] normal flow', async () => {
+    const filterShipDateDisabled = true;
+    await store.dispatch('orderEntry/setFilterShipDateDisabled', filterShipDateDisabled);
+    expect(store.state.orderEntry.filterShipDateDisabled).toBe(filterShipDateDisabled);
   });
 });

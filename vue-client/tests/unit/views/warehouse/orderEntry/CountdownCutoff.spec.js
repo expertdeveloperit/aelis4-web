@@ -15,7 +15,6 @@ describe('@/views/warehouse/orderEntry/CountdownCutoff', () => {
 
   it('Renders CountdownCutoff succesfully', () => {
     const element = mount(CountdownCutoff, { store, localVue, i18n });
-    console.log(element.html());
     expect(element.find('.count-down-piece').exists()).toBe(true);
     expect(element.find('.count-down-container').exists()).toBe(true);
     expect(element.find('.count-down-message').exists()).toBe(true);

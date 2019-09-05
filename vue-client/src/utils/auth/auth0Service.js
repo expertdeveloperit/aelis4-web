@@ -7,7 +7,7 @@ const webAuth = new auth0.WebAuth({
   redirectUri: `${window.location.origin}/callback`,
   clientID: process.env.VUE_APP_AUTH0_CLIENT_ID || 'test',
   responseType: 'token id_token',
-  scope: 'openid profile upload:dataEntry',
+  scope: 'openid profile email',
   audience: process.env.VUE_APP_AUDIENCE || 'test',
   leeway: 60
 });
@@ -33,8 +33,9 @@ class AuthService extends EventEmitter {
   login(customState) {
     webAuth.authorize({
       appState: customState || this.defaultState,
-      errorMessage: this.errorMessage
+      errorMessage: window.localStorage.getItem('auth0AutenticationErrorMessage')
     });
+    window.localStorage.setItem('auth0AutenticationErrorMessage', '');
   }
 
   logOut() {
@@ -59,8 +60,8 @@ class AuthService extends EventEmitter {
     return new Promise((resolve, reject) => {
       webAuth.parseHash((err, authResult) => {
         if (err) {
-          this.errorMessage = err.errorDescription;
-          this.login(err.state);
+          window.localStorage.setItem('auth0AutenticationErrorMessage', authConfig.errors[err.description] ? authConfig.errors[err.description].message : authConfig.errors[err.error].message);
+          this.logOut();
           reject(err);
         } else {
           this.localLogin(authResult);
@@ -154,6 +155,21 @@ class AuthService extends EventEmitter {
         } else {
           this.localLogin(authResult);
           resolve(authResult);
+        }
+      });
+    });
+  }
+
+  changePassword() {
+    return new Promise((resolve, reject) => {
+      webAuth.changePassword({
+        connection: authConfig.databaseConnection,
+        email: this.profile.email
+      }, (err, resp) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(resp);
         }
       });
     });

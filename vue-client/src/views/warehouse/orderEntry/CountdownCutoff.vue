@@ -69,6 +69,10 @@ export default {
     position: relative;
     color: #43425D;
     span:first-child {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
         margin-top: 5px;
         margin-bottom: 5px;
     }

@@ -6,6 +6,7 @@ import Navbar from '@/views/layout/components/Navbar';
 import store from '@/store';
 import i18n from '@/lang';
 import AuthPlugin from '@/plugins/auth';
+import authService from '@/utils/auth/auth0Service';
 
 describe('@/views/layout/Navbar', () => {
   let localVue;
@@ -54,5 +55,26 @@ describe('@/views/layout/Navbar', () => {
     // We tests that method logout calls the action.
     element.vm.handleLoginEvent({ loggedIn: false });
     expect(routerPushToHome).toHaveBeenCalled();
+  });
+
+  it(' Call handleChangePassword method successfully', async () => {
+    // Give this configuration:
+    const isGoogleAppsUser = false;
+    store.commit('SET_IS_GOOGLE_APPS_USER', isGoogleAppsUser);
+    const changePassword = jest.fn().mockImplementation(() => Promise.resolve({ message: 'Ok' }));
+    authService.changePassword = changePassword;
+    const confirm = jest.fn().mockImplementation(() => Promise.resolve(true));
+    const element = mount(Navbar, {
+      store, localVue, i18n
+    });
+    element.setData({
+      $confirm: confirm
+    });
+
+    // When the method change password is called.
+    await element.vm.handleChangePassword();
+
+    // Then the method authService.changePassword have to been called.
+    expect(changePassword).toHaveBeenCalled();
   });
 });

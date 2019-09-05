@@ -232,35 +232,8 @@
 187
 188
 189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+190</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -448,38 +421,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
   &lt;div&gt;
-    &lt;el-collapse v-show="uploadXmlResponse.activeElement.length" v-model="uploadXmlResponse.activeElement"&gt;
+    &lt;el-collapse v-show="uploadXmlResponse.details.length || uploadXmlResponse.header.errorMessage || uploadXmlResponse.header.fileName" v-model="uploadXmlResponse.activeElement"&gt;
     &lt;el-collapse-item :title="$t('uploadXmlFiles.xmlResponse')" name="xml-upload-response-collapsible" id="xml-upload-response-collapsible"&gt;
         &lt;div class="header-response" id="header-response"&gt;
             &lt;span class="response-field"&gt;{{ $t('common.orderNumberShort') }}: {{ uploadXmlResponse.header.orderNumber }}&lt;/span&gt;
@@ -494,55 +438,56 @@
           &lt;div v-if="uploadXmlResponse.header.errorMessage"&gt;&lt;i class="el-icon-warning yellow-warning"&gt;&lt;/i&gt; &amp;nbsp; &lt;span&gt;{{ uploadXmlResponse.header.errorMessage }}&lt;/span&gt;&lt;/div&gt;
           &lt;div v-if="!uploadXmlResponse.details.length &amp;&amp; !uploadXmlResponse.header.errorMessage &amp;&amp; uploadXmlResponse.header.fileName"&gt;&lt;i class="el-icon-success green-success"&gt;&lt;/i&gt;&amp;nbsp;&lt;span&gt;{{ $t('uploadXmlFiles.uploadSuccess') }}&lt;/span&gt;&lt;/div&gt;
         &lt;/div&gt;
-        &lt;el-table v-if="uploadXmlResponse.details.length"
-            id="response-data"
-            size="mini"
-            height="100%"
-            tooltip-effect="dark"
-            class="xml-table-response-data"
-            sortable
-            :data="uploadXmlResponse.details"&gt;
-            &lt;el-table-column
-                prop="consignee"
-                width="270"
-                :label="$t('common.consigneeAccount')"&gt;
-                &lt;template slot-scope="scope"&gt;
-                    &lt;span&gt; {{ scope.row.consignee_name }} - {{ scope.row.consignee }}&lt;/span&gt;
-                &lt;/template&gt;
-            &lt;/el-table-column&gt;
-            &lt;el-table-column
-                prop="unitsFailed"
-                width="100"
-                :label="$t('uploadXmlFiles.failedUnits')"&gt;
-            &lt;/el-table-column&gt;
-            &lt;el-table-column
-                prop="unitFailedDetail.unitID[0]"
-                width="120"
-                :label="$t('uploadXmlFiles.unitIds')"&gt;
-                &lt;template slot-scope="scope"&gt;
-                    &lt;span v-if="scope.row.unitFailedDetail.unitID.length === 1"&gt;{{scope.row.unitFailedDetail.unitID[0]}}&lt;/span&gt;
-                    &lt;template v-else&gt;
-                        &lt;el-popover
-                            placement="right"
-                            width="100"
-                            trigger="hover"&gt;
-                            &lt;el-table :data="scope.row.unitFailedDetail.unitID" max-height="500"&gt;
-                                &lt;el-table-column width="300" :label="$t('uploadXmlFiles.unitIds')"&gt;
-                                    &lt;template slot-scope="scopei"&gt;
-                                        {{scopei.row}}
-                                    &lt;/template&gt;
-                                &lt;/el-table-column&gt;
-                            &lt;/el-table&gt;
-                            &lt;el-button slot="reference" type="text" class="pop-over-unitIds-error"&gt;{{scope.row.unitFailedDetail.unitID[0]}}...&lt;/el-button&gt;
-                        &lt;/el-popover&gt;
+        &lt;div class="xml-table-response-data-container"&gt;
+            &lt;el-table v-if="uploadXmlResponse.details.length"
+                id="response-data"
+                size="mini"
+                tooltip-effect="dark"
+                class="xml-table-response-data"
+                sortable
+                :data="uploadXmlResponse.details"&gt;
+                &lt;el-table-column
+                    prop="consignee"
+                    width="270"
+                    :label="$t('common.consigneeAccount')"&gt;
+                    &lt;template slot-scope="scope"&gt;
+                        &lt;span&gt; {{ scope.row.consignee_name }} - {{ scope.row.consignee }}&lt;/span&gt;
                     &lt;/template&gt;
-                &lt;/template&gt;
-            &lt;/el-table-column&gt;
-            &lt;el-table-column
-                prop="message"
-                :label="$t('common.message')"&gt;
-            &lt;/el-table-column&gt;
-        &lt;/el-table&gt;
+                &lt;/el-table-column&gt;
+                &lt;el-table-column
+                    prop="unitsFailed"
+                    width="100"
+                    :label="$t('uploadXmlFiles.failedUnits')"&gt;
+                &lt;/el-table-column&gt;
+                &lt;el-table-column
+                    prop="unitFailedDetail.unitID[0]"
+                    width="120"
+                    :label="$t('uploadXmlFiles.unitIds')"&gt;
+                    &lt;template slot-scope="scope"&gt;
+                        &lt;span v-if="scope.row.unitFailedDetail.unitID.length === 1"&gt;{{scope.row.unitFailedDetail.unitID[0]}}&lt;/span&gt;
+                        &lt;template v-else&gt;
+                            &lt;el-popover
+                                placement="right"
+                                width="100"
+                                trigger="hover"&gt;
+                                &lt;el-table :data="scope.row.unitFailedDetail.unitID" max-height="500"&gt;
+                                    &lt;el-table-column width="300" :label="$t('uploadXmlFiles.unitIds')"&gt;
+                                        &lt;template slot-scope="scopei"&gt;
+                                            {{scopei.row}}
+                                        &lt;/template&gt;
+                                    &lt;/el-table-column&gt;
+                                &lt;/el-table&gt;
+                                &lt;el-button slot="reference" type="text" class="pop-over-unitIds-error"&gt;{{scope.row.unitFailedDetail.unitID[0]}}...&lt;/el-button&gt;
+                            &lt;/el-popover&gt;
+                        &lt;/template&gt;
+                    &lt;/template&gt;
+                &lt;/el-table-column&gt;
+                &lt;el-table-column
+                    prop="message"
+                    :label="$t('common.message')"&gt;
+                &lt;/el-table-column&gt;
+            &lt;/el-table&gt;
+        &lt;/div&gt;
     &lt;/el-collapse-item&gt;
     &lt;/el-collapse&gt;
 &lt;/div&gt;
@@ -590,15 +535,21 @@ export default {
 }
 &nbsp;
 .header-response-message {
+  position: sticky;
   div {
     padding-top: 10px;
   }
 }
-&nbsp;
-.xml-table-response-data.el-table th.is-leaf{
-    font-size: 11px;
-    color: rgba(0, 51, 91, 1);
-    border-bottom: 2px solid rgba(0, 51, 91, 1);
+.xml-table-response-data-container {
+    height: 100%;
+    overflow: auto;
+    .xml-table-response-data.el-table {
+        th.is-leaf{
+            font-size: 11px;
+            color: rgba(0, 51, 91, 1);
+            border-bottom: 2px solid rgba(0, 51, 91, 1);
+        }
+    }
 }
 &nbsp;
 .pop-over-unitIds-error {
@@ -608,7 +559,7 @@ export default {
 &nbsp;
 .upload-response {
   margin-top: 17px;
-  height: 280px;
+  height: 100%;
   .el-collapse-item__wrap {
       height: 100%;
   }
@@ -620,43 +571,8 @@ export default {
   }
   .el-collapse-item__content {
       height: 100%;
+      overflow: scroll
   }
-}
-// These media queries can be improved
-@media only screen and (max-height: 540px) {
-    .upload-response {
-        height: 100%;
-    }
-}
-&nbsp;
-@media only screen and (min-height: 768px) {
-    .upload-response {
-        height: 470px;
-    }
-}
-&nbsp;
-@media only screen and (min-height: 830px) {
-    .upload-response {
-        height: 470px;
-    }
-}
-&nbsp;
-@media only screen and (min-height: 990px) {
-    .upload-response {
-        height: 700px;
-    }
-}
-&nbsp;
-@media only screen and (max-height: 640px) and (max-width: 320px) {
-    .upload-response {
-        height: 370px;
-    }
-}
-&nbsp;
-@media only screen and (max-height: 320px) and (max-width: 640px) {
-    .upload-response {
-        height: 280px;
-    }
 }
 &nbsp;
 @media only screen and (max-width: 830px) {
@@ -700,7 +616,7 @@ export default {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 26 2019 15:55:50 GMT+0530 (IST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 30 2019 15:10:57 GMT+0530 (IST)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

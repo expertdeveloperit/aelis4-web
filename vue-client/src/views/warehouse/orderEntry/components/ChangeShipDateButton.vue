@@ -1,6 +1,6 @@
 <template>
-<span v-if="isVisible()">
-    <el-button id="btn-change-ship-date" class="btn-change-ship-date" type="success" plain @click="dialogVisible = true" size="mini">{{ $t('warehouse.orderEntry.changeShipDate') }}</el-button>
+<span v-show="isVisible()">
+    <el-link id="btn-change-ship-date" class="btn-change-ship-date" @click="dialogVisible = true" size="mini" :underline="false">{{ $t('warehouse.orderEntry.changeShipDate') }}</el-link>
     <el-dialog
       :close-on-click-modal="false"
       v-on:open="handleOpen"
@@ -9,7 +9,9 @@
       width="32%"
       id="change-ship-date-dialog"
       :before-close="handleClose">
-      <el-form :model="changeShipDateform" :rules="formRules" ref="changeShipDateform" label-position="right" size="mini" inline class="text-align-center">
+      <el-form :model="changeShipDateform" :rules="formRules" ref="changeShipDateform" label-position="right" size="mini" inline class="text-align-end">
+          <el-row>
+            <el-col class="form-vertical-item">
             <el-form-item :label="$t('warehouse.orderEntry.newShipDate')" prop="newShipDate">
                 <el-date-picker
                 v-model="changeShipDateform.newShipDate"
@@ -19,6 +21,8 @@
                 id="changeShipDateform-new-ship-date">
                 </el-date-picker>
             </el-form-item>
+            </el-col>
+          </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false" size="mini">{{ $t('common.cancel') }}</el-button>
@@ -37,7 +41,8 @@ import constants from '@/utils/constants';
 export default {
   computed: {
     ...mapGetters([
-      'orderEntry'
+      'orderEntry',
+      'hasOrderConsolidations'
     ])
   },
   data() {
@@ -60,11 +65,14 @@ export default {
     },
     handleOpen() {
       this.changeShipDateform.newShipDate = null;
+      const currentShipDate = moment(this.orderEntry.actualFilters.shipDate, 'YYYY-MM-DD');
       const shipDateFutureDays = this.orderEntry.settings[constants.SETTINGS.shipDateFutureDays];
       this.shipDatePickerOptions = {
         disabledDate(time) {
-          return moment(time.getTime()).isSameOrBefore(Date.now(), 'day')
-          || moment(time.getTime()).isAfter(moment().add(shipDateFutureDays || 0, 'days'), 'day');
+          const momentTime = moment(time.getTime());
+          return momentTime.isBefore(moment(), 'day')
+          || momentTime.isAfter(moment().add(shipDateFutureDays || 0, 'days'), 'day')
+          || currentShipDate.isSame(momentTime, 'days');
         }
       };
       this.$nextTick(() => {
@@ -125,15 +133,18 @@ export default {
       });
     },
     isVisible() {
-      const hasOrderConsolidations = this.orderEntry.list && this.orderEntry.list.length > 0;
       const hasChangeShipDatePermission = this.$can(this.permissions.DATA_ENTRY.CHANGE_SHIP_DATE);
-      return hasOrderConsolidations && hasChangeShipDatePermission;
+      return this.hasOrderConsolidations && hasChangeShipDatePermission;
     }
   }
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-.btn-change-ship-date {
-  margin-right: 10px;
+#btn-change-ship-date {
+  color: #008d00;
+}
+
+.text-align-end {
+  text-align: end;
 }
 </style>

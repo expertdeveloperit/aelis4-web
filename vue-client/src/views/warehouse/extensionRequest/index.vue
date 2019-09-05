@@ -22,20 +22,22 @@
       </el-row>
       <div class="block pag">
         <span class="demonstration"></span>
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="currentPage3"
-          :page-size="10"
-          layout="prev,pager, next, jumper"
-          :total="10"
-        ></el-pagination>
+         <el-pagination v-show="orderEntry.total > 0"
+      @size-change="handleSearchChangeLimit"
+      :page-sizes="sizes"
+      :page-size="orderEntry.actualFilters.rows"
+      :current-page.sync="orderEntry.actualFilters.page"
+      @current-change="handleSearchChangePage"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="orderEntry.total">
+    </el-pagination>
       </div>
     </div>
   </span>
 </template>
 <script>
 
+import { mapGetters } from 'vuex';
 import SearchFilter from './SearchFilters';
 import SearchSummary from './SearchSummary';
 
@@ -44,6 +46,11 @@ export default {
   components: {
     SearchFilter,
     SearchSummary
+  },
+  computed: {
+    ...mapGetters([
+      'orderEntry'
+    ])
   },
   methods: {
     handleSizeChange(val) {
@@ -55,7 +62,8 @@ export default {
   },
   data() {
     return {
-      currentPage3: 1
+      currentPage3: 1,
+      ip: ''
     };
   }
 };
@@ -123,6 +131,4 @@ export default {
       font-size: 12px;
 }
 }
-
-
 </style>

@@ -1,6 +1,6 @@
 <template>
-<span v-if="orderEntry.list && orderEntry.list.length > 0">
-    <el-button id="btn-print-massive" class="button-print-massive" type="success" plain @click="handlePrint" size="mini">{{ $t('warehouse.orderEntry.printLabels') }}</el-button>
+<span v-show="hasOrderConsolidations">
+    <el-link id="btn-print-massive" class="button-print-massive" @click="handlePrint" size="mini" :underline="false">{{ $t('warehouse.orderEntry.printLabels') }}</el-link>
 </span>
 </template>
 
@@ -10,7 +10,7 @@ import { mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters([
-      'orderEntry'
+      'hasOrderConsolidations'
     ])
   },
   data() {
@@ -25,7 +25,7 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-.button-print-massive {
-  margin-right: 10px;
+#btn-print-massive {
+  color: #008d00;
 }
 </style>

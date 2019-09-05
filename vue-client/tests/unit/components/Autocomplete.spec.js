@@ -44,24 +44,29 @@ describe('@/views/warehouse/Autocomplete', () => {
     expect(inputAttributes.popperclass === 'autocomplete-popper').toBe(true);
   });
 
-  it('Calls querySearchAsync Autocomplete succesfully', () => {
+  it('Calls querySearchAsync Autocomplete succesfully', async () => {
+    const cb = jest.fn();
+    const data = [{ value: 1 }];
     const element = mount(Autocomplete, {
       propsData: {
         model: autocompleteModel, url, labelField, valueField
       },
       localVue
     });
-    autocompleteApiService.getList = jest.fn().mockImplementation(() => Promise.resolve({ data: [{ value: 1 }] }));
-    element.vm.querySearchAsync('ACT');
+    autocompleteApiService.getList = jest.fn().mockImplementation(() => Promise.resolve({ data }));
+    await element.vm.querySearchAsync('ACT', cb);
     expect(autocompleteApiService.getList).toHaveBeenCalled();
+    expect(cb).toHaveBeenCalledWith(data);
 
     // No resutls
     autocompleteApiService.getList = jest.fn().mockImplementation(() => Promise.resolve({ data: [] }));
-    element.vm.querySearchAsync('ACT');
+    await element.vm.querySearchAsync('ACT', cb);
     expect(autocompleteApiService.getList).toHaveBeenCalled();
+    expect(cb).toHaveBeenCalledWith([]);
   });
 
   it('Calls handleSelect Autocomplete succesfully', () => {
+    const selectAction = jest.fn();
     const element = mount(Autocomplete, {
       propsData: {
         model: autocompleteModel,
@@ -69,14 +74,54 @@ describe('@/views/warehouse/Autocomplete', () => {
         labelField,
         valueField,
         valueFieldAdditional,
-        labelfieldSelected
+        labelfieldSelected,
+        selectAction
       },
-      localVue
+      localVue,
+      sync: false
     });
     const emit = jest.fn();
     element.setData({ $emit: emit });
     element.vm.handleSelect(itemSelected);
     expect(emit).toHaveBeenCalledTimes(2);
+    expect(selectAction).toHaveBeenCalledWith(itemSelected);
+    expect.assertions(2);
+  });
+
+  it('Calls clearAll Autocomplete succesfully', () => {
+    const emit = jest.fn();
+    const clearAction = jest.fn();
+    const eventEmited = 'update:model';
+    const element = mount(Autocomplete, {
+      propsData: {
+        model: autocompleteModel,
+        url,
+        labelField,
+        valueField,
+        clearAction
+      },
+      localVue
+    });
+    element.setData({ $emit: emit });
+    element.vm.clearAll();
+    expect(emit).toHaveBeenCalledWith(eventEmited, null);
+    expect(clearAction).toHaveBeenCalled();
+    expect.assertions(2);
+  });
+
+  it('Calls setLocalModel and getLocalModel Autocomplete succesfully', () => {
+    const localModel = 12;
+    const element = mount(Autocomplete, {
+      propsData: {
+        model: autocompleteModel,
+        url,
+        labelField,
+        valueField
+      },
+      localVue
+    });
+    element.vm.setLocalModel(localModel);
+    expect(element.vm.getLocalModel()).toEqual(localModel);
   });
 
   it('Calls clearParentModel Autocomplete succesfully and call keyEnterAction', () => {
@@ -91,7 +136,8 @@ describe('@/views/warehouse/Autocomplete', () => {
         valueFieldAdditional,
         labelfieldSelected
       },
-      localVue
+      localVue,
+      sync: false
     });
     const emit = jest.fn();
     element.setData({ $emit: emit });

@@ -1,7 +1,7 @@
 <template>
   <div class="height-100-p">
     <el-form :model="editForm" :rules="editFormRules" ref="editForm">
-      <el-table
+    <el-table
         :data="orderEntry.list"
         v-loading="orderEntry.loadingSearch"
         id="order-data-list"
@@ -11,394 +11,337 @@
         class="dark-blue-table"
         :empty-text="$t('common.notAbleToFindRecords')"
         @sort-change="handleSortChange"
-        stripe
-      >
+        stripe>
         <el-table-column
-          prop="orderNumber"
-          sortable="custom"
-          :min-width="15"
-          align="center"
-          :label="$t('warehouse.orderEntry.orderNumberShort')"
-        >
-          <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" :content="scope.row.orderNumber" placement="top">
-              <span>{{ scope.row.orderNumber }}</span>
-            </el-tooltip>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="consignee"
-          sortable="custom"
-          :min-width="30"
-          :label="$t('warehouse.orderEntry.consignee')"
-        >
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="consigneeAccountId">
-                <autocomplete
-                  :model.sync="editForm.consigneeAccountId"
-                  :shipperAccountId="orderEntry.settings.shipperAccountId"
-                  labelFieldLastWithDash="number"
-                  popperAppendToBody
-                  :url="urlConsignee"
-                  labelField="name"
-                  valueField="id"
-                  id="row-consignee"
-                  ref="row-consignee"
-                />
-              </el-form-item>
-            </template>
-            <template v-else>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                :content="`${scope.row.consigneeName} - ${ scope.row.consigneeAccount }`"
-                placement="top"
-              >
-                <span>{{ scope.row.consigneeName }} - {{ scope.row.consigneeAccount }}</span>
+            prop="orderNumber"
+            sortable="custom"
+            :min-width="15"
+            align="center"
+            :label="$t('warehouse.orderEntry.orderNumberShort')">
+             <template slot-scope="scope">
+              <el-tooltip class="item" effect="dark" :content="scope.row.orderNumber" placement="top">
+                <span> {{ scope.row.orderNumber }} </span>
               </el-tooltip>
             </template>
-          </template>
         </el-table-column>
         <el-table-column
-          :min-width="10"
-          prop="unitOfMeasure"
-          :label="$t('warehouse.orderEntry.unitOfMeasureShort')"
-        >
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="unitOfMeasureName">
-                <el-select
-                  v-model="editForm.unitOfMeasureName"
-                  id="row-unitOfMeasureName"
-                  ref="row-unitOfMeasureName"
-                  size="mini"
-                >
-                  <el-option
-                    v-for="item in unitOfMeasureOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
+            prop="consignee"
+            sortable="custom"
+            :min-width="30"
+            :label="$t('warehouse.orderEntry.consignee')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="consigneeAccountId">
+                  <autocomplete
+                      :model.sync="editForm.consigneeAccountId"
+                      :shipperAccountId="orderEntry.settings.shipperAccountId"
+                      labelFieldLastWithDash="number"
+                      popperAppendToBody
+                      :url="urlConsignee"
+                      labelField="name"
+                      valueField="id"
+                      id="row-consignee"
+                      ref="row-consignee" />
+                </el-form-item>
+              </template>
+              <template v-else>
+                <el-tooltip class="item" effect="dark" :content="`${scope.row.consigneeName} - ${ scope.row.consigneeAccount }`" placement="top">
+                  <span> {{ scope.row.consigneeName }} - {{ scope.row.consigneeAccount }}</span>
+                </el-tooltip>
+              </template>
             </template>
-            <span v-else>{{scope.row.unitOfMeasureName}}</span>
-          </template>
         </el-table-column>
         <el-table-column
-          :min-width="8"
-          prop="numberUnits"
-          :label="$t('warehouse.orderEntry.numberOfUnitsShort')"
-        >
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit && scope.row.status !== finalizedId">
-              <el-form-item prop="numberUnits">
-                <el-input-number
-                  v-model="editForm.numberUnits"
-                  v-numeric-validation
-                  :precision="0"
-                  :min="1"
-                  :max="999"
-                  :maxlength="3"
-                  :controls="false"
-                  size="mini"
-                  class="inline-input width-100p"
-                  id="row-number-units"
-                ></el-input-number>
-              </el-form-item>
+            :min-width="10"
+            prop="unitOfMeasure"
+            :label="$t('warehouse.orderEntry.unitOfMeasureShort')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="unitOfMeasureName">
+                  <el-select v-model="editForm.unitOfMeasureName" id="row-unitOfMeasureName" ref="row-unitOfMeasureName" size="mini">
+                    <el-option
+                        v-for="item in unitOfMeasureOptions"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                  </el-select>
+                </el-form-item>
+              </template>
+              <span v-else>{{scope.row.unitOfMeasureName}}</span>
             </template>
-            <span v-else>{{scope.row.numberUnits}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :min-width="10" prop="measure" :label="$t('warehouse.orderEntry.measure')">
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="measure">
-                <el-select
-                  v-model="editForm.measure"
-                  id="row-measure"
-                  ref="row-measure"
-                  size="mini"
-                >
-                  <el-option
-                    v-for="item in measureOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </template>
-            <span v-else>{{scope.row.measure}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="length" :min-width="8" :label="$t('warehouse.orderEntry.length')">
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="length">
-                <el-input-number
-                  v-model="editForm.length"
-                  v-numeric-validation
-                  :controls="false"
-                  :precision="3"
-                  :min="0"
-                  :max="999.999"
-                  size="mini"
-                  class="inline-input width-100p"
-                  id="row-length"
-                  ref="row-length"
-                ></el-input-number>
-              </el-form-item>
-            </template>
-            <span v-else>{{scope.row.length}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="width" :min-width="8" :label="$t('warehouse.orderEntry.width')">
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="width">
-                <el-input-number
-                  v-model="editForm.width"
-                  v-numeric-validation
-                  :controls="false"
-                  :precision="3"
-                  :min="0"
-                  :max="999.999"
-                  size="mini"
-                  class="inline-input width-100p"
-                  id="row-width"
-                  ref="row-width"
-                ></el-input-number>
-              </el-form-item>
-            </template>
-            <span v-else>{{scope.row.width}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="height" :min-width="8" :label="$t('warehouse.orderEntry.height')">
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="height">
-                <el-input-number
-                  v-model="editForm.height"
-                  v-numeric-validation
-                  :controls="false"
-                  :precision="3"
-                  :min="0"
-                  :max="999.999"
-                  size="mini"
-                  class="inline-input width-100p"
-                  id="row-height"
-                  ref="row-height"
-                ></el-input-number>
-              </el-form-item>
-            </template>
-            <span v-else>{{scope.row.height}}</span>
-          </template>
         </el-table-column>
         <el-table-column
-          :min-width="10"
-          prop="productCode"
-          :label="$t('warehouse.orderEntry.product')"
-        >
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="productCode">
-                <autocomplete
-                  :model.sync="editForm.productCode"
-                  :modelAdditional.sync="editForm.productDescription"
+            :min-width="8"
+            prop="numberUnits"
+            :label="$t('warehouse.orderEntry.numberOfUnitsShort')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit && scope.row.status !== finalizedId">
+                <el-form-item prop="numberUnits">
+                  <el-input-number
+                      v-model="editForm.numberUnits"
+                      v-numeric-validation
+                      :precision="0"
+                      :min="1" :max="999"
+                      :maxlength="3"
+                      :controls="false"
+                      size="mini"
+                      class="inline-input width-100p"
+                      id="row-number-units"
+                      ></el-input-number>
+                  </el-form-item>
+               </template>
+              <span v-else>{{scope.row.numberUnits}}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+            :min-width="10"
+            prop="measure"
+            :label="$t('warehouse.orderEntry.measure')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="measure">
+                  <el-select v-model="editForm.measure" id="row-measure" ref="row-measure" size="mini">
+                      <el-option
+                      v-for="item in measureOptions"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                      </el-option>
+                  </el-select>
+                </el-form-item>
+               </template>
+              <span v-else>{{scope.row.measure}}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+            prop="length"
+            :min-width="8"
+            :label="$t('warehouse.orderEntry.length')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="length">
+                  <el-input-number
+                      v-model="editForm.length"
+                      v-numeric-validation
+                      :controls="false"
+                      :precision="2"
+                      :min="0" :max="999.99"
+                      size="mini"
+                      class="inline-input width-100p"
+                      id="row-length"
+                      ref="row-length"
+                      ></el-input-number>
+                </el-form-item>
+              </template>
+              <span v-else>{{scope.row.length}}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+            prop="width"
+            :min-width="8"
+            :label="$t('warehouse.orderEntry.width')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="width">
+                  <el-input-number
+                      v-model="editForm.width"
+                      v-numeric-validation
+                      :controls="false"
+                      :precision="2"
+                      :min="0" :max="999.99"
+                      size="mini"
+                      class="inline-input width-100p"
+                      id="row-width"
+                      ref="row-width"
+                      ></el-input-number>
+                </el-form-item>
+              </template>
+              <span v-else>{{scope.row.width}}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+            prop="height"
+            :min-width="8"
+            :label="$t('warehouse.orderEntry.height')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="height">
+                  <el-input-number
+                      v-model="editForm.height"
+                      v-numeric-validation
+                      :controls="false"
+                      :precision="2"
+                      :min="0" :max="999.99"
+                      size="mini"
+                      class="inline-input width-100p"
+                      id="row-height"
+                      ref="row-height"
+                      ></el-input-number>
+                </el-form-item>
+              </template>
+              <span v-else>{{scope.row.height}}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+            :min-width="10"
+            prop="productCode"
+            :label="$t('warehouse.orderEntry.product')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="productCode">
+                  <autocomplete
+                    :model.sync="editForm.productCode"
+                    :modelAdditional.sync="editForm.productDescription"
+                    popperAppendToBody
+                    :strict="false"
+                    :url="urlProduct"
+                    labelField="code"
+                    labelFieldLastWithDash="description"
+                    labelfieldSelected="code"
+                    valueField="code"
+                    valueFieldAdditional="description"
+                    :maxlength="5"
+                    id="row-productCode"
+                    ref="row-productCode"
+                    />
+                </el-form-item>
+              </template>
+              <span v-else>{{scope.row.productCode}}</span>
+            </template>
+        </el-table-column>
+        <el-table-column
+            prop="productDescription"
+            sortable="custom"
+            :min-width="23"
+            :label="$t('warehouse.orderEntry.productDescription')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="productDescription">
+                  <el-input
+                      v-model="editForm.productDescription"
+                      v-alphanumeric-validation
+                      clearable
+                      maxlength="30"
+                      size="mini"
+                      class="inline-input"
+                      id="row-product-description"
+                      ref="row-product-description"
+                  ></el-input>
+                </el-form-item>
+              </template>
+              <template v-else>
+                <el-tooltip class="item" effect="dark" :content="scope.row.productDescription" placement="top">
+                  <span> {{ scope.row.productDescription }} </span>
+                </el-tooltip>
+              </template>
+            </template>
+        </el-table-column>
+        <el-table-column
+            :min-width="8"
+            prop="poNumber"
+            :label="$t('warehouse.orderEntry.poNumber')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="poNumber">
+                  <el-input
+                    v-model="editForm.poNumber"
+                    v-alphanumeric-validation
+                    clearable
+                    maxlength="25"
+                    size="mini"
+                    class="inline-input"
+                    id="row-po-number"
+                    ref="row-po-number"
+                    ></el-input>
+                </el-form-item>
+              </template>
+              <template v-else>
+                <el-tooltip class="item" effect="dark" :content="scope.row.poNumber" placement="top">
+                  <span> {{ scope.row.poNumber }} </span>
+                </el-tooltip>
+              </template>
+            </template>
+        </el-table-column>
+        <el-table-column
+            :min-width="15"
+            prop="farmName"
+            :label="$t('warehouse.orderEntry.farmBroker')">
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-form-item prop="farmName">
+                  <autocomplete
+                  :model.sync="editForm.farmName"
                   popperAppendToBody
                   :strict="false"
-                  :url="urlProduct"
-                  labelField="description"
-                  labelfieldSelected="code"
-                  valueField="code"
-                  valueFieldAdditional="description"
-                  :maxlength="5"
-                  id="row-productCode"
-                  ref="row-productCode"
-                />
-              </el-form-item>
-            </template>
-            <span v-else>{{scope.row.productCode}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="productDescription"
-          sortable="custom"
-          :min-width="20"
-          :label="$t('warehouse.orderEntry.productDescription')"
-        >
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="productDescription">
-                <el-input
-                  v-model="editForm.productDescription"
-                  v-alphanumeric-validation
-                  clearable
-                  maxlength="30"
-                  size="mini"
-                  class="inline-input"
-                  id="row-product-description"
-                  ref="row-product-description"
-                ></el-input>
-              </el-form-item>
-            </template>
-            <template v-else>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                :content="scope.row.productDescription"
-                placement="top"
-              >
-                <span>{{ scope.row.productDescription }}</span>
-              </el-tooltip>
-            </template>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :min-width="8"
-          prop="poNumber"
-          :label="$t('warehouse.orderEntry.poNumber')"
-        >
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="poNumber">
-                <el-input
-                  v-model="editForm.poNumber"
-                  v-alphanumeric-validation
-                  clearable
-                  maxlength="25"
-                  size="mini"
-                  class="inline-input"
-                  id="row-po-number"
-                  ref="row-po-number"
-                ></el-input>
-              </el-form-item>
-            </template>
-            <template v-else>
-              <el-tooltip class="item" effect="dark" :content="scope.row.poNumber" placement="top">
-                <span>{{ scope.row.poNumber }}</span>
-              </el-tooltip>
-            </template>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :min-width="15"
-          prop="farmName"
-          :label="$t('warehouse.orderEntry.farmBroker')"
-        >
-          <template slot-scope="scope">
-            <template v-if="scope.row.edit">
-              <el-form-item prop="poNumber">
-                <el-input
-                  v-model="editForm.farmName"
-                  v-alphanumeric-validation
-                  maxlength="25"
-                  size="mini"
-                  class="inline-input"
+                  :url="urlFarmName"
+                  labelField="name"
+                  labelfieldSelected="name"
+                  valueField="id"
+                  valueFieldAdditional="name"
+                  :maxlength="100"
                   id="row-farm-broker"
                   ref="row-farm-broker"
-                ></el-input>
-              </el-form-item>
+                  />
+                  </el-form-item>
+              </template>
+              <template v-else>
+                <el-tooltip class="item" effect="dark" :content="scope.row.farmName" placement="top">
+                  <span> {{ scope.row.farmName }} </span>
+                </el-tooltip>
+              </template>
             </template>
-            <template v-else>
-              <el-tooltip class="item" effect="dark" :content="scope.row.farmName" placement="top">
-                <span>{{ scope.row.farmName }}</span>
-              </el-tooltip>
-            </template>
-          </template>
         </el-table-column>
         <el-table-column
-          align="center"
-          :min-width="9"
-          prop="status"
-          :label="$t('warehouse.orderEntry.finalized')"
-        >
-          <template slot-scope="scope">
-            <span v-if="scope.row.status === finalizedId">
-              <i class="el-icon-success green-success"></i>
-            </span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :min-width="15"
-          :label="$t('common.options')"
-          align="center"
-          class-name="fixed-width"
-        >
-          <template slot-scope="scope">
-            <el-tooltip
-              v-if="showEditButton(scope.row.status)"
-              class="item"
-              effect="dark"
-              :content="$t('warehouse.orderEntry.edit')"
-              placement="top-start"
-            >
-              <i class="el-icon-edit icon-action" @click="handleEdit(scope.row)"></i>
-            </el-tooltip>
-            <template v-else-if="scope.row.edit">
-              <el-button icon="el-icon-success" circle size="mini" @click="handleUpdate()"></el-button>
-              <el-button
-                icon="el-icon-circle-close"
-                circle
-                size="mini"
-                @click="cancelEdit(scope.row)"
-              ></el-button>
+            align="center"
+            :min-width="9"
+            prop="status"
+            :label="$t('warehouse.orderEntry.finalized')">
+            <template slot-scope="scope">
+             <span class="icon-status-span">
+                <i  v-if="scope.row.status === finalizedId" class="el-icon-success green-success"></i>
+             </span>
+             <span class="icon-status-span">
+               <el-tooltip v-if="scope.row.lastExtensionNumber" class="item" effect="dark" :content="`${extensionStatus[scope.row.lastExtensionStatus].name} - ${scope.row.lastExtensionNumber}`" placement="top-start">
+                  <i class="far fa-clock"  :class="extensionStatus[scope.row.lastExtensionStatus].colorCssClass"></i>
+               </el-tooltip>
+             </span>
             </template>
-            <template v-if="!scope.row.edit">
-              <el-tooltip
-                v-if="scope.row.status === finalizedId"
-                class="item"
-                effect="dark"
-                :content="$t('warehouse.orderEntry.details')"
-                placement="top-start"
-              >
-                <units-detail-dialog :unitsConsolidateId="scope.row.id" />
-              </el-tooltip>
-              <el-tooltip
-                v-if="scope.row.status === finalizedId"
-                :unitsConsolidateId="scope.row.id"
-                class="item"
-                effect="dark"
-                :content="$t('warehouse.orderEntry.print')"
-                placement="top-start"
-              >
-                <print-unit-consolidate-label
-                  :unitsConsolidateId="scope.row.id"
-                  :labelPrinted.sync="scope.row.labelPrinted"
-                />
-              </el-tooltip>
-              <el-tooltip
-                v-if="showDeleteButton(scope.row.status)"
-                class="item"
-                effect="dark"
-                :content="$t('warehouse.orderEntry.delete')"
-                placement="top-start"
-              >
-                <i
-                  class="el-icon-delete icon-action"
-                  type="primary"
-                  size="mini"
-                  @click="handleDelete(scope.row.id, scope.row.numberUnits, scope.row.shipDate)"
-                ></i>
-              </el-tooltip>
-            </template>
-          </template>
         </el-table-column>
-      </el-table>
+         <el-table-column  :min-width="15" :label="$t('common.options')" align="center" class-name="fixed-width">
+           <template slot-scope="scope">
+              <el-tooltip v-if="showEditButton(scope.row.status)" class="item" effect="dark" :enterable="false" :content="$t('warehouse.orderEntry.edit')" placement="top-start">
+                <i class="el-icon-edit icon-action" @click="handleEdit(scope.row)"></i>
+              </el-tooltip>
+              <template v-else-if="scope.row.edit">
+                <el-button icon="el-icon-success" circle size="mini" @click="handleUpdate()"></el-button>
+                <el-button icon="el-icon-circle-close" circle size="mini" @click="cancelEdit(scope.row)"></el-button>
+              </template>
+              <template v-if="!scope.row.edit">
+                <el-tooltip v-if="scope.row.status === finalizedId" class="item" effect="dark" :enterable="false" :content="$t('warehouse.orderEntry.details')" placement="top-start">
+                  <units-detail-dialog :unitsConsolidateId="scope.row.id"/>
+                </el-tooltip>
+                <el-tooltip v-if="scope.row.status === finalizedId" :unitsConsolidateId="scope.row.id" class="item" effect="dark" :enterable="false" :content="$t('warehouse.orderEntry.print')" placement="top-start">
+                  <print-unit-consolidate-label :unitsConsolidateId="scope.row.id" :labelPrinted.sync="scope.row.labelPrinted" />
+                </el-tooltip>
+                <el-tooltip v-if="showDeleteButton(scope.row.status)" class="item" effect="dark" :enterable="false" :content="$t('warehouse.orderEntry.delete')" placement="top-start">
+                  <i class="el-icon-delete icon-action" type="primary" size="mini" @click="handleDelete(scope.row.id, scope.row.numberUnits, scope.row.shipDate)"></i>
+                </el-tooltip>
+              </template>
+           </template>
+        </el-table-column>
+    </el-table>
     </el-form>
-    <el-pagination
-      v-show="orderEntry.total > 0"
+     <el-pagination v-show="orderEntry.total > 0"
       @size-change="handleSearchChangeLimit"
       :page-sizes="sizes"
       :page-size="orderEntry.actualFilters.rows"
       :current-page.sync="orderEntry.actualFilters.page"
       @current-change="handleSearchChangePage"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="orderEntry.total"
-    ></el-pagination>
-  </div>
+      :total="orderEntry.total">
+    </el-pagination>
+</div>
 </template>
 
 <script>
@@ -415,13 +358,13 @@ export default {
   name: 'TableSummary',
   components: { Autocomplete, UnitsDetailDialog, PrintUnitConsolidateLabel },
   computed: {
-    ...mapGetters(['orderEntry'])
+    ...mapGetters([
+      'orderEntry'
+    ])
   },
   filters: {
     statusFilterType(id) {
-      return constants.ORDER_ENTRY.ORDER_STATUS.find(
-        status => status.value === id
-      ).typeCss;
+      return constants.ORDER_ENTRY.ORDER_STATUS.find(status => status.value === id).typeCss;
     }
   },
   data() {
@@ -443,32 +386,16 @@ export default {
       },
       editFormRules: {
         consigneeAccountId: [
-          {
-            required: true,
-            message: this.$t('warehouse.orderEntry.error.consigneeRequired'),
-            trigger: 'submit'
-          }
+          { required: true, message: this.$t('warehouse.orderEntry.error.consigneeRequired'), trigger: 'submit' }
         ],
         length: [
-          {
-            required: true,
-            message: this.$t('warehouse.orderEntry.error.lengthRequired'),
-            trigger: 'blur'
-          }
+          { required: true, message: this.$t('warehouse.orderEntry.error.lengthRequired'), trigger: 'blur' }
         ],
         width: [
-          {
-            required: true,
-            message: this.$t('warehouse.orderEntry.error.widthRequired'),
-            trigger: 'blur'
-          }
+          { required: true, message: this.$t('warehouse.orderEntry.error.widthRequired'), trigger: 'blur' }
         ],
         height: [
-          {
-            required: true,
-            message: this.$t('warehouse.orderEntry.error.heightRequired'),
-            trigger: 'blur'
-          }
+          { required: true, message: this.$t('warehouse.orderEntry.error.heightRequired'), trigger: 'blur' }
         ]
       },
       finalizedId: constants.ORDER_ENTRY.ORDER_STATUS[2].value,
@@ -476,7 +403,9 @@ export default {
       measureOptions: constants.ORDER_ENTRY.MEASURE_LIST,
       urlConsignee: apiConstants.END_POINTS.ACCOUNTS.CONSIGNEE_BY_SHIPPER,
       urlProduct: apiConstants.END_POINTS.PRODUCT_SEARCH,
-      sizes: constants.TABLES.DEFAULT_LIMIT_SIZES
+      sizes: constants.TABLES.DEFAULT_LIMIT_SIZES,
+      extensionStatus: constants.ORDER_ENTRY.EXTENSION_STATUS,
+      urlFarmName: apiConstants.END_POINTS.ACCOUNTS.FARM_NAME_SEARCH
     };
   },
   methods: {
@@ -484,19 +413,13 @@ export default {
       this.$store.dispatch('orderEntry/search', { page: val });
     },
     handleSearchChangeLimit(val) {
-      this.$store.dispatch('orderEntry/search', {
-        rows: val,
-        page: constants.TABLES.DEFAULT_PAGE
-      });
+      this.$store.dispatch('orderEntry/search', { rows: val, page: constants.TABLES.DEFAULT_PAGE });
     },
     handleSortChange(data) {
       let { prop } = data;
       const { order } = data;
       prop = constants.TABLES.ORDER_ENTRY.COLUMNS_MAP_SORT[prop] || prop;
-      this.$store.dispatch('orderEntry/search', {
-        orderField: prop,
-        orderDirection: constants.TABLES.ORDER_DIRECTION[order]
-      });
+      this.$store.dispatch('orderEntry/search', { orderField: prop, orderDirection: constants.TABLES.ORDER_DIRECTION[order] });
     },
     handleEdit(row) {
       this.$store.dispatch('orderEntry/setEditingRow', true);
@@ -517,24 +440,18 @@ export default {
       this.editForm.farmName = row.farmName;
       this.editForm.status = row.status;
       this.$nextTick(() => {
-        this.$refs['row-consignee'].setLocalModel(
-          `${row.consigneeName} - ${row.consigneeAccount}`
-        );
+        this.$refs['row-consignee'].setLocalModel(`${row.consigneeName} - ${row.consigneeAccount}`);
         this.$refs['row-productCode'].setLocalModel(row.productCode);
+        this.$refs['row-farm-broker'].setLocalModel(row.farmName);
         if (this.$refs['row-consignee'].$el) {
-          this.$refs['row-consignee'].$el
-            .getElementsByTagName('input')[0]
-            .focus();
+          this.$refs['row-consignee'].$el.getElementsByTagName('input')[0].focus();
         }
       });
     },
     async handleUpdate() {
       const minValue = this.orderEntry.settings.minCubesPerBox;
-      let {
-        length, height, width
-      } = this.editForm;
-      const { measure } = this.editForm;
-
+      let { length, height, width } = this.editForm;
+      const { measure } = this.editForm.measure;
       if (measure === constants.ORDER_ENTRY.MEASURE_LIST[1].value) {
         length *= constants.ORDER_ENTRY.CONST_VALUE;
         width *= constants.ORDER_ENTRY.CONST_VALUE;
@@ -547,11 +464,6 @@ export default {
         const confirm = await this.$confirm(message, { confirmButtonText: this.$t('OK') });
         if (confirm) { return this.getSubmitForm(); }
         return false;
-      } if (volume > constants.ORDER_ENTRY.MAX_VALUE) {
-        let message = this.$t('warehouse.orderEntry.error.maxValueValidationError');
-        message = message.replace('[minValue]', minValue).replace('[max_value]', constants.ORDER_ENTRY.MAX_VALUE);
-        this.$message.warning(message);
-        return false;
       }
       return this.getSubmitForm();
     },
@@ -560,6 +472,7 @@ export default {
       this.$refs.editForm.resetFields();
       this.$refs['row-consignee'].clearLocalModel();
       this.$refs['row-productCode'].clearLocalModel();
+      this.$refs['row-farm-broker'].clearLocalModel();
     },
     cancelEdit(row) {
       row.edit = false;
@@ -568,59 +481,33 @@ export default {
     handleDelete(id, numberUnits, shipDate) {
       let message = this.$t('warehouse.orderEntry.deleteConfirmation');
       message = message.replace('[numberUnits]', numberUnits);
-      message = message.replace(
-        '[shipDate]',
-        moment(shipDate, constants.DATES.DEFAULT_BACKEND_FORMAT).format(
-          constants.DATES.DEFAULT_DISPLAY_FORMAT
-        )
-      );
-      return this.$confirm(message, {
-        confirmButtonText: this.$t('common.yes')
-      })
+      message = message.replace('[shipDate]', moment(shipDate, constants.DATES.DEFAULT_BACKEND_FORMAT).format(constants.DATES.DEFAULT_DISPLAY_FORMAT));
+      return this.$confirm(message, { confirmButtonText: this.$t('common.yes') })
         .then(() => {
           Message.closeAll();
-          const loading = this.$loadingthis.orderEntry(constants.LOADING.DEFAULT_CONFIG);
-          this.$storethis.orderEntry
-            .dispatch('orderEntry/deletthis.orderEntrye', id)
-            .then((response) => {
-              loading.close();
-              this.$message.success(response.message);
-              this.$store.dispatch('orderEntry/search', {});
-            })
-            .catch(() => {
-              loading.close();
-            });
+          const loading = this.$loading(constants.LOADING.DEFAULT_CONFIG);
+          this.$store.dispatch('orderEntry/delete', id).then((response) => {
+            loading.close();
+            this.$message.success(response.message);
+            this.$store.dispatch('orderEntry/search', {});
+          }).catch(() => {
+            loading.close();
+          });
         })
         .catch(() => {});
     },
     showEditButton(orderStatus) {
-      const hasEditPermission = this.$can(
-        this.permissions.DATA_ENTRY.EDIT_AFTER_CUTOFF_FINALIZED, orderStatus
-      )
-        || this.$can(
-          this.permissions.DATA_ENTRY.EDIT_AFTER_CUTOFF_PENDING, orderStatus
-        )
-        || this.$can(
-          this.permissions.DATA_ENTRY.EDIT_BEFORE_CUTOFF_FINALIZED, orderStatus
-        )
-        || this.$can(
-          this.permissions.DATA_ENTRY.EDIT_BEFORE_CUTOFF_PENDING, orderStatus
-        );
+      const hasEditPermission = this.$can(this.permissions.DATA_ENTRY.EDIT_AFTER_CUTOFF_FINALIZED, orderStatus)
+           || this.$can(this.permissions.DATA_ENTRY.EDIT_AFTER_CUTOFF_PENDING, orderStatus)
+           || this.$can(this.permissions.DATA_ENTRY.EDIT_BEFORE_CUTOFF_FINALIZED, orderStatus)
+           || this.$can(this.permissions.DATA_ENTRY.EDIT_BEFORE_CUTOFF_PENDING, orderStatus);
       return !this.orderEntry.isEditingRow && hasEditPermission;
     },
     showDeleteButton(orderStatus) {
-      const hasDeletePermission = this.$can(
-        this.permissions.DATA_ENTRY.DELETE_AFTER_CUTOFF_FINALIZED, orderStatus
-      )
-        || this.$can(
-          this.permissions.DATA_ENTRY.DELETE_AFTER_CUTOFF_PENDING, orderStatus
-        )
-        || this.$can(
-          this.permissions.DATA_ENTRY.DELETE_BEFORE_CUTOFF_FINALIZED, orderStatus
-        )
-        || this.$can(
-          this.permissions.DATA_ENTRY.DELETE_BEFORE_CUTOFF_PENDING, orderStatus
-        );
+      const hasDeletePermission = this.$can(this.permissions.DATA_ENTRY.DELETE_AFTER_CUTOFF_FINALIZED, orderStatus)
+           || this.$can(this.permissions.DATA_ENTRY.DELETE_AFTER_CUTOFF_PENDING, orderStatus)
+           || this.$can(this.permissions.DATA_ENTRY.DELETE_BEFORE_CUTOFF_FINALIZED, orderStatus)
+           || this.$can(this.permissions.DATA_ENTRY.DELETE_BEFORE_CUTOFF_PENDING, orderStatus);
       return hasDeletePermission;
     },
     getSubmitForm() {
@@ -653,7 +540,7 @@ export default {
         }
       });
     }
-  }
+  },
 };
 </script>
 

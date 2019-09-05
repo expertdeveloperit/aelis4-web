@@ -22,12 +22,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>16/16</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>16/16</span>
       </div>
     </div>
   </div>
@@ -117,7 +117,58 @@
 72
 73
 74
-75</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,6 +208,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,12 +222,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,19 +284,29 @@
     &lt;/el-row&gt;
     &lt;el-row :gutter="20" type="flex" align="stretch"&gt;
       &lt;el-col :span="24" &gt;
-        &lt;div class="order-table-container bg-white"&gt;
+        &lt;div class="order-table-container bg-white" v-if="!orderEntry.isCreatingExtension"&gt;
           &lt;div class="default-section-header"&gt;
             &lt;div class="default-section-title"&gt; {{ $t('warehouse.orderEntry.orderSummary') }} &lt;/div&gt;
             &lt;div class="default-section-actions"&gt;
-              &lt;print-massive-button /&gt;
-              &lt;change-ship-date-button /&gt;
+              &lt;el-button id="btn-extension-request" class="button-extension-request" type="success" plain @click="extensionRequest" size="mini" v-if="showExtensionRequestButton()"&gt;{{ $t('warehouse.orderEntry.extensions.extensionRequest') }}&lt;/el-button&gt;
               &lt;finalize-shipments-button /&gt;
               &lt;add-dialog-button /&gt;
+              &lt;el-dropdown id="more-actions-dropdown" v-show="hasOrderConsolidations"&gt;
+                &lt;el-button class="button-more-actions" type="success" plain size="mini"&gt;{{ $t('common.moreActions') }}&lt;i class="el-icon-arrow-down el-icon--right" /&gt;&lt;/el-button&gt;
+                &lt;el-dropdown-menu slot="dropdown"&gt;
+                  &lt;el-dropdown-item&gt;&lt;change-ship-date-button ref="change" /&gt;&lt;/el-dropdown-item&gt;
+                  &lt;el-dropdown-item&gt;&lt;print-massive-button ref="massive" /&gt;&lt;/el-dropdown-item&gt;
+                  &lt;el-dropdown-item&gt;&lt;print-shipping-manifest ref="manifest" /&gt;&lt;/el-dropdown-item&gt;
+                &lt;/el-dropdown-menu&gt;
+              &lt;/el-dropdown&gt;
             &lt;/div&gt;
           &lt;/div&gt;
           &lt;div class="order-table"&gt;
             &lt;table-summary /&gt;
           &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div v-else&gt;
+          &lt;table-summary-extensions /&gt;
         &lt;/div&gt;
       &lt;/el-col&gt;
     &lt;/el-row&gt;
@@ -223,14 +315,19 @@
 &lt;/template&gt;
 &nbsp;
 &lt;script&gt;
+import moment from 'moment';
+import { mapGetters } from 'vuex';
 import ShipperList from '@/components/ShipperList';
 import AddDialogButton from './components/AddDialog';
 import FinalizeShipmentsButton from './components/FinalizeShipmentsButton';
 import SearchFilters from './SearchFilters';
 import CountdownCutoff from './CountdownCutoff';
 import TableSummary from './TableSummary';
+import TableSummaryExtensions from './TableSummaryExtensions';
 import ChangeShipDateButton from './components/ChangeShipDateButton';
 import PrintMassiveButton from './components/PrintMassiveButton';
+import constants from '@/utils/constants';
+import PrintShippingManifest from './components/PrintShippingManifest';
 &nbsp;
 export default {
   name: 'orderEntry',
@@ -239,15 +336,33 @@ export default {
     FinalizeShipmentsButton,
     SearchFilters,
     TableSummary,
+    TableSummaryExtensions,
     CountdownCutoff,
     ChangeShipDateButton,
     PrintMassiveButton,
-    ShipperList
+    ShipperList,
+    PrintShippingManifest
+  },
+  computed: {
+    ...mapGetters([
+      'orderEntry',
+      'hasOrderConsolidations'
+    ])
   },
   data() {
     return {
       actionSelectChained: ['orderEntry/getSettings', 'orderEntry/search', 'orderEntry/getCutoffLimitDate']
     };
+  },
+  methods: {
+    extensionRequest() {
+      this.$store.dispatch('orderEntry/setIsCreatingExtension', true);
+    },
+    showExtensionRequestButton() {
+      // If shipdate is today and cutoffHourForToday is not null then show button.
+      return this.hasOrderConsolidations &amp;&amp; this.orderEntry.settings.cutoffHourForToday &amp;&amp; this.orderEntry.actualFilters.shipDate
+              &amp;&amp; moment(this.orderEntry.actualFilters.shipDate).format(constants.DATES.DEFAULT_DISPLAY_FORMAT) === moment().format(constants.DATES.DEFAULT_DISPLAY_FORMAT);
+    }
   }
 };
 &lt;/script&gt;
@@ -264,6 +379,14 @@ export default {
     padding-right: 15px;
   }
 }
+&nbsp;
+.button-extension-request {
+  margin-right: 10px;
+}
+&nbsp;
+.button-more-actions  {
+  margin-left: 10px;
+}
 &lt;/style&gt;
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -271,7 +394,7 @@ export default {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 26 2019 15:55:50 GMT+0530 (IST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 30 2019 15:10:57 GMT+0530 (IST)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

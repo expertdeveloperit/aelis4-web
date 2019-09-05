@@ -1,51 +1,48 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <title>Code coverage report for views/warehouse/orderEntry/SearchFilters.vue</title>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="../../../prettify.css" />
-  <link rel="stylesheet" href="../../../base.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style type='text/css'>
-    .coverage-summary .sorter {
-      background-image: url(../../../sort-arrow-sprite.png);
-    }
-  </style>
+    <title>Code coverage report for views/warehouse/orderEntry/SearchFilters.vue</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
 </head>
-
 <body>
-  <div class='wrapper'>
-    <div class='pad1'>
-      <h1>
-        <a href="../../../index.html">All files</a> / <a href="index.html">views/warehouse/orderEntry</a>
-        SearchFilters.vue
-      </h1>
-      <div class='clearfix'>
-        <div class='fl pad1y space-right2'>
-          <span class="strong">94.12% </span>
-          <span class="quiet">Statements</span>
-          <span class='fraction'>16/17</span>
-        </div>
-        <div class='fl pad1y space-right2'>
-          <span class="strong">50% </span>
-          <span class="quiet">Branches</span>
-          <span class='fraction'>1/2</span>
-        </div>
-        <div class='fl pad1y space-right2'>
-          <span class="strong">50% </span>
-          <span class="quiet">Functions</span>
-          <span class='fraction'>1/2</span>
-        </div>
-        <div class='fl pad1y space-right2'>
-          <span class="strong">94.12% </span>
-          <span class="quiet">Lines</span>
-          <span class='fraction'>16/17</span>
-        </div>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">views/warehouse/orderEntry</a> SearchFilters.vue
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.12% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>16/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>1/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.12% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>16/17</span>
       </div>
     </div>
-    <div class='status-line high'></div>
-    <pre><table class="coverage">
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -231,7 +228,13 @@
 183
 184
 185
-186</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+186
+187
+188
+189
+190
+191</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -336,7 +339,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -366,13 +372,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -438,6 +445,7 @@
                         format="MM/dd/yyyy"
                         v-model="searchForm.shipDate"
                         :picker-options="orderEntry.shipDatePickerOptions"
+                        :disabled="orderEntry.filterShipDateDisabled"
                         type="date"
                         id="searchForm-ship-date"&gt;
                         &lt;/el-date-picker&gt;
@@ -478,7 +486,7 @@
                            :shipperAccountId="orderEntry.settings.shipperAccountId"
                            valueField="id" id="searchForm-consignee"
                            ref="filter-consignee"/&gt;
-                            &lt;el-tooltip class="item" effect="dark" :content="$t('warehouse.orderEntry.addConsignee')" placement="top-start"&gt;
+                            &lt;el-tooltip class="item" effect="dark" :enterable="false" :content="$t('warehouse.orderEntry.addConsignee')" placement="top-start"&gt;
                               &lt;add-consignee-shipper-button /&gt;
                             &lt;/el-tooltip&gt;
                     &lt;/el-form-item&gt;
@@ -493,7 +501,7 @@
                         &lt;/el-select&gt;
                     &lt;/el-form-item&gt;
                     &lt;span&gt;
-                      &lt;el-tooltip class="item" effect="dark" :content="$t('warehouse.orderEntry.search')" placement="top-start"&gt;
+                      &lt;el-tooltip class="item" effect="dark" :enterable="false" :content="$t('warehouse.orderEntry.search')" placement="top-start"&gt;
                         &lt;el-button id="form-search-button" @click="handleSearch" icon="el-icon-search" size="mini" class="button-action-default"&gt;&lt;/el-button&gt;
                       &lt;/el-tooltip&gt;
                     &lt;/span&gt;
@@ -511,6 +519,9 @@ import Autocomplete from '@/components/Autocomplete';
 import AddConsigneeShipperButton from './components/AddConsigneeShipperButton';
 import authRoles from '@/utils/auth/roles';
 &nbsp;
+/**
+ * Search Filters Component, on Mount Set the first STATE actualFilters for search.
+ * */
 export default {
   name: 'SearchFilters',
   components: { Autocomplete, AddConsigneeShipperButton },
@@ -557,6 +568,7 @@ export default {
       // Asign the option myOrders value the name of the current user if user is shipper.
 <span class="cstat-no" title="statement not covered" >      this.searchForm.createdByUsername = this.user.name;</span>
     }
+    // Set the first STATE actualFilters for search.
     this.$store.dispatch('orderEntry/setSummaryFilters', this.searchForm);
   }
 };
@@ -601,28 +613,23 @@ export default {
 }
 }
 &lt;/style&gt;
-&nbsp;</pre>
-    </td>
-    </tr>
-    </table>
-    </pre>
-    <div class='push'></div><!-- for sticky footer -->
-  </div><!-- /wrapper -->
-  <div class='footer quiet pad2 space-top1 center small'>
-    Code coverage
-    generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 26 2019 15:55:50 GMT+0530
-    (IST)
-  </div>
-  </div>
-  <script src="../../../prettify.js"></script>
-  <script>
-    window.onload = function () {
-      if (typeof prettyPrint === 'function') {
-        prettyPrint();
-      }
-    };
-  </script>
-  <script src="../../../sorter.js"></script>
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 30 2019 15:10:57 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
 </body>
-
 </html>

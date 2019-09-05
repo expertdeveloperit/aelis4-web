@@ -16,7 +16,8 @@
       drag
       :show-file-list="false"
       :action="url"
-      :headers="headers"
+      :headers="{shipperAccountNumber: user.shipperAccountNumber,
+                  Authorization: authorization}"
       :on-success="handleSuccess"
       :on-progress="handleProgress"
       :on-error="handleError"
@@ -55,14 +56,13 @@ export default {
       actualFileProcessed: false,
       url: '',
       templateExampleUrl: '',
-      headers: {}
+      authorization: null
     };
   },
   mounted() {
     this.url = `${process.env.VUE_APP_BASE_API}/data-entry/shipment/upload`;
     this.templateExampleUrl = `${process.env.VUE_APP_BUCKET_ROOT}xml-upload-template.xml`;
-    this.headers.Authorization = `Bearer ${authService.accessToken}`;
-    this.headers.shipperAccountNumber = this.user.shipperAccountNumber;
+    this.authorization = `Bearer ${authService.accessToken}`;
   },
   methods: {
     handleSuccess(response, file) {
@@ -85,9 +85,10 @@ export default {
       }
       this.uploadProgress = fileList[0].percentage;
     },
-    handleError() {
+    handleError(error) {
       this.processing = false;
-      this.$message.error(this.$t('common.errorServer'));
+      const message = JSON.parse(error.message);
+      this.$message.error(message.message || this.$t('common.errorServer'));
     },
     handleBeforeUpload(file) {
       const isXML = file.type === 'text/xml';
@@ -118,11 +119,13 @@ export default {
   justify-content: center;
   align-items: center;
   &-mini {
+    position: relative;
     height: 16%;
     -webkit-transition: height 1s; /* For Safari 3.1 to 6.0 */
     transition: height 1s;
   }
   &-max {
+    position: absolute;
     height: 70%;
     -webkit-transition: height 1s; /* For Safari 3.1 to 6.0 */
     transition: height 1s;

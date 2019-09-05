@@ -16,7 +16,8 @@ describe('@state/modules/app', () => {
   let localVue;
   const userInfo = {
     name: 'aelis4TestUser',
-    picture: 'https://s.gravatar.com/avatar/d3a5da950bcee4157f93be2823d2671c?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdr.png'
+    picture: 'https://s.gravatar.com/avatar/d3a5da950bcee4157f93be2823d2671c?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fdr.png',
+    sub: 'google-apps|kometsales@armellini.com'
   };
   userInfo[authConfig.groupsNamespace] = ['SHIPPER01'];
   userInfo[authConfig.rolesNamespace] = ['Internal'];
@@ -44,10 +45,11 @@ describe('@state/modules/app', () => {
       expect(store.state.permissions).toEqual(userInfo[authConfig.permissionsNamespace]);
       expect(store.state.groups).toEqual(userInfo[authConfig.groupsNamespace]);
       expect(store.state.shipperAccountNumber).toEqual(userInfo[authConfig.groupsNamespace][0]);
+      expect(store.state.isGoogleAppsUser).toBe(true);
       userInfo[authConfig.groupsNamespace] = null;
       store.dispatch('setUserInfo', userInfo);
       expect(store.state.groups).toEqual(userInfo[authConfig.groupsNamespace]);
-      expect.assertions(7);
+      expect.assertions(8);
     });
 
     it('actions.signUp calls api successfully and sets correct state', async () => {

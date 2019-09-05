@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for store/modules/warehouse/extensionRequest.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">store/modules/warehouse</a> extensionRequest.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.71% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>2/35</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.88% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>2/34</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import moment from 'moment';
+import constants from '../../../utils/constants';
+import extensionService from '../../../api/extensionService';
+&nbsp;
+const searchSection = ['search-section'];
+&nbsp;
+const extensionRequest = {
+  namespaced: true,
+  state: {
+    actualFilters: {
+      shipper: '',
+      aelTerminal: null,
+      receivingdate: null,
+      status: null,
+      extensionNo: null,
+      dropdownData: null
+    },
+    loadingSearch: false,
+    filtersOpen: searchSection,
+    shipDatePickerOptions: {
+      disabledDate(time) {
+<span class="cstat-no" title="statement not covered" >        return moment(time.getTime()).isBefore(Date.now(), 'day');</span>
+      }
+    },
+    actualFiltersUnits: {
+      rows: constants.TABLES.DEFAULT_LIMIT,
+      page: constants.TABLES.DEFAULT_PAGE,
+      pageResults: true
+    },
+    searchUnitResponse: {},
+    headerUnitList: {},
+    list: [],
+    total: 0
+  },
+  mutations: {
+    SET_UNIT_DETAILS: <span class="fstat-no" title="function not covered" >(s</span>tate, { data, filters }) =&gt; {
+<span class="cstat-no" title="statement not covered" >      state.actualFiltersUnits = filters;</span>
+<span class="cstat-no" title="statement not covered" >      state.headerUnitList = data.extensions;</span>
+<span class="cstat-no" title="statement not covered" >      state.searchUnitResponse = data.extensionConsolidate;</span>
+    },
+    SET_LOADING: <span class="fstat-no" title="function not covered" >(s</span>tate, loadingSearch) =&gt; {
+<span class="cstat-no" title="statement not covered" >      state.loadingSearch = loadingSearch;</span>
+    }
+  },
+  actions: {
+    search({ commit, state }, filters) {
+<span class="cstat-no" title="statement not covered" >      commit('SET_LOADING', true);</span>
+<span class="cstat-no" title="statement not covered" >      commit('SET_EDIT', false);</span>
+      const filtersUpdated = <span class="cstat-no" title="statement not covered" >Object.assign(state.actualFilters, filters);</span>
+<span class="cstat-no" title="statement not covered" >      return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        filtersUpdated.extensionNumber = filtersUpdated.extensionNumber ? filtersUpdated.extensionNumber.trim() : null;</span>
+<span class="cstat-no" title="statement not covered" >        filtersUpdated.shipDate = filtersUpdated.shipDate || new Date();</span>
+<span class="cstat-no" title="statement not covered" >        extensionService.search(filtersUpdated).then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {</span>
+          const { data, totalRows } = <span class="cstat-no" title="statement not covered" >response;</span>
+<span class="cstat-no" title="statement not covered" >          commit('SET_ORDERS', { ordersList: data, total: totalRows, filters: filtersUpdated });</span>
+<span class="cstat-no" title="statement not covered" >          commit('SET_LOADING', false);</span>
+<span class="cstat-no" title="statement not covered" >          resolve(data);</span>
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+<span class="cstat-no" title="statement not covered" >          commit('SET_ORDERS', [], 0, filtersUpdated);</span>
+<span class="cstat-no" title="statement not covered" >          commit('SET_LOADING', false);</span>
+<span class="cstat-no" title="statement not covered" >          reject(error);</span>
+        });
+      });
+    },
+    findUnits({ commit, state }, filters) {
+<span class="cstat-no" title="statement not covered" >      commit('SET_LOADING', true);</span>
+<span class="cstat-no" title="statement not covered" >      return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+        const filtersToSend = <span class="cstat-no" title="statement not covered" >Object.assign(state.actualFiltersUnits, filters);</span>
+<span class="cstat-no" title="statement not covered" >        extensionService.findUnits(filtersToSend).then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {</span>
+          const { data } = <span class="cstat-no" title="statement not covered" >response;</span>
+<span class="cstat-no" title="statement not covered" >          console.log('Response data', response.data);</span>
+<span class="cstat-no" title="statement not covered" >          commit('SET_UNIT_DETAILS', { data, filters: filtersToSend });</span>
+<span class="cstat-no" title="statement not covered" >          commit('SET_LOADING', false);</span>
+<span class="cstat-no" title="statement not covered" >          resolve(response);</span>
+        }).catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+<span class="cstat-no" title="statement not covered" >          commit('SET_UNIT_DETAILS', { data: {}, filters: {} });</span>
+<span class="cstat-no" title="statement not covered" >          commit('SET_LOADING', false);</span>
+<span class="cstat-no" title="statement not covered" >          reject(error);</span>
+        });
+      });
+    },
+  },
+  async getWarehouseCodes() {
+<span class="cstat-no" title="statement not covered" >    extensionService.getWarehouse().then(<span class="fstat-no" title="function not covered" >re</span>sponse =&gt; <span class="cstat-no" title="statement not covered" >response.data.data)</span>;</span>
+  }
+};
+&nbsp;
+export default extensionRequest;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 30 2019 15:10:57 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

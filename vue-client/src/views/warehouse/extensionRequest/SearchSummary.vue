@@ -1,120 +1,189 @@
 <template>
   <div class="height-100-p">
-    <el-table
-      :data="tableData"
-      id="extension-data-list"
-      size="mini"
-      tooltip-effect="dark"
-      sortable
-      class="dark-blue-table"
-      :empty-text="$t('common.notAbleToFindRecords')"
-      @sort-change="handleSortChange"
-      stripe
-    >
-      <el-table-column
-        prop="extensionHash"
-        sortable="custom"
-        :label="$t('extensionRequest.extensionHash')"
-        width="150px"
-        align="center"
+    <el-form :model="editForm" ref="editForm">
+      <el-table
+        :data="constants.EXTENSION_REQUEST.SUMMARY_DATA"
+        id="extension-data-list"
+        size="mini"
+        tooltip-effect="dark"
+        sortable
+        class="dark-blue-table"
+        :empty-text="$t('common.notAbleToFindRecords')"
+        @sort-change="handleSortChange(data)"
+        stripe
       >
-        <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" :content="scope.row.extensionHash" placement="top">
-            <span>1234</span>
-          </el-tooltip>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="shipperNameAndAccount"
-        :label="$t('extensionRequest.shipperNameAndAccount')"
-        :min-width="10"
-      >
-        <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" :content="scope.row.orderNumber" placement="top">
-            <span>Bello Blossom LLC - M542365</span>
-          </el-tooltip>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="extensionTime"
-        :label="$t('extensionRequest.extensionTime')"
-        :min-width="5"
-      >
-        <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" :content="scope.row.orderNumber" placement="top">
-            <span>13:25</span>
-          </el-tooltip>
-        </template>
-      </el-table-column>
-      <el-table-column prop="units" :label="$t('extensionRequest.units')" :min-width="5">
-        <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" :content="scope.row.orderNumber" placement="top">
-            <span>3</span>
-          </el-tooltip>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="shipperContact"
-        :label="$t('extensionRequest.shipperContact')"
-        :min-width="8"
-      ></el-table-column>
-      <el-table-column
-        prop="requestDate"
-        :label="$t('extensionRequest.requestDate')"
-        :min-width="8"
-      ></el-table-column>
-      <el-table-column prop="status" :label="$t('extensionRequest.status')" :min-width="4">
-        <v-icon class="clockimg">
-          <img src="@/assets/svg/Status-Clock.svg" alt="Status-Clock" />
-        </v-icon>
-      </el-table-column>
-      <el-table-column prop="options" :label="$t('extensionRequest.options ')" :min-width="4">
-        <extension-details-dialog />
-      </el-table-column>
-    </el-table>
+        <el-table-column
+          prop="extensionHash"
+          sortable="custom"
+          :label="$t('extensionRequest.extensionHash')"
+          width="150px"
+          align="center"
+        >
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="scope.row.extensionHash"
+              placement="top"
+            >
+              <span>{{ scope.row.extensionHash }}</span>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="shipperNameAndAccount"
+          :label="$t('extensionRequest.shipperNameAndAccount')"
+          :min-width="10"
+        >
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="scope.row.shipperNameAndAccount"
+              placement="top"
+            >
+              <span>{{ scope.row.shipperNameAndAccount }}</span>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="extensionTime"
+          :label="$t('extensionRequest.extensionTime')"
+          :min-width="5"
+        >
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="scope.row.extensionTime"
+              placement="top"
+            >
+              <span>{{ scope.row.extensionTime }}</span>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column prop="units" :label="$t('extensionRequest.units')" :min-width="5">
+          <template slot-scope="scope">
+            <el-tooltip class="item" effect="dark" :content="scope.row.units" placement="top">
+              <span>{{ scope.row.units }}</span>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="shipperContact"
+          :label="$t('extensionRequest.shipperContact')"
+          :min-width="8"
+        >
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="scope.row.shipperContact"
+              placement="top"
+            >
+              <span>{{ scope.row.shipperContact }}</span>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <div class="request-Date">
+          <el-table-column
+            prop="requestDate"
+            :label="$t('extensionRequest.requestDate')"
+            :min-width="8"
+          ></el-table-column>
+        </div>
+        <el-table-column prop="status" :label="$t('extensionRequest.status')" :min-width="8">
+          <template slot-scope="scope">
+            <v-icon class="clockimg">
+              <img
+                v-if="scope.row.status === constants.EXTENSION_REQUEST.EXTENSIONS_STATUS[0].value"
+                src="@/assets/svg/Status-Clock.svg"
+                alt="Status-Clock"
+              />
+              <img
+                v-if="scope.row.status === constants.EXTENSION_REQUEST.EXTENSIONS_STATUS[1].value"
+                src="@/assets/svg/Approved-Logo.svg"
+                alt="Approved-Logo"
+              />
+              <img
+                v-if="scope.row.status === constants.EXTENSION_REQUEST.EXTENSIONS_STATUS[2].value"
+                src="@/assets/svg/Deny-Logo.svg"
+                alt="Deny-Logo"
+              />
+            </v-icon>
+          </template>
+        </el-table-column>
+        <el-table-column prop="options" :label="$t('extensionRequest.options ')" :min-width="4">
+          <template>
+            <extension-details-dialog :extensionNo="scope.row.extensionHash" />
+            <extension-details-dialog :extensionNo="scope.row.number" />
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-form>
+    <el-pagination
+      v-show="extensionRequest.total > 0"
+      @size-change="handleSearchChangeLimit"
+      :page-sizes="sizes"
+      :page-size="extensionRequest.actualFilters.rows"
+      :current-page.sync="extensionRequest.actualFilters.page"
+      @current-change="handleSearchChangePage"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="extensionRequest.total"
+    ></el-pagination>
   </div>
 </template>
 <script>
-import ExtensionDetailsDialog from './extensionDetailsDialog';
+import { mapGetters } from 'vuex';
 import constants from '@/utils/constants';
+import ExtensionDetailsDialog from './extensionDetailsDialog';
 
 export default {
   name: 'SearchSummary',
   components: {
     ExtensionDetailsDialog
   },
+  computed: {
+    ...mapGetters(['extensionRequest'])
+  },
   data() {
     return {
-      tableData: [{
-        extensionHash: '60470',
-        shipperNameAndAccount: 'Bello Blossom LLC - M542365',
-        extensionTime: '13:25',
-        units: 3,
-        shipperContact: 8574125632,
-        requestDate: '20/12/2019 13:25'
+      editForm: {
+        shipper: '',
+        aelTerminal: '',
+        receivingdate: new Date(),
+        status: constants.EXTENSION_REQUEST.EXTENSIONS_STATUS[0].value,
+        extensionNo: null,
+        img: null
       },
-      {
-        extensionHash: '60470',
-        shipperNameAndAccount: 'Bello Blossom LLC - M542365',
-        extensionTime: '13:25',
-        units: 3,
-        shipperContact: 8574125632,
-        requestDate: '20/12/2019 13:25'
-      }],
-      searchSummary: {
-        id: null,
-      }
+      constants
     };
   },
+  created() {
+    if (constants.EXTENSION_REQUEST.EXTENSIONS_STATUS[0].value === 0) {
+      this.img = '@/assets/svg/Status-Clock.svg'
+    } else if (constants.EXTENSION_REQUEST.EXTENSIONS_STATUS[0].value === 1) {
+      this.img = '@/assets/svg/Status-Clock.svg';
+    } else {
+      this.img = '@/assets/svg/Status-Clock.svg';
+    }
+  },
   method: {
+    handleSearchChangePage(val) {
+      this.$store.dispatch('extensionRequest/search', { page: val });
+    },
+    handleSearchChangeLimit(val) {
+      this.$store.dispatch('extensionRequest/search', { rows: val, page: constants.TABLES.DEFAULT_PAGE });
+    },
     handleSortChange(data) {
       let { prop } = data;
       const { order } = data;
-      prop = constants.TABLES.ORDER_ENTRY.COLUMNS_MAP_SORT[prop] || prop;
-      this.$store.dispatch('orderEntry/search', {
-        orderField: prop,
-        orderDirection: constants.TABLES.ORDER_DIRECTION[order]
-      });
+      prop = constants.TABLES.EXTENSION_REQUEST.COLUMNS_MAP_SORT[prop] || prop;
+      this.$store.dispatch('extensionRequest/search', { orderField: prop, orderDirection: constants.TABLES.ORDER_DIRECTION[order] });
+    },
+    handleSearch() {
+     this.editForm.status =  this.$refs['filter-status'].getLocalModel();
+     this.$store.dispatch('extensionRequest/search', this.editForm);
     }
   }
 };
@@ -127,7 +196,6 @@ export default {
   th {
     text-align: center ;
   }
-
 }
 .is-scrolling-none {
    td {
@@ -147,35 +215,13 @@ export default {
     }
    }
 }
-#search-form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .consignee-filter {
-        width: 65%;
-        white-space: nowrap;
-        .el-form-item__content {
-            width: calc(100% - 95px);
-            .el-autocomplete {
-              width: calc(100% - 54px);
-            }
-        }
-    }
-    .el-date-editor {
-      width: 140px;
-    }
-    .inline-input {
-      width: 140px;
-    }
-    .el-select {
-      width: 140px;
-    }
-    #form-search-button {
-      margin-right: 10px;
-    }
+#height-100-p {
+    .request-Date {
+       font-weight: 600;
+       }
 }
 @media only screen and (min-width: 1680px) {
-#search-form {
+#height-100-p {
     .consignee-filter {
         width: 725px;
         .el-form-item__content {

@@ -108,6 +108,10 @@ a:active {
   width: 85%;
 }
 
+.margin-t-4 {
+  margin-top: 4px;
+}
+
 .margin-t-38 {
   margin-top: 38px;
 }
@@ -213,6 +217,9 @@ a:active {
 .red-armellini {
   color: $redArmellini;
 }
+.red-rejected {
+  color: $redRejected;
+}
 
 .green-success {
   color: $greenSuccess;
@@ -274,6 +281,7 @@ a:active {
       th {
         font-weight: 600;
         .cell {
+          line-height: 16px;
           padding-left: 5px;
           padding-right: 5px;
           word-break: normal;
@@ -308,8 +316,14 @@ a:active {
           }
           i {
             font-size: 16px;
+          }
+          .icon-status-span {
+            width: 15px;
+            display: inline-block;
+            margin-right: 5px;
+            margin-top: 4px;
             @include hover-state {
-              color: $darkBlueArmellini;
+              opacity: 0.7;
             }
           }
           .el-button--mini.is-circle {
@@ -323,6 +337,10 @@ a:active {
           }
           .icon-action {
             cursor: pointer;
+            margin-top: 4px;
+            @include hover-state {
+              color: $darkBlueArmellini;
+            }
           }
         }
       }
@@ -370,12 +388,25 @@ a:active {
 }
 
 .el-dialog__body {
+  width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
+  .div-content-additional-padding {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+ /* If inside dialog we have el-cols, put this class for manage el-dialog__body with correct height */
+.dialog-with-cols {
+  .el-dialog__body {
+    float: left;
+    background-color: white;
+  }
 }
 
 .el-dialog__footer {
-  padding: 0px 20px 20px;
+  padding: 0px 20px 27px;
 }
 
 /** General Form Styles **/
@@ -438,6 +469,63 @@ a:active {
   opacity: 0.3;
 }
 
+.green-indeterminate-checkbox {
+  .el-checkbox__inner {
+    border: 1px solid #9fa0a2;
+  }
+  .el-checkbox__original {
+    height: 0 !important; 
+  }
+  .el-checkbox__input.is-checked {
+    .el-checkbox__inner {
+      background-color: $greenSuccessLight;
+      border-color: $greenSuccessDark;
+      color: $greenSuccessDark;
+      &:after {
+        -webkit-box-sizing: content-box;
+        box-sizing: content-box;
+        content: "";
+        border: 1px solid $greenSuccessDark;
+        border-left: 0;
+        border-top: 0;
+        height: 7px;
+        left: 4px;
+        position: absolute;
+        top: 1px;
+        width: 3px;
+        -webkit-transition: -webkit-transform .15s ease-in .05s;
+        transition: -webkit-transform .15s ease-in .05s;
+        transition: transform .15s ease-in .05s;
+        transition: transform .15s ease-in .05s, -webkit-transform .15s ease-in .05s;
+        transition: transform .15s ease-in .05s,-webkit-transform .15s ease-in .05s;
+        -webkit-transform-origin: center;
+        transform-origin: center;
+      }
+    }
+  }
+  .el-checkbox__input.is-indeterminate {
+    .el-checkbox__inner {
+      background-color: blanchedalmond;
+      border-color: $orangeArmellini;
+      color: $orangeArmellini;
+      &:before {
+        content: '';
+        position: absolute;
+        display: block;
+        background-color: $orangeArmellini;
+        height: 2px;
+        -webkit-transform: scale(.5);
+        transform: scale(.5);
+        left: 0;
+        right: 0;
+        top: 5px;
+      }
+    }
+  }
+  .el-checkbox__inner:hover {
+    border-color: $greenSuccess;
+  }
+}
 /** END GENERAL ELEMENT UI CUSTOM STYLES **/
 
 @media only screen and (max-width: 640px) {

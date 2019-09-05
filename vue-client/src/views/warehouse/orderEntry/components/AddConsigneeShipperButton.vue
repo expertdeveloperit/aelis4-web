@@ -1,82 +1,53 @@
 <template>
-  <span>
-    <el-button
-      id="btn-open-dialog-add-consignee-shipper"
-      icon="el-icon-plus"
-      size="mini"
-      @click="dialogVisible = true"
-      class="button-action-default"
-    ></el-button>
-    <el-dialog
-      :close-on-click-modal="false"
-      v-on:open="handleOpen"
-      :title="$t('warehouse.orderEntry.accounts.shipperConsignee')"
-      :visible.sync="dialogVisible"
-      width="40%"
-      id="add-consignee-shipper-dialog"
-      :before-close="handleClose"
-    >
-      <div class="explanation-add-shipper-consignee">
-        <span>{{ $t('warehouse.orderEntry.accounts.addConsigneeShipperRelationExplanation') }}</span>
-      </div>
-      <div id="add-consignee-shipper-div">
-        <autocomplete
-          :model.sync="consigneeAccountId"
-          :url="urlConsignee"
-          labelField="name"
-          labelFieldLastWithDash="number"
-          :selectAction="handleSearch"
-          :enterKeyAction="handleSearch"
-          :shipperAccountId="orderEntry.settings.shipperAccountId"
-          :placeholder="$t('warehouse.orderEntry.accounts.enterConsigneeCustomerAccount')"
-          classCss="width-85p"
-          valueField="id"
-          id="add-consignee-autocomplete"
-          ref="add-consignee-autocomplete"
-        />
+<span>
+  <el-button id="btn-open-dialog-add-consignee-shipper" icon="el-icon-plus" size="mini" @click="dialogVisible = true" class="button-action-default"></el-button>
+  <el-dialog
+    :close-on-click-modal="false"
+    v-on:open="handleOpen"
+    :title="$t('warehouse.orderEntry.accounts.shipperConsignee')"
+    :visible.sync="dialogVisible"
+    width="40%"
+    id="add-consignee-shipper-dialog"
+    :before-close="handleClose">
+    <div class="explanation-add-shipper-consignee">
+      <span>{{ $t('warehouse.orderEntry.accounts.addConsigneeShipperRelationExplanation') }}</span>
+    </div>
+    <div id="add-consignee-shipper-div">
+      <autocomplete
+        :model.sync="consigneeAccountId"
+        :url="urlConsignee"
+        labelField="name"
+        labelFieldLastWithDash="number"
+        :selectAction="handleSearch"
+        :enterKeyAction="handleSearch"
+        :shipperAccountId="orderEntry.settings.shipperAccountId"
+        :placeholder="$t('warehouse.orderEntry.accounts.enterConsigneeCustomerAccount')"
+        classCss="width-85p"
+        valueField="id"
+        id="add-consignee-autocomplete"
+        ref="add-consignee-autocomplete"/>
         <span>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            :content="$t('warehouse.orderEntry.search')"
-            placement="top-start"
-          >
-            <el-button
-              id="add-consignee-search-button"
-              @click="handleSearch"
-              icon="el-icon-search"
-              size="mini"
-              class="button-action-default"
-            ></el-button>
+          <el-tooltip class="item" effect="dark" :content="$t('warehouse.orderEntry.search')" placement="top-start">
+            <el-button id="add-consignee-search-button" @click="handleSearch" icon="el-icon-search" size="mini" class="button-action-default"></el-button>
           </el-tooltip>
         </span>
 
         <div class="consignee-account-info" v-if="consigneeSelected.name">
           <div>
-            <b>
-              <i class="far fa-user"></i>
-              {{ consigneeSelected.name }} - {{ consigneeSelected.number }}
-            </b>
+            <b><i class="far fa-user"></i> {{ consigneeSelected.name }} - {{ consigneeSelected.number }}</b>
           </div>
           <div>
-            <i class="el-icon-location-outline"></i>
-            {{ consigneeSelected.address }}, {{ consigneeSelected.state }}, {{ consigneeSelected.city }} {{ consigneeSelected.zipCode }}
+            <i class="el-icon-location-outline"></i> {{ consigneeSelected.address }}, {{ consigneeSelected.state }}, {{ consigneeSelected.city }} {{ consigneeSelected.zipCode }}
           </div>
           <div>
-            <i class="el-icon-phone-outline"></i>
-            {{ consigneeSelected.phone }}
+            <i class="el-icon-phone-outline"></i> {{ consigneeSelected.phone }}
           </div>
         </div>
 
         <div class="consignee-days-of-service-info" v-if="consigneeSelected.name">
-          <table
-            cellspacing="0"
-            cellpadding="0"
-            border="0"
-            class="dark-blue-table el-table consignee-days-of-service-table"
-          >
+          <table cellspacing="0" cellpadding="0" border="0" class="dark-blue-table el-table consignee-days-of-service-table">
             <thead>
-              <tr class>
+              <tr class="">
                 <th colspan="7" rowspan="1" class="is-leaf">
                   <div class="cell">{{ $t('common.daysOfService') }}</div>
                 </th>
@@ -84,53 +55,25 @@
             </thead>
             <tbody>
               <tr>
-                <td
-                  rowspan="1"
-                  colspan="1"
-                  :class="{ 'enabled-day': consigneeSelected.daysOfService.monday, 'disabled-day': !consigneeSelected.daysOfService.monday }"
-                >
+                <td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.monday, 'disabled-day': !consigneeSelected.daysOfService.monday }">
                   <div class="cell">{{ $t('days.mondayShort') }}</div>
                 </td>
-                <td
-                  rowspan="1"
-                  colspan="1"
-                  :class="{ 'enabled-day': consigneeSelected.daysOfService.tuesday, 'disabled-day': !consigneeSelected.daysOfService.tuesday }"
-                >
+                <td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.tuesday, 'disabled-day': !consigneeSelected.daysOfService.tuesday }">
                   <div class="cell">{{ $t('days.tuesdayShort') }}</div>
                 </td>
-                <td
-                  rowspan="1"
-                  colspan="1"
-                  :class="{ 'enabled-day': consigneeSelected.daysOfService.wednesday, 'disabled-day': !consigneeSelected.daysOfService.wednesday }"
-                >
+                <td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.wednesday, 'disabled-day': !consigneeSelected.daysOfService.wednesday }">
                   <div class="cell">{{ $t('days.wednesdayShort') }}</div>
                 </td>
-                <td
-                  rowspan="1"
-                  colspan="1"
-                  :class="{ 'enabled-day': consigneeSelected.daysOfService.thursday, 'disabled-day': !consigneeSelected.daysOfService.thursday }"
-                >
+                <td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.thursday, 'disabled-day': !consigneeSelected.daysOfService.thursday }">
                   <div class="cell">{{ $t('days.thursdayShort') }}</div>
                 </td>
-                <td
-                  rowspan="1"
-                  colspan="1"
-                  :class="{ 'enabled-day': consigneeSelected.daysOfService.friday, 'disabled-day': !consigneeSelected.daysOfService.friday }"
-                >
+                <td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.friday, 'disabled-day': !consigneeSelected.daysOfService.friday }">
                   <div class="cell">{{ $t('days.fridayShort') }}</div>
                 </td>
-                <td
-                  rowspan="1"
-                  colspan="1"
-                  :class="{ 'enabled-day': consigneeSelected.daysOfService.saturday, 'disabled-day': !consigneeSelected.daysOfService.saturday }"
-                >
+                <td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.saturday, 'disabled-day': !consigneeSelected.daysOfService.saturday }">
                   <div class="cell">{{ $t('days.saturdayShort') }}</div>
                 </td>
-                <td
-                  rowspan="1"
-                  colspan="1"
-                  :class="{ 'enabled-day': consigneeSelected.daysOfService.sunday, 'disabled-day': !consigneeSelected.daysOfService.sunday }"
-                >
+                <td rowspan="1" colspan="1" :class="{ 'enabled-day': consigneeSelected.daysOfService.sunday, 'disabled-day': !consigneeSelected.daysOfService.sunday }">
                   <div class="cell">{{ $t('days.sundayShort') }}</div>
                 </td>
               </tr>
@@ -138,45 +81,19 @@
           </table>
         </div>
         <div>
-          <span
-            v-if="!haveDaysOfService && consigneeSelected.name"
-          >{{ $t('warehouse.orderEntry.accounts.consigneeDontHaveDaysOfService') }}</span>
+          <span v-if="!haveDaysOfService && consigneeSelected.name">{{ $t('warehouse.orderEntry.accounts.consigneeDontHaveDaysOfService') }}</span>
         </div>
-      </div>
-      <div slot="footer" class="dialog-footer">
-        <el-tooltip
-          class="item"
-          v-if="consigneeSelected.name"
-          effect="dark"
-          :content="$t('warehouse.orderEntry.addConsignee')"
-          placement="top-start"
-        >
-          <el-button
-            id="btn-add-consignee-shipper"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAddConsigneeShipperRelation"
-            class="button-action-default"
-          ></el-button>
-        </el-tooltip>
-        <el-tooltip
-          class="item"
-          v-if="consigneeSelected.name"
-          effect="dark"
-          :content="$t('warehouse.orderEntry.clear')"
-          placement="top-start"
-        >
-          <el-button
-            id="btn-clear-consignee-info"
-            icon="fa fa-eraser"
-            size="mini"
-            @click="clear"
-            class="button-action-default"
-          ></el-button>
-        </el-tooltip>
-      </div>
-    </el-dialog>
-  </span>
+    </div>
+    <div slot="footer" class="dialog-footer">
+      <el-tooltip class="item" v-if="consigneeSelected.name" effect="dark" :content="$t('warehouse.orderEntry.addConsignee')" placement="top-start">
+        <el-button id="btn-add-consignee-shipper" icon="el-icon-plus" size="mini" @click="handleAddConsigneeShipperRelation" class="button-action-default" ></el-button>
+      </el-tooltip>
+      <el-tooltip class="item" v-if="consigneeSelected.name" effect="dark" :content="$t('warehouse.orderEntry.clear')" placement="top-start">
+        <el-button id="btn-clear-consignee-info" icon="fa fa-eraser" size="mini" @click="clear" class="button-action-default" ></el-button>
+      </el-tooltip>
+    </div>
+  </el-dialog>
+</span>
 </template>
 
 <script>

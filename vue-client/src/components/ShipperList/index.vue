@@ -1,62 +1,54 @@
 <template>
   <div class="shipper-container">
-    <div class="shipper-group">
-      <transition name="slide">
-        <div class="shipper-list" v-if="show">
-          <div class="title">{{ $t('shipperComponent.shipperList') }}</div>
-          <div class="search-shippers-div">
-            <el-input
-              v-model="searchText"
-              v-alphanumeric-validation
-              maxlength="50"
-              clearable
-              @change="search"
-              class="inline-input"
-              size="mini"
-              suffix-icon="el-icon-search"
-              id="search-shipper-list"
-              ref="search-shipper-list"
-            ></el-input>
-          </div>
-          <div
-            class="list"
-            infinite-scroll-immediate
-            infinite-scroll-distance="100"
-            v-infinite-scroll="search"
-            infinite-scroll-disabled="disabled"
-          >
-            <div v-bind:key="shipper.id" v-for="shipper in shippers.list" class="list-item">
-              <span class="span-name">{{ shipper.name }} - {{ shipper.number }}</span>
-              <span class="span-check">
-                <el-radio
-                  v-model="user.shipperAccountNumber"
-                  :label="shipper.number"
-                  @change="change(shipper)"
-                >&nbsp;</el-radio>
-              </span>
+      <div class="shipper-group">
+        <transition name="slide">
+            <div class="shipper-list" v-if="show">
+                <div class="title">
+                    {{ $t('shipperComponent.shipperList') }}
+                </div>
+                <div class="search-shippers-div">
+                  <el-input
+                    v-model="searchText"
+                    v-alphanumeric-validation
+                    maxlength="50"
+                    clearable
+                    @change="search"
+                    class="inline-input"
+                    size="mini"
+                    suffix-icon="el-icon-search"
+                    id="search-shipper-list"
+                    ref="search-shipper-list"
+                    ></el-input>
+                </div>
+                <div class="list"
+                    infinite-scroll-immediate
+                    infinite-scroll-distance="100"
+                    v-infinite-scroll="search"
+                    infinite-scroll-disabled="disabled">
+                    <div v-bind:key="shipper.id" v-for="shipper in shippers.list" class="list-item">
+                       <span class="span-check">
+                            <el-radio v-model="user.shipperAccountNumber" :label="shipper.number" @change="change(shipper)">
+                                &nbsp;
+                            </el-radio>
+                        </span>
+                        <span class="span-name">
+                            {{ shipper.name }} - {{ shipper.number }}
+                        </span>
+                    </div>
+                </div>
+                <p class="loading-shippers" v-if="shippers.loading"><img src="@/assets/svg/loading.svg" alt="loading"/></p>
+                <p class="scroll-ellipsis" v-if="!noMore && !shippers.loading"> ... </p>
             </div>
-          </div>
-          <p class="loading-shippers" v-if="shippers.loading">
-            <img src="@/assets/svg/loading.svg" alt="loading" />
-          </p>
-          <p class="scroll-ellipsis" v-if="!noMore && !shippers.loading">...</p>
+        </transition>
+        <div class="shipper-selected">
+            <span class="shipper-label"> {{ user.shipperAccountLabel }} </span>
+            <span class="shipper-change">
+                <el-button icon="fa fa-random"  size="mini" circle @click="openList" v-if="shippers.multipleShippers && user.shipperAccountNumber"></el-button>
+            </span>
         </div>
-      </transition>
-      <div class="shipper-selected">
-        <span class="shipper-label">{{ user.shipperAccountLabel }}</span>
-        <span class="shipper-change">
-          <el-button
-            icon="fa fa-random"
-            size="mini"
-            circle
-            @click="openList"
-            v-if="shippers.multipleShippers && user.shipperAccountNumber"
-          ></el-button>
-        </span>
       </div>
-    </div>
-    <div class="shipper-container-overlay" v-if="show"></div>
-  </div>
+    <div class="shipper-container-overlay"  v-if="show"></div>
+</div>
 </template>
 
 <script>
@@ -83,8 +75,7 @@ export default {
     ...mapGetters([
       'shippers',
       'user',
-      'orderEntry',
-      // 'extensionRequest'
+      'orderEntry'
     ]),
     noMore() {
       return this.shippers.list.length >= this.shippers.totalRows;
@@ -120,13 +111,7 @@ export default {
     async callSelectAction() {
       if (this.actionStrSelectChained) {
         for (const action of this.actionStrSelectChained) {
-          if (action === 'orderEntry/getSettings') {
-            const res = await this.$store.dispatch(action);
-            this.orderEntry.settings.minCubesPerBox = res.__ob__.value.minCubesPerBox;
-            // this.orderEntry.settings.minCubesPerBox = res.__ob__.value.minCubesPerBox ? res.__ob__.value : '0.9461';
-          } else {
-            await this.$store.dispatch(action);
-          }
+          await this.$store.dispatch(action);
         }
       }
     }
@@ -162,9 +147,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
     .shipper-container {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
-        align-content: center;
         .shipper-group {
             position: fixed;
             width: 600px;
@@ -254,15 +237,17 @@ export default {
                         margin: 0px 25px;
                         .span-name {
                             width: 90%;
-                            text-align: right;
+                            text-align: left;
                             overflow: hidden;
                             text-overflow: ellipsis;
                             white-space: nowrap;
-                            padding: 0px 20px;
+                            padding: 0px 10px 0px 0px;
                         }
                         .span-check {
                             width: 10%;
-                            text-align: left;
+                            text-align: right;
+                            margin-top: 3px;
+                            margin-left: 15px;
                         }
                     }
                 }

@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for store/modules/warehouse/extensions.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">store/modules/warehouse</a> extensions.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.55% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>58/62</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>15/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.89% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.55% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>52/55</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Loading, Message } from 'element-ui';
+import extensionApiService from '@/api/extensionService';
+import constants from '@/utils/constants';
+&nbsp;
+&nbsp;
+const newConsolidation = consolidationSelected =&gt; ({
+  id: consolidationSelected.consolidateId,
+  total: consolidationSelected.consolidateTotal,
+  totalChecked: consolidationSelected.consolidateTotal,
+  allDetailsCheckedInitially: true, // This fields indicates that the detail search must be returns all ids to add into units array below.
+  units: []
+});
+const newUnitConsolidation = unitConsolidationSelected =&gt; ({
+  id: unitConsolidationSelected.consolidateId,
+  total: unitConsolidationSelected.consolidateTotal,
+  totalChecked: 1,
+  allDetailsCheckedInitially: false,
+  units: [unitConsolidationSelected.unitId]
+});
+&nbsp;
+const extensions = {
+  namespaced: true,
+  state: {
+    /* selectedByConsignee E.g.:
+    {
+        '${consigneeAccountId}':  {
+            consigneeAccountName: 'ARMELLINI PALM CITY DOCK - M200044',
+            totalUnits: 423,
+            consolidations: [
+            { id: 1888727829, total: 10, totalChecked: 10, units: [] },
+            { id: 1888727830, total: 413, totalChecked: 413, units: [] },
+            ]
+        },
+    }
+    */
+    selectedByConsignee: {}
+  },
+  mutations: {
+    UPDATE_SELECTED_BY_CONSIGNEE: (state, selectedByConsignee) =&gt; {
+      state.selectedByConsignee = selectedByConsignee;
+    },
+    CLEAR_SELECTED_BY_CONSIGNEE: (state) =&gt; {
+      state.selectedByConsignee = {};
+    }
+  },
+  actions: {
+    /**
+    Action to update consolidate selected from extensions summary, check(Add to consolidations array)
+    and uncheck(Remove from consolidations array).
+    The consolidationSelected must be have the following attributes.
+     E.g.:
+        consolidationSelected : {
+            consigneeAccountId,
+            consigneeAccountName,
+            consolidateId,
+            consolidateTotal
+        }
+    * */
+    updateSelectedConsolidate({ commit, state }, consolidationSelected) {
+      const selectedByConsignee = { ...state.selectedByConsignee };
+&nbsp;
+      // 1. If the consignee object exists then we update the consolidation list.
+      if (Object.prototype.hasOwnProperty.call(selectedByConsignee, consolidationSelected.consigneeAccountId)) {
+        const consolidationSelectedExists = selectedByConsignee[consolidationSelected.consigneeAccountId].consolidations.find(c =&gt; c.id === consolidationSelected.consolidateId);
+&nbsp;
+        // 1.1 If consolidation exists then we must delete the consolidate and decrease totals.
+        if (consolidationSelectedExists) {
+          selectedByConsignee[consolidationSelected.consigneeAccountId].totalUnits = Math.max(0, selectedByConsignee[consolidationSelected.consigneeAccountId].totalUnits - consolidationSelectedExists.totalChecked);
+          selectedByConsignee[consolidationSelected.consigneeAccountId].consolidations = selectedByConsignee[consolidationSelected.consigneeAccountId].consolidations.filter(c =&gt; c.id !== consolidationSelected.consolidateId);
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedByConsignee[consolidationSelected.consigneeAccountId].consolidations.length === 0) {
+<span class="cstat-no" title="statement not covered" >            delete selectedByConsignee[consolidationSelected.consigneeAccountId];</span>
+          }
+        } else {
+        // 1.2 If consolidation does not exists then we must add the consolidate and increase totals.
+          selectedByConsignee[consolidationSelected.consigneeAccountId].totalUnits += consolidationSelected.consolidateTotal;
+          selectedByConsignee[consolidationSelected.consigneeAccountId].consolidations.push(newConsolidation(consolidationSelected));
+        }
+      } else {
+      // 2. If the consignee object does not exists then we  create the consignee object and add the consolidate
+        selectedByConsignee[consolidationSelected.consigneeAccountId] = {
+          consigneeAccountName: consolidationSelected.consigneeAccountName,
+          totalUnits: consolidationSelected.consolidateTotal,
+          consolidations: [
+            newConsolidation(consolidationSelected)
+          ]
+        };
+      }
+      commit('UPDATE_SELECTED_BY_CONSIGNEE', selectedByConsignee);
+    },
+    /**
+    Action to update units from consolidation when  detail is loaded and the flag allDetailsCheckedInitially is true.
+    The unitsInfo must be have the following attributes.
+     E.g.:
+        unitsInfo : {
+          consigneeAccountId,
+          consolidateId,
+          unitIds
+        }
+    * */
+    updateUnitsAfterLoadDetail({ commit, state }, unitsInfo) {
+      const selectedByConsignee = { ...state.selectedByConsignee };
+&nbsp;
+      // 1. If the consignee object exists then we update the consolidation list.
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (Object.prototype.hasOwnProperty.call(selectedByConsignee, unitsInfo.consigneeAccountId)) {
+        const consolidationSelectedExists = selectedByConsignee[unitsInfo.consigneeAccountId].consolidations.find(c =&gt; c.id === unitsInfo.consolidateId);
+&nbsp;
+        // 2. If consolidation exists then we must update units without modify totals.
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (consolidationSelectedExists) {
+          consolidationSelectedExists.units = unitsInfo.unitIds;
+          // Update flag To control the load only first time.
+          consolidationSelectedExists.allDetailsCheckedInitially = false;
+          commit('UPDATE_SELECTED_BY_CONSIGNEE', selectedByConsignee);
+        }
+      }
+    },
+    /**
+    Action to update consolidate selected from extensions detail, check(Add to units array)
+    and uncheck(Remove from units array).
+    The consolidationSelected must be have the following attributes.
+     E.g.:
+        unitConsolidationSelected : {
+            consigneeAccountId,
+            consigneeAccountName,
+            consolidateId,
+            consolidateTotal,
+            unitId
+        }
+    * */
+    updateSelecteUnit({ commit, state }, unitConsolidationSelected) {
+      const selectedByConsignee = { ...state.selectedByConsignee };
+&nbsp;
+      // 1. If the consignee object exists then we update the consolidation list.
+      if (Object.prototype.hasOwnProperty.call(selectedByConsignee, unitConsolidationSelected.consigneeAccountId)) {
+        const consolidationSelectedExists = selectedByConsignee[unitConsolidationSelected.consigneeAccountId].consolidations.find(c =&gt; c.id === unitConsolidationSelected.consolidateId);
+&nbsp;
+        if (consolidationSelectedExists) {
+          const unitIdExitsIndex = consolidationSelectedExists.units.indexOf(unitConsolidationSelected.unitId);
+          // 1.1.1 If does not exist unit Id, then we add them.
+          if (unitIdExitsIndex &lt; 0) {
+            selectedByConsignee[unitConsolidationSelected.consigneeAccountId].totalUnits += 1;
+            consolidationSelectedExists.totalChecked += 1;
+            consolidationSelectedExists.units.push(unitConsolidationSelected.unitId);
+          } else {
+            // 1.1.2 If exists unit Id, then we remove them.
+            selectedByConsignee[unitConsolidationSelected.consigneeAccountId].totalUnits -= 1;
+            consolidationSelectedExists.totalChecked -= 1;
+            consolidationSelectedExists.units.splice(unitIdExitsIndex, 1);
+&nbsp;
+            // 1.1.3 If totalchecked is zero, then also remove consolidationSelected.
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (consolidationSelectedExists.totalChecked &lt;= 0) {
+<span class="cstat-no" title="statement not covered" >              selectedByConsignee[unitConsolidationSelected.consigneeAccountId].consolidations = selectedByConsignee[unitConsolidationSelected.consigneeAccountId].consolidations.filter(<span class="fstat-no" title="function not covered" >c </span>=&gt; <span class="cstat-no" title="statement not covered" >c.id !== unitConsolidationSelected.consolidateId)</span>;</span>
+            }
+          }
+        } else {
+        // 1.2 If consolidation does not exists then we must add the consolidate and increase totals.
+          selectedByConsignee[unitConsolidationSelected.consigneeAccountId].totalUnits += 1;
+          selectedByConsignee[unitConsolidationSelected.consigneeAccountId].consolidations.push(newUnitConsolidation(unitConsolidationSelected));
+        }
+      } else {
+      // 2. If the consignee object does not exists then we  create the consignee object and add the consolidate
+        selectedByConsignee[unitConsolidationSelected.consigneeAccountId] = {
+          consigneeAccountName: unitConsolidationSelected.consigneeAccountName,
+          totalUnits: 1,
+          consolidations: [
+            newUnitConsolidation(unitConsolidationSelected)
+          ]
+        };
+      }
+      commit('UPDATE_SELECTED_BY_CONSIGNEE', selectedByConsignee);
+    },
+    async submit({ commit, state }, extensionHeader) {
+      const extensionToSave = Object.assign({}, extensionHeader);
+      extensionToSave.consolidateList = [];
+      for (const consigneeAccountId in state.selectedByConsignee) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (Object.prototype.hasOwnProperty.call(state.selectedByConsignee, consigneeAccountId)) {
+          for (const consolidation of state.selectedByConsignee[consigneeAccountId].consolidations) {
+            extensionToSave.consolidateList.push(consolidation);
+          }
+        }
+      }
+      Message.closeAll();
+      const loading = Loading.service(constants.LOADING.DEFAULT_CONFIG);
+      const response = await extensionApiService.submit(extensionToSave);
+      commit('CLEAR_SELECTED_BY_CONSIGNEE');
+      loading.close();
+      return response;
+    },
+    clearSelectedByConsignee({ commit }) {
+<span class="cstat-no" title="statement not covered" >      commit('CLEAR_SELECTED_BY_CONSIGNEE');</span>
+    }
+  }
+};
+&nbsp;
+export default extensions;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 30 2019 15:10:57 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

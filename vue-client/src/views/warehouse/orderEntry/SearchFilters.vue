@@ -32,6 +32,7 @@
               format="MM/dd/yyyy"
               v-model="searchForm.shipDate"
               :picker-options="orderEntry.shipDatePickerOptions"
+              :disabled="orderEntry.filterShipDateDisabled"
               type="date"
               id="searchForm-ship-date"
             ></el-date-picker>
@@ -86,6 +87,7 @@
             <el-tooltip
               class="item"
               effect="dark"
+              :enterable="false"
               :content="$t('warehouse.orderEntry.addConsignee')"
               placement="top-start"
             >
@@ -111,6 +113,7 @@
             <el-tooltip
               class="item"
               effect="dark"
+              :enterable="false"
               :content="$t('warehouse.orderEntry.search')"
               placement="top-start"
             >
@@ -137,8 +140,11 @@ import Autocomplete from '@/components/Autocomplete';
 import AddConsigneeShipperButton from './components/AddConsigneeShipperButton';
 import authRoles from '@/utils/auth/roles';
 
+/**
+ * Search Filters Component, on Mount Set the first STATE actualFilters for search.
+ * */
 export default {
-  name: 'SearchFilter',
+  name: 'SearchFilters',
   components: { Autocomplete, AddConsigneeShipperButton },
   computed: {
     ...mapGetters([
@@ -183,6 +189,7 @@ export default {
       // Asign the option myOrders value the name of the current user if user is shipper.
       this.searchForm.createdByUsername = this.user.name;
     }
+    // Set the first STATE actualFilters for search.
     this.$store.dispatch('orderEntry/setSummaryFilters', this.searchForm);
   }
 };

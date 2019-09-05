@@ -2,7 +2,13 @@
   "domain": "armellini.auth0.com",
   "audience": "https://aelis.com/api/",
   "clientId": "q2mFo4IkthhO3qfwGVtQ2K0OpdwNCXiu",
+  "databaseConnection": "Username-Password-Authentication",
+  "googleAppsConnection": "google-apps",
   "permissionsNamespace": "http://aelis4/permissions",
   "rolesNamespace": "http://aelis4/roles",
-  "groupsNamespace": "http://aelis4/groups"
+  "groupsNamespace": "http://aelis4/groups",
+  "errors": {
+    "unauthorized": { "name": "unauthorized", "message": "User is inactive" },
+    "access_denied" : { "name": "email", "message": "Account's email address has not been validated"} 
+  }
 }

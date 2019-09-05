@@ -4,12 +4,18 @@
     <img src="@/assets/logos/Armellini.png" alt="Armellini" class="pic-armellini-logo">
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
-        <!--<img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">-->
+        <img :src="user.avatar" class="user-avatar">
         <i class="el-icon-caret-bottom"/>
       </div>
       <el-dropdown-menu slot="dropdown" class="user-dropdown">
+        <el-dropdown-item>
+          {{ user.name }}
+        </el-dropdown-item>
+        <el-dropdown-item v-if="!user.isGoogleAppsUser">
+          <div @click="handleChangePassword"> {{ $t('signUp.resetPassword') }} </div>
+        </el-dropdown-item>
         <el-dropdown-item divided>
-          <span style="display:block;" @click="handleLogOut">{{ $t('navbar.logOut') }}</span>
+          <div @click="handleLogOut"> {{ $t('navbar.logOut') }} </div>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -19,6 +25,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import Hamburger from '@/components/Hamburger';
+import authService from '@/utils/auth/auth0Service';
 
 export default {
   components: {
@@ -27,7 +34,7 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'user'
     ])
   },
   methods: {
@@ -41,6 +48,14 @@ export default {
     },
     handleLogOut() {
       this.$auth.logOut();
+    },
+    async handleChangePassword() {
+      const confirmChangePassword = await this.$confirm(this.$t('signUp.passwordResetConfirmation'), { confirmButtonText: this.$t('common.yes') }).catch(() => {});
+      if (confirmChangePassword) {
+        authService.changePassword().then(() => {
+          this.$message.success(this.$t('signUp.resetPasswordSendLinkSuccess'));
+        });
+      }
     }
   }
 };

@@ -1,3 +1,7 @@
+const iconLoading = 'el-icon-loading';
+const backgroundLoading = 'rgba(0, 0, 0, 0.5)';
+
+
 const constants = {
   API: {
     AUTOCOMPLETE: {
@@ -53,16 +57,22 @@ const constants = {
       label: 'Finalized',
       typeCss: 'success'
     }],
+    EXTENSION_STATUS: {
+      0: { index: 0, name: 'Pending', colorCssClass: 'yellow-warning' },
+      1: { index: 1, name: 'Approved', colorCssClass: 'green-success' },
+      2: { index: 2, name: 'Rejected', colorCssClass: 'red-rejected ' }
+    },
     CREATED_BY_OPTIONS: [{
       value: null,
       label: 'Everyone'
     }, {
       value: 1,
       label: 'Me'
-    }]
+    }],
+    INCH_CONVERSION_VALUE: 0.393701,
   },
   EXTENSION_REQUEST: {
-    ORDER_STATUS: [{
+    EXTENSIONS_STATUS: [{
       value: 0,
       label: 'Pending'
     }, {
@@ -73,7 +83,9 @@ const constants = {
       value: 2,
       label: 'Rejected',
       typeCss: 'success'
-    }]
+    }],
+    searchFilterData: [],
+    SUMMARY_DATA: []
   },
   TABLES: {
     DEFAULT_PAGE: 1,
@@ -95,26 +107,32 @@ const constants = {
   LOADING: {
     DEFAULT_CONFIG: {
       lock: true,
-      spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.5)'
+      spinner: iconLoading,
+      background: backgroundLoading
     },
     FINALIZE_CONFIG: {
       lock: true,
-      spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.5)',
+      spinner: iconLoading,
+      background: backgroundLoading,
       text: 'Orders are being finalized. Please wait'
     },
     PRINT_CONFIG: {
       lock: true,
-      spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.5)',
+      spinner: iconLoading,
+      background: backgroundLoading,
       text: 'Labels are being printed. Please wait'
     },
     CHANGE_SHIPDATE_CONFIG: {
       lock: true,
-      spinner: 'el-icon-loading',
-      background: 'rgba(0, 0, 0, 0.5)',
+      spinner: iconLoading,
+      background: backgroundLoading,
       text: 'Changing ship date, Please wait'
+    },
+    SHIPPING_MANIFEST_CONFIG: {
+      lock: true,
+      spinner: iconLoading,
+      background: backgroundLoading,
+      text: 'Shipping manifest is being printed. Please wait'
     }
   },
   MESSAGES: {

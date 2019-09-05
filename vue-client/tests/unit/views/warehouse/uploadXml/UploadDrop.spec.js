@@ -40,7 +40,7 @@ describe('@/views/warehouse/uploadXml/UploadDrop', () => {
     expect(element.vm.handleBeforeUpload({ type: xmlExtensionText, size: fielSizeExceded })).toBe(false);
 
     // Test handle error espect that update the processing to false and calls the message error.
-    element.vm.handleError();
+    element.vm.handleError({ message: '{"message":"Shipper Invalid"}' });
     expect(element.vm._data.processing).toBe(false);
     expect(messageError).toHaveBeenCalled();
 

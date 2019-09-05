@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for views/warehouse/orderEntry/TableSummaryExtensions.vue</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">views/warehouse/orderEntry</a> TableSummaryExtensions.vue
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">73.53% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>25/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.73% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>16/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">73.53% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>25/34</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
+    &lt;div class="order-table-container order-extensions-container bg-white"&gt;
+        &lt;div class="default-section-header"&gt;
+          &lt;div class="default-section-title"&gt; {{ $t('warehouse.orderEntry.extensions.titleSummary') }} &lt;/div&gt;
+          &lt;div class="default-section-actions"&gt;
+              &lt;el-button type="default" size="mini" @click="cancelExtension()"&gt; {{ $t('common.cancel') }} &lt;/el-button&gt;
+              &lt;submit-extension-button /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="order-table"&gt;
+            &lt;div class="height-100-p"&gt;
+                &lt;el-table
+                    :data="orderEntry.list"
+                    v-loading="orderEntry.loadingSearch"
+                    id="order-data-list"
+                    size="mini"
+                    tooltip-effect="dark"
+                    sortable
+                    class="dark-blue-table"
+                    :empty-text="$t('common.notAbleToFindRecords')"
+                    @sort-change="handleSortChange"
+                    stripe&gt;
+                    &lt;el-table-column
+                        prop="orderNumber"
+                        sortable="custom"
+                        :min-width="15"
+                        align="center"
+                        :label="$t('warehouse.orderEntry.orderNumberShort')"&gt;
+                        &lt;template slot-scope="scope"&gt;
+                        &lt;el-tooltip class="item" effect="dark" :content="scope.row.orderNumber" placement="top"&gt;
+                            &lt;span&gt; {{ scope.row.orderNumber }} &lt;/span&gt;
+                        &lt;/el-tooltip&gt;
+                        &lt;/template&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        prop="consignee"
+                        sortable="custom"
+                        :min-width="30"
+                        :label="$t('warehouse.orderEntry.consignee')"&gt;
+                        &lt;template slot-scope="scope"&gt;
+                            &lt;el-tooltip class="item" effect="dark" :content="`${scope.row.consigneeName} - ${ scope.row.consigneeAccount }`" placement="top"&gt;
+                            &lt;span&gt; {{ scope.row.consigneeName }} - {{ scope.row.consigneeAccount }}&lt;/span&gt;
+                            &lt;/el-tooltip&gt;
+                        &lt;/template&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        :min-width="10"
+                        prop="unitOfMeasureName"
+                        :label="$t('warehouse.orderEntry.unitOfMeasureShort')"&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        :min-width="8"
+                        prop="numberUnits"
+                        :label="$t('warehouse.orderEntry.numberOfUnitsShort')"&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        :min-width="10"
+                        prop="measure"
+                        :label="$t('warehouse.orderEntry.measure')"&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        prop="length"
+                        :min-width="8"
+                        :label="$t('warehouse.orderEntry.length')"&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        prop="width"
+                        :min-width="8"
+                        :label="$t('warehouse.orderEntry.width')"&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        prop="height"
+                        :min-width="8"
+                        :label="$t('warehouse.orderEntry.height')"&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        :min-width="10"
+                        prop="productCode"
+                        :label="$t('warehouse.orderEntry.product')"&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        prop="productDescription"
+                        sortable="custom"
+                        :min-width="23"
+                        :label="$t('warehouse.orderEntry.productDescription')"&gt;
+                        &lt;template slot-scope="scope"&gt;
+                            &lt;el-tooltip class="item" effect="dark" :content="scope.row.productDescription" placement="top"&gt;
+                            &lt;span&gt; {{ scope.row.productDescription }} &lt;/span&gt;
+                            &lt;/el-tooltip&gt;
+                        &lt;/template&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        :min-width="8"
+                        prop="poNumber"
+                        :label="$t('warehouse.orderEntry.poNumber')"&gt;
+                        &lt;template slot-scope="scope"&gt;
+                            &lt;el-tooltip class="item" effect="dark" :content="scope.row.poNumber" placement="top"&gt;
+                            &lt;span&gt; {{ scope.row.poNumber }} &lt;/span&gt;
+                            &lt;/el-tooltip&gt;
+                        &lt;/template&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        :min-width="15"
+                        prop="farmName"
+                        :label="$t('warehouse.orderEntry.farmBroker')"&gt;
+                        &lt;template slot-scope="scope"&gt;
+                            &lt;el-tooltip class="item" effect="dark" :content="scope.row.farmName" placement="top"&gt;
+                            &lt;span&gt; {{ scope.row.farmName }} &lt;/span&gt;
+                            &lt;/el-tooltip&gt;
+                        &lt;/template&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column
+                        align="center"
+                        :min-width="9"
+                        prop="status"
+                        :label="$t('warehouse.orderEntry.finalized')"&gt;
+                        &lt;template slot-scope="scope"&gt;
+                        &lt;span class="icon-status-span"&gt;
+                            &lt;i v-if="scope.row.status === finalizedId" class="el-icon-success green-success"&gt;&lt;/i&gt;
+                        &lt;/span&gt;
+                        &lt;span class="icon-status-span"&gt;
+                          &lt;el-tooltip v-if="scope.row.lastExtensionNumber" class="item" effect="dark" :content="`${extensionStatus[scope.row.lastExtensionStatus].name} - ${scope.row.lastExtensionNumber}`" placement="top-start"&gt;
+                              &lt;i class="far fa-clock"  :class="extensionStatus[scope.row.lastExtensionStatus].colorCssClass"&gt;&lt;/i&gt;
+                          &lt;/el-tooltip&gt;
+                        &lt;/span&gt;
+                        &lt;/template&gt;
+                    &lt;/el-table-column&gt;
+                    &lt;el-table-column  :min-width="15" :label="$t('warehouse.orderEntry.extensions.requestExtension')" align="center" class-name="fixed-width"&gt;
+                    &lt;template slot-scope="scope"&gt;
+                        &lt;span v-if="showCheckbox(scope.row.status, scope.row.numberUnits, scope.row.numberUnitsReceived, scope.row.lastExtensionStatus)"&gt;
+                            &lt;el-checkbox :value="isCheckedExtension(scope.row.consigneeAccountId, scope.row.id)" :indeterminate="isIndeterminate(scope.row.consigneeAccountId, scope.row.id)" @change="handleUpdateSelectedConsolidate(scope.row)" label="" class="green-indeterminate-checkbox"&gt;&lt;/el-checkbox&gt;
+                        &lt;/span&gt;
+                    &lt;/template&gt;
+                    &lt;/el-table-column&gt;
+                &lt;/el-table&gt;
+                &lt;el-pagination v-show="orderEntry.total &gt; 0"
+                @size-change="handleSearchChangeLimit"
+                :page-sizes="sizes"
+                :page-size="orderEntry.actualFilters.rows"
+                :current-page.sync="orderEntry.actualFilters.page"
+                @current-change="handleSearchChangePage"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="orderEntry.total"&gt;
+                &lt;/el-pagination&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+&nbsp;
+&lt;script&gt;
+import { mapGetters } from 'vuex';
+import constants from '@/utils/constants';
+import SubmitExtensionButton from '@/views/warehouse/orderEntry/components/extensions/SubmitExtensionButton';
+&nbsp;
+export default {
+  name: 'TableSummary',
+  components: { SubmitExtensionButton },
+  computed: {
+    ...mapGetters([
+      'orderEntry',
+      'extensions'
+    ])
+  },
+  data() {
+    return {
+      sizes: constants.TABLES.DEFAULT_LIMIT_SIZES,
+      finalizedId: constants.ORDER_ENTRY.ORDER_STATUS[2].value,
+      extensionStatus: constants.ORDER_ENTRY.EXTENSION_STATUS,
+      extensionStatusRejected: constants.ORDER_ENTRY.EXTENSION_STATUS[2].index
+    };
+  },
+  methods: {
+    handleSearchChangePage(val) {
+      this.$store.dispatch('orderEntry/search', { page: val });
+    },
+    handleSearchChangeLimit(val) {
+      this.$store.dispatch('orderEntry/search', { rows: val, page: constants.TABLES.DEFAULT_PAGE });
+    },
+    handleSortChange(data) {
+<span class="cstat-no" title="statement not covered" >      let { prop } = data;</span>
+<span class="cstat-no" title="statement not covered" >      const { order } = data;</span>
+<span class="cstat-no" title="statement not covered" >      prop = constants.TABLES.ORDER_ENTRY.COLUMNS_MAP_SORT[prop] || prop;</span>
+<span class="cstat-no" title="statement not covered" >      this.$store.dispatch('orderEntry/search', { orderField: prop, orderDirection: constants.TABLES.ORDER_DIRECTION[order] });</span>
+    },
+    showCheckbox(status, numberUnits, numberUnitsReceived, lastExtensionStatus) {
+      // Only Show Checkbox when status is finalized, the consolidation has units pending to receive.
+      // And This one does not have an extension, or if you have the status rejected (This check will not appear if you have an extension pending or approved).
+      const isStatusFinalized = status === this.finalizedId;
+      const hasUnitsPendingToReceive = numberUnits &gt; numberUnitsReceived;
+<span class="branch-2 cbranch-no" title="branch not covered" >      const noExtensionOrExtensionRejected = (lastExtensionStatus === null || lastExtensionStatus === undefined) || lastExtensionStatus === this.extensionStatusRejected;</span>
+<span class="branch-2 cbranch-no" title="branch not covered" >      return isStatusFinalized &amp;&amp; hasUnitsPendingToReceive &amp;&amp; noExtensionOrExtensionRejected;</span>
+    },
+    isCheckedExtension(consigneeAccountId, consolidationId) {
+      if (Object.prototype.hasOwnProperty.call(this.extensions.selectedByConsignee, consigneeAccountId)) {
+        const consolidationSelectedExists = this.extensions.selectedByConsignee[consigneeAccountId].consolidations.find(c =&gt; c.id === consolidationId);
+        if (consolidationSelectedExists &amp;&amp; consolidationSelectedExists.total === consolidationSelectedExists.totalChecked) {
+          return true;
+        }
+        return false;
+      }
+      return false;
+    },
+    isIndeterminate(consigneeAccountId, consolidationId) {
+      if (Object.prototype.hasOwnProperty.call(this.extensions.selectedByConsignee, consigneeAccountId)) {
+        const consolidationSelectedExists = this.extensions.selectedByConsignee[consigneeAccountId].consolidations.find(c =&gt; c.id === consolidationId);
+        if (consolidationSelectedExists &amp;&amp; consolidationSelectedExists.total !== consolidationSelectedExists.totalChecked) {
+          return true;
+        }
+        return false;
+      }
+      return false;
+    },
+    handleUpdateSelectedConsolidate(consolidation) {
+      const consolidationSelected = {
+        consigneeAccountId: consolidation.consigneeAccountId,
+        consigneeAccountName: consolidation.consigneeName,
+        consolidateId: consolidation.id,
+        consolidateTotal: consolidation.numberUnits - consolidation.numberUnitsReceived
+      };
+      this.$store.dispatch('extensions/updateSelectedConsolidate', consolidationSelected);
+    },
+    async cancelExtension() {
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >      const confirmCancelExtension = await this.$confirm(this.$t('warehouse.orderEntry.extensions.confirmCancel'), { confirmButtonText: this.$t('common.yes') }).catch(() =&gt; {});</span></span>
+<span class="cstat-no" title="statement not covered" >      if (confirmCancelExtension) {</span>
+<span class="cstat-no" title="statement not covered" >        this.$store.dispatch('extensions/clearSelectedByConsignee');</span>
+<span class="cstat-no" title="statement not covered" >        this.$store.dispatch('orderEntry/setFilterShipDateDisabled', false);</span>
+<span class="cstat-no" title="statement not covered" >        this.$store.dispatch('orderEntry/setIsCreatingExtension', false);</span>
+      }
+    }
+  },
+  mounted() {
+    this.$store.dispatch('orderEntry/setFilterShipDateDisabled', true);
+  }
+};
+&lt;/script&gt;
+&nbsp;
+&lt;style rel="stylesheet/scss" lang="scss"&gt;
+.order-extensions-container {
+    box-shadow: 0px 0px 7px 4px #dfdede;
+    .icon-details-extensions {
+      margin-left: 10px;
+      i {
+        font-size: 15px !important;
+      }
+    }
+}
+&nbsp;
+&lt;/style&gt;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 30 2019 15:10:57 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

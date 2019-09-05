@@ -1,13 +1,12 @@
 import { mount, createLocalVue } from '@vue/test-utils';
 import ElementUI from 'element-ui';
 import Vuex from 'vuex';
-import AddDialog from '@/views/warehouse/orderEntry/components/AddDialog';
-import store from '@/store';
-import i18n from '@/lang';
-import alphanumericValidation from '@/directives/alphanumericValidation';
-import numericValidation from '@/directives/numericValidation';
-import circularTabNavigationDialog from '@/directives/circularTabNavigationDialog';
-import PermissionsPlugin from '@/plugins/permissions';
+import AddDialog from '../../../../../../src/views/warehouse/orderEntry/components/AddDialog';
+import store from '../../../../../../src/store';
+import i18n from '../../../../../../src/lang';
+import alphanumericValidation from '../../../../../../src/directives/alphanumericValidation';
+import numericValidation from '../../../../../../src/directives/numericValidation';
+import PermissionsPlugin from '../../../../../../src/plugins/permissions';
 
 describe('@/views/warehouse/orderEntry/AddDialog', () => {
   let localVue;
@@ -22,7 +21,6 @@ describe('@/views/warehouse/orderEntry/AddDialog', () => {
     localVue.use(PermissionsPlugin);
     localVue.directive('numeric-validation', numericValidation);
     localVue.directive('alphanumeric-validation', alphanumericValidation);
-    localVue.directive('circular-tab-navigation-dialog', circularTabNavigationDialog);
   });
   const resetForm = jest.fn();
   const handleFocusFirstElement = jest.fn();
@@ -36,7 +34,8 @@ describe('@/views/warehouse/orderEntry/AddDialog', () => {
         $el: [{ focus: handleFocusFirstElement }, {}, {}, {}, { focus: handleFocusNextElement }]
       },
       'form-product': { clearLocalModel: jest.fn() },
-      'form-consignee': { clearLocalModel: jest.fn() }
+      'form-consignee': { clearLocalModel: jest.fn() },
+      'form-farm-name': { clearLocalModel: jest.fn() }
     }
   };
 
@@ -76,8 +75,12 @@ describe('@/views/warehouse/orderEntry/AddDialog', () => {
     });
   });
 
-  it(' Calls submitForm AddDialog succesfully', async () => {
-    /* Normal Flow */
+  it(' Calls getSubmitForm   AddDialog succesfully', async () => {
+    /* Given the following configurations */
+    const settings = {
+      shipDateFutureDays: 10, warehouseCode: 'MIA', shipperAccountId: 1, cutoffHourForToday: '22:00:00', minCubesPerBox: 100
+    };
+    store.commit('orderEntry/SET_SETTINGS', settings);
     const orderSaveResponse = { message: 'ok' };
     const orderSave = jest.fn().mockImplementation(() => Promise.resolve(orderSaveResponse));
     const orderSearch = jest.fn().mockImplementation(() => Promise.resolve({ data: [] }));
@@ -87,32 +90,57 @@ describe('@/views/warehouse/orderEntry/AddDialog', () => {
     const element = mount(AddDialog, { store, localVue, i18n });
     const submitFormTrue = jest.fn().mockImplementation(cb => cb(true));
     dataElement.$refs.form.validate = submitFormTrue;
-    element.setData(dataElement);
+
+    // Test Min Value Confirm
+    let dataElementCopy = Object.assign({}, dataElement);
+    dataElementCopy.form = {};
+    dataElementCopy.form.length = 1;
+    dataElementCopy.form.width = 1;
+    dataElementCopy.form.height = 1;
+    element.setData(dataElementCopy);
     element.setData({ $confirm: confirm });
-    const response = await element.vm.getSubmitForm();
+    let response = await element.vm.submitForm();
     expect(response).toEqual(orderSaveResponse);
     expect(submitFormTrue).toHaveBeenCalled();
     expect(orderSave).toHaveBeenCalled();
     expect(orderSearch).toHaveBeenCalled();
-    expect.assertions(4);
+
+    // Test confirm min value false
+    const confirmFalse = jest.fn().mockImplementation(() => Promise.resolve(false));
+    element.setData({ $confirm: confirmFalse });
+    response = await element.vm.submitForm();
+    expect(response).toEqual(false);
+
+    // Test Normal Value
+    dataElementCopy = Object.assign({}, dataElement);
+    dataElementCopy.form = {};
+    dataElementCopy.form.length = 10;
+    dataElementCopy.form.width = 10;
+    dataElementCopy.form.height = 10;
+    element.setData(dataElementCopy);
+    element.setData({ $confirm: confirm });
+    response = await element.vm.submitForm();
+    expect(response).toEqual(orderSaveResponse);
+    expect(submitFormTrue).toHaveBeenCalled();
+    expect(orderSave).toHaveBeenCalled();
+    expect(orderSearch).toHaveBeenCalled();
+    expect.assertions(9);
   });
 
-  it(' Calls submitForm AddDialog Error Flows', async () => {
+  it(' Calls getSubmitForm AddDialog Error Flows', async () => {
     /* Normal Flow error api save */
     const orderSaveResponseError = { response: { data: { message: 'Error' } } };
     const errorInvalid = new Error('Invalid');
     const orderSave = jest.fn().mockImplementation(() => Promise.reject(orderSaveResponseError));
     store._actions['orderEntry/save'] = [orderSave];
-    const confirm = jest.fn().mockImplementation(() => Promise.resolve(false));
     const element = mount(AddDialog, { store, localVue, i18n });
 
     /* Validation error Flow fields validation */
     const submitFormFalse = jest.fn().mockImplementation(cb => cb(false));
     dataElement.$refs.form.validate = submitFormFalse;
     element.setData(dataElement);
-    element.setData({ $confirm: confirm });
     try {
-      await element.vm.submitForm();
+      await element.vm.getSubmitForm();
     } catch (error) {
       expect(errorInvalid).toEqual(error);
     }
@@ -121,10 +149,9 @@ describe('@/views/warehouse/orderEntry/AddDialog', () => {
     const submitFormTrue = jest.fn().mockImplementation(cb => cb(true));
     dataElement.$refs.form.validate = submitFormTrue;
     element.setData(dataElement);
-    element.setData({ $confirm: confirm });
 
     try {
-      await element.vm.submitForm();
+      await element.vm.getSubmitForm();
     } catch (error) {
       expect(submitFormFalse).toHaveBeenCalled();
       expect(orderSave).toHaveBeenCalled();

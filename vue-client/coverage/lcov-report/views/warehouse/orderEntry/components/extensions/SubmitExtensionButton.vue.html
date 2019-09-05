@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for views/warehouse/orderEntry/components/extensions/SubmitExtensionButton.vue</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">All files</a> / <a href="index.html">views/warehouse/orderEntry/components/extensions</a> SubmitExtensionButton.vue
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.44% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>38/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">55% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.44% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>38/39</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
+&lt;span&gt;
+  &lt;el-button id="btn-open-dialog-submit-extension" type="primary" size="mini" @click="dialogVisible = true"&gt; {{ $t('common.submit') }}&lt;/el-button&gt;
+  &lt;el-dialog
+    :close-on-click-modal="false"
+    v-on:open="handleOpen"
+    :title="$t('warehouse.orderEntry.extensions.extensionRequest')"
+    :visible.sync="dialogVisible"
+    width="40%"
+    id="submit-extension-dialog"
+    class="dialog-with-cols"
+    :before-close="handleClose"&gt;
+    &lt;div id="submit-extension-div"&gt;
+      &lt;el-form :model="form" :rules="formRules" ref="form" label-position="top" size="mini" class="form-with-cols"&gt;
+      &lt;el-col :span="24"&gt;
+          &lt;el-col :md="12" :sm="24" :xs="24" class="form-vertical-item"&gt;
+              &lt;el-form-item :label="$t('warehouse.orderEntry.shipDate')" prop="shipDate"&gt;
+                &lt;el-date-picker
+                  v-model="form.shipDate"
+                  :disabled="true"
+                  :default-value="orderEntry.actualFilters.shipDate"
+                  style="width: 100%"
+                  format="MM/dd/yyyy"
+                  :picker-options="orderEntry.shipDatePickerOptions"
+                  type="date"
+                  id="form-extensions-ship-date"&gt;
+                &lt;/el-date-picker&gt;
+              &lt;/el-form-item&gt;
+          &lt;/el-col&gt;
+          &lt;el-col :md="12" :sm="12" :xs="12" class="form-vertical-item"&gt;
+              &lt;el-form-item :label="$t('warehouse.orderEntry.hour')" prop="shippingHour"&gt;
+                &lt;el-time-select
+                  id="form-extensions-shipping-hour"
+                  ref="form-shipping-hour"
+                  style="width: 100%"
+                  placeholder="Start time"
+                  v-model="form.shippingHour"
+                  :picker-options="datePickerHourOptions"&gt;
+                &lt;/el-time-select&gt;
+              &lt;/el-form-item&gt;
+          &lt;/el-col&gt;
+          &lt;el-col :md="24" :sm="24" :xs="24" class="form-vertical-item"&gt;
+              &lt;el-form-item :label="$t('warehouse.orderEntry.applicantName')" prop="applicantName"&gt;
+                &lt;el-input
+                  v-model="form.applicantName"
+                  maxlength="80"
+                  clearable
+                  class="inline-input"
+                  id="form-extensions-applicant-name"&gt;
+                &lt;/el-input&gt;
+            &lt;/el-form-item&gt;
+          &lt;/el-col&gt;
+          &lt;el-col :md="12" :sm="24" :xs="24" class="form-vertical-item"&gt;
+              &lt;el-form-item :label="$t('common.email')" prop="email"&gt;
+                &lt;el-input
+                  v-model="form.email"
+                  maxlength="100"
+                  clearable
+                  class="inline-input"
+                  id="form-extensions-email"&gt;
+                &lt;/el-input&gt;
+            &lt;/el-form-item&gt;
+          &lt;/el-col&gt;
+          &lt;el-col :md="12" :sm="24" :xs="24" class="form-vertical-item"&gt;
+              &lt;el-form-item :label="$t('warehouse.orderEntry.contactNumber')" prop="contactNumber"&gt;
+                &lt;el-input
+                  v-model="form.contactNumber"
+                  maxlength="15"
+                  clearable
+                  class="inline-input"
+                  id="form-extensions-contact-number"&gt;
+                &lt;/el-input&gt;
+            &lt;/el-form-item&gt;
+          &lt;/el-col&gt;
+          &lt;el-col :md="24" :sm="24" :xs="24" class="form-vertical-item"&gt;
+            &lt;el-form-item :label="$t('warehouse.orderEntry.extensions.notes')" prop="notes"&gt;
+              &lt;el-input
+                v-model="form.notes"
+                type="textarea"
+                maxlength="200"
+                show-word-limit
+                clearable
+                class="inline-input"
+                id="form-extensions-notes"
+              &gt;
+              &lt;/el-input&gt;
+            &lt;/el-form-item&gt;
+          &lt;/el-col&gt;
+          &lt;!--- TABLE SUMMARY ---&gt;
+          &lt;el-col :md="24" :sm="24" :xs="24"&gt;
+            &lt;div class="height-100-p summary-extension-submit"&gt;
+              &lt;el-table
+                :data="summary"
+                id="summary-extension-submit-list"
+                size="mini"
+                tooltip-effect="dark"
+                sortable
+                class="dark-blue-table"
+                :empty-text="$t('warehouse.orderEntry.extensions.noShipmentsSelected')"
+                stripe&gt;
+                &lt;el-table-column
+                  prop="consigneeAccountName"
+                  :sortable="true"
+                  :min-width="75"
+                  align="center"
+                  :label="$t('warehouse.orderEntry.consignee')"&gt;
+                &lt;/el-table-column&gt;
+                &lt;el-table-column
+                  prop="totalUnits"
+                  :sortable="true"
+                  :min-width="25"
+                  :label="$t('warehouse.orderEntry.units')"&gt;
+                &lt;/el-table-column&gt;
+                &lt;/el-table&gt;
+              &lt;/div&gt;
+            &lt;/el-col&gt;
+            &lt;!--- END TABLE SUMMARY ---&gt;
+        &lt;/el-col&gt;
+        &lt;/el-form&gt;
+    &lt;/div&gt;
+    &lt;div slot="footer" class="dialog-footer"&gt;
+       &lt;el-button @click="dialogVisible = false" size="mini"&gt;{{ $t('common.cancel') }}&lt;/el-button&gt;
+       &lt;el-button type="primary" @click="handleSubmit" size="mini" class="margin-r-18" id="btn-submit-extension"&gt;{{ $t('common.submit') }}&lt;/el-button&gt;
+    &lt;/div&gt;
+  &lt;/el-dialog&gt;
+&lt;/span&gt;
+&lt;/template&gt;
+&nbsp;
+&lt;script&gt;
+import moment from 'moment';
+import { mapGetters } from 'vuex';
+&nbsp;
+export default {
+  components: {},
+  computed: {
+    ...mapGetters([
+      'orderEntry',
+      'user',
+      'extensions'
+    ])
+  },
+  data() {
+    return {
+      dialogVisible: false,
+      datePickerHourOptions: {
+        step: '00:15',
+        end: '23:59'
+      },
+      form: {
+        shipDate: new Date(),
+        shippingHour: null,
+        applicantName: null,
+        contactNumber: null,
+        email: null
+      },
+      summary: [],
+      formRules: {
+        shipDate: [
+          { required: true, message: this.$t('warehouse.orderEntry.error.shipDateRequired'), trigger: 'blur' }
+        ],
+        shippingHour: [
+          { required: true, message: this.$t('warehouse.orderEntry.error.hourRequired'), trigger: 'blur' }
+        ],
+        applicantName: [
+          { required: true, message: this.$t('warehouse.orderEntry.error.applicantNameRequired'), trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: this.$t('signUp.errors.emailRequired'), trigger: 'blur' },
+          { type: 'email', message: this.$t('signUp.errors.emailValid'), trigger: 'blur' }
+        ]
+      },
+    };
+  },
+  methods: {
+    handleClose(done) {
+      done();
+    },
+    handleOpen() {
+      this.form.applicantName = this.user.name;
+      this.form.email = this.user.email;
+      const currentHour = moment();
+      const cutOffHour = moment(this.orderEntry.settings.cutoffHourForToday, 'HH:mm:ss');
+<span class="branch-0 cbranch-no" title="branch not covered" >      const minHour = currentHour.isAfter(cutOffHour) ? currentHour.format('HH:mm') : cutOffHour.format('HH:mm');</span>
+      this.datePickerHourOptions.start = minHour;
+&nbsp;
+      // Clear summary info and update with the store value.
+      this.summary = [];
+      for (const consigneeAccountId in this.extensions.selectedByConsignee) {
+<span class="missing-if-branch" title="else path not taken" >E</span>        if (Object.prototype.hasOwnProperty.call(this.extensions.selectedByConsignee, consigneeAccountId)) {
+          this.summary.push(this.extensions.selectedByConsignee[consigneeAccountId]);
+        }
+      }
+&nbsp;
+      // NextTick is excecuted when from is ready and then we can put the focus.
+      this.$nextTick(() =&gt; {
+        this.$refs['form-shipping-hour'].focus();
+      });
+    },
+    formValidate() {
+      return new Promise((resolve) =&gt; {
+        this.$refs.form.validate((valid) =&gt; {
+          let validLengthExtensionDetail = false;
+<span class="missing-if-branch" title="else path not taken" >E</span>          if (valid) {
+            for (const consigneeAccountId in this.extensions.selectedByConsignee) {
+<span class="missing-if-branch" title="else path not taken" >E</span>              if (Object.prototype.hasOwnProperty.call(this.extensions.selectedByConsignee, consigneeAccountId)) {
+                validLengthExtensionDetail = this.extensions.selectedByConsignee[consigneeAccountId].consolidations.length &gt; 0;
+<span class="missing-if-branch" title="else path not taken" >E</span>                if (validLengthExtensionDetail) {
+                  break;
+                }
+              }
+            }
+<span class="missing-if-branch" title="if path not taken" >I</span>            if (!validLengthExtensionDetail) {
+<span class="cstat-no" title="statement not covered" >              this.$message.warning(this.$t('warehouse.orderEntry.extensions.selectShipmentsFirst'));</span>
+            }
+          }
+          resolve(valid &amp;&amp; validLengthExtensionDetail);
+        });
+      });
+    },
+    async handleSubmit() {
+      const valid = await this.formValidate();
+<span class="missing-if-branch" title="else path not taken" >E</span>      if (valid) {
+<span class="fstat-no" title="function not covered" >        const confirmSubmitExtension = await this.$confirm(this.$t('warehouse.orderEntry.extensions.confirmSubmitExplanation'), { confirmButtonText: this.$t('common.yes'), dangerouslyUseHTMLString: true }).catch(() =&gt; {});</span>
+<span class="missing-if-branch" title="else path not taken" >E</span>        if (confirmSubmitExtension) {
+<span class="fstat-no" title="function not covered" >          const response = await this.$store.dispatch('extensions/submit', Object.assign({ shipperAccountId: this.orderEntry.actualFilters.shipperAccountId }, this.form)).catch(() =&gt; {});</span>
+<span class="missing-if-branch" title="else path not taken" >E</span>          if (response) {
+            this.$store.dispatch('orderEntry/setIsCreatingExtension', false);
+            this.dialogVisible = false;
+            this.$refs.form.resetFields();
+            const message = `&lt;div class="alert-success-extension-submit"&gt;
+              &lt;div class="container-clock-extension"&gt;
+                &lt;i class="far fa-clock icon-clock-extension"&gt;&lt;/i&gt;
+              &lt;/div&gt;
+              &lt;div class="text-message-extension"&gt;
+                ${response.message}
+              &lt;/div&gt;
+            &lt;/div&gt;`;
+            this.$store.dispatch('orderEntry/search', {});
+            this.$alert(message, {
+              dangerouslyUseHTMLString: true
+            });
+          }
+        }
+      }
+    }
+  }
+};
+&lt;/script&gt;
+&lt;style rel="stylesheet/scss" lang="scss"&gt;
+#btn-open-dialog-submit-extension {
+  margin-left: 10px;
+}
+.summary-extension-submit {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.alert-success-extension-submit {
+  display: flex;
+  align-items: center;
+  .container-clock-extension {
+    width: 20%;
+    display: inline;
+    .icon-clock-extension {
+      font-size: 62px;
+      color: orange
+    }
+  }
+  .text-message-extension {
+    width: 80%;
+    display: inline;
+  }
+}
+&lt;/style&gt;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 30 2019 15:10:57 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

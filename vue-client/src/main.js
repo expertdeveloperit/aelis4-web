@@ -15,7 +15,6 @@ import router from './router';
 import store from './store';
 import alphanumericValidation from './directives/alphanumericValidation';
 import numericValidation from './directives/numericValidation';
-import circularTabNavigationDialog from './directives/circularTabNavigationDialog';
 import AuthPlugin from './plugins/auth';
 import PermissionsPlugin from './plugins/permissions';
 import '@/assets/compiled-icons/';
@@ -31,7 +30,6 @@ Vue.use(PermissionsPlugin);
 Vue.use(VueMoment);
 Vue.directive('alphanumeric-validation', alphanumericValidation);
 Vue.directive('numeric-validation', numericValidation);
-Vue.directive('circular-tab-navigation-dialog', circularTabNavigationDialog);
 Vue.component(VueCountdown.name, VueCountdown);
 
 new Vue({

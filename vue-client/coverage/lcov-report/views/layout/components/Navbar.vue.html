@@ -22,22 +22,22 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>11/11</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">50% </span>
         <span class="quiet">Branches</span>
+        <span class='fraction'>2/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
         <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
-        <span class="quiet">Functions</span>
-        <span class='fraction'>0/0</span>
-      </div>
-      <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>11/11</span>
       </div>
     </div>
   </div>
@@ -154,7 +154,28 @@
 109
 110
 111
-112</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,6 +196,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,6 +219,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -271,12 +301,18 @@
     &lt;img src="@/assets/logos/Armellini.png" alt="Armellini" class="pic-armellini-logo"&gt;
     &lt;el-dropdown class="avatar-container" trigger="click"&gt;
       &lt;div class="avatar-wrapper"&gt;
-        &lt;!--&lt;img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar"&gt;--&gt;
+        &lt;img :src="user.avatar" class="user-avatar"&gt;
         &lt;i class="el-icon-caret-bottom"/&gt;
       &lt;/div&gt;
       &lt;el-dropdown-menu slot="dropdown" class="user-dropdown"&gt;
+        &lt;el-dropdown-item&gt;
+          {{ user.name }}
+        &lt;/el-dropdown-item&gt;
+        &lt;el-dropdown-item v-if="!user.isGoogleAppsUser"&gt;
+          &lt;div @click="handleChangePassword"&gt; {{ $t('signUp.resetPassword') }} &lt;/div&gt;
+        &lt;/el-dropdown-item&gt;
         &lt;el-dropdown-item divided&gt;
-          &lt;span style="display:block;" @click="handleLogOut"&gt;{{ $t('navbar.logOut') }}&lt;/span&gt;
+          &lt;div @click="handleLogOut"&gt; {{ $t('navbar.logOut') }} &lt;/div&gt;
         &lt;/el-dropdown-item&gt;
       &lt;/el-dropdown-menu&gt;
     &lt;/el-dropdown&gt;
@@ -286,6 +322,7 @@
 &lt;script&gt;
 import { mapGetters } from 'vuex';
 import Hamburger from '@/components/Hamburger';
+import authService from '@/utils/auth/auth0Service';
 &nbsp;
 export default {
   components: {
@@ -294,7 +331,7 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'user'
     ])
   },
   methods: {
@@ -308,6 +345,14 @@ export default {
     },
     handleLogOut() {
       this.$auth.logOut();
+    },
+    async handleChangePassword() {
+<span class="fstat-no" title="function not covered" >      const confirmChangePassword = await this.$confirm(this.$t('signUp.passwordResetConfirmation'), { confirmButtonText: this.$t('common.yes') }).catch(() =&gt; {});</span>
+<span class="missing-if-branch" title="else path not taken" >E</span>      if (confirmChangePassword) {
+        authService.changePassword().then(() =&gt; {
+          this.$message.success(this.$t('signUp.resetPasswordSendLinkSuccess'));
+        });
+      }
     }
   }
 };
@@ -382,7 +427,7 @@ export default {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 26 2019 15:55:50 GMT+0530 (IST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 30 2019 15:10:57 GMT+0530 (IST)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

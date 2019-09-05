@@ -3,15 +3,15 @@ import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'; // lang i18n
 import VueMoment from 'vue-moment';
 import Vuex from 'vuex';
-import TableSummary from '@/views/warehouse/orderEntry/TableSummary';
-import store from '@/store';
-import numericValidation from '@/directives/numericValidation';
-import PermissionsPlugin from '@/plugins/permissions';
-import i18n from '@/lang';
-import alphanumericValidation from '@/directives/alphanumericValidation';
-import constants from '@/utils/constants';
+import TableSummary from '../../../../../src/views/warehouse/orderEntry/TableSummary';
+import store from '../../../../../src/store';
+import numericValidation from '../../../../../src/directives/numericValidation';
+import PermissionsPlugin from '../../../../../src/plugins/permissions';
+import i18n from '../../../../../src/lang';
+import alphanumericValidation from '../../../../../src/directives/alphanumericValidation';
+import constants from '../../../../../src/utils/constants';
 
-describe('@/views/warehouse/orderEntry/TableSummary', () => {
+describe('../../../../../src/views/warehouse/orderEntry/TableSummary', () => {
   let localVue;
   const responseList = [{
     id: 128991,
@@ -49,12 +49,14 @@ describe('@/views/warehouse/orderEntry/TableSummary', () => {
     $refs: {
       editForm: { resetFields: resetForm },
       'row-consignee': { clearLocalModel: jest.fn(), setLocalModel: jest.fn() },
-      'row-productCode': { clearLocalModel: jest.fn(), setLocalModel: jest.fn() }
+      'row-productCode': { clearLocalModel: jest.fn(), setLocalModel: jest.fn() },
+      'row-farm-broker': { clearLocalModel: jest.fn(), setLocalModel: jest.fn() }
     }
   };
-
   const SET_ORDERS_MUTATION = 'orderEntry/SET_ORDERS';
+  // });
 
+  // describe('../../../../../src/views/warehouse/orderEntry/TableSummary', () => {
   beforeEach(() => {
     store.commit('SET_PERMISSIONS', permissions);
     localVue = createLocalVue();
@@ -142,7 +144,12 @@ describe('@/views/warehouse/orderEntry/TableSummary', () => {
     expect.assertions(13);
   });
 
-  it('TableSummary Calls handleUpdate succesfully', () => {
+  it('TableSummary Calls handleUpdate succesfully', async () => {
+    /* Given the following configurations */
+    const settings = {
+      shipDateFutureDays: 10, warehouseCode: 'MIA', shipperAccountId: 1, cutoffHourForToday: '22:00:00', minCubesPerBox: 100
+    };
+    store.commit('orderEntry/SET_SETTINGS', settings);
     const orderEntrySearch = jest.fn();
     const orderEntryUpdate = jest.fn().mockImplementation(() => Promise.resolve({ message: 'ok' }));
     const success = jest.fn();
@@ -153,11 +160,37 @@ describe('@/views/warehouse/orderEntry/TableSummary', () => {
     const element = mount(TableSummary, { store, localVue, i18n });
     dataElement.$refs.editForm.validate = submitFormTrue;
     dataElement.$message = { success };
-    element.setData(dataElement);
-    element.setData({ $confirm: confirm });
 
-    element.vm.getSubmitForm();
+    // Test Min Value Confirm
+    let dataElementCopy = Object.assign({}, dataElement);
+    dataElementCopy.editForm = {};
+    dataElementCopy.editForm.length = 1;
+    dataElementCopy.editForm.width = 1;
+    dataElementCopy.editForm.height = 1;
+    dataElementCopy.editForm.measure = constants.ORDER_ENTRY.MEASURE_LIST[1].value;
+    element.setData(dataElementCopy);
+    element.setData({ $confirm: confirm });
+    await element.vm.handleUpdate();
     expect(orderEntryUpdate).toHaveBeenCalled();
+
+    // Test confirm min value false
+    const confirmFalse = jest.fn().mockImplementation(() => Promise.resolve(false));
+    element.setData({ $confirm: confirmFalse });
+    const response = await element.vm.handleUpdate();
+    expect(response).toEqual(false);
+
+    // Test Normal Value
+    dataElementCopy = Object.assign({}, dataElement);
+    dataElementCopy.editForm = {};
+    dataElementCopy.editForm.length = 10;
+    dataElementCopy.editForm.width = 10;
+    dataElementCopy.editForm.height = 10;
+    dataElementCopy.editForm.measure = constants.ORDER_ENTRY.MEASURE_LIST[1].value;
+    element.setData(dataElementCopy);
+    element.setData({ $confirm: confirm });
+    await element.vm.handleUpdate();
+    expect(orderEntryUpdate).toHaveBeenCalled();
+    expect.assertions(3);
   });
 
   it('TableSummary Calls handleUpdate error validation form', () => {
@@ -170,22 +203,41 @@ describe('@/views/warehouse/orderEntry/TableSummary', () => {
     const warning = jest.fn();
     store._actions['orderEntry/update'] = [orderEntryUpdate];
     const submitFormTrue = jest.fn().mockImplementation(cb => cb(false, validationsErrors));
-    const confirm = jest.fn().mockImplementation(() => Promise.resolve(false));
     const element = mount(TableSummary, { store, localVue, i18n });
     element.setData({ $message: { warning } });
     dataElement.$refs.editForm.validate = submitFormTrue;
     dataElement.$message = { warning };
     element.setData(dataElement);
-    element.setData({ $confirm: confirm });
-    element.vm.handleUpdate();
+    element.vm.getSubmitForm();
     expect(warning).toHaveBeenCalled();
   });
-
+});
+describe('@/views/warehouse/orderEntry/TableSummary Delete actions', () => {
+  let localVue;
+  const permissions = ['editBeforeCutOffPending:dataEntry',
+    'editBeforeCutOffFinalized:dataEntry',
+    'editAfterCutOffPending:dataEntry',
+    'editAfterCutOffFinalized:dataEntry',
+    'deleteBeforeCutOffPending:dataEntry',
+    'deleteBeforeCutOffFinalized:dataEntry',
+    'deleteAfterCutOffPending:dataEntry',
+    'deleteAfterCutOffFinalized:dataEntry'];
+  beforeEach(() => {
+    store.commit('SET_PERMISSIONS', permissions);
+    localVue = createLocalVue();
+    localVue.use(Vuex);
+    localVue.use(ElementUI, { locale });
+    localVue.use(VueMoment);
+    localVue.use(PermissionsPlugin);
+    localVue.directive('numeric-validation', numericValidation);
+    localVue.directive('alphanumeric-validation', alphanumericValidation);
+  });
+  const orderEntrySearchAction = 'orderEntry/search';
 
   it('TableSummary Calls handleDelete succesfully', () => {
     const orderEntrySearch = jest.fn();
     const orderEntryDelete = jest.fn().mockImplementation(() => Promise.resolve({ message: 'ok' }));
-    const confirm = jest.fn().mockImplementation(() => Promise.resolve(true));
+    const confirm = jest.fn().mockImplementation(() => Promise.resolve());
     const success = jest.fn();
     store._actions[orderEntrySearchAction] = [orderEntrySearch];
     store._actions['orderEntry/delete'] = [orderEntryDelete];
@@ -203,7 +255,7 @@ describe('@/views/warehouse/orderEntry/TableSummary', () => {
 
   it('TableSummary Calls handleDelete error flow', () => {
     const orderEntryDelete = jest.fn().mockImplementation(() => Promise.reject({ response: { data: { message: 'ok' } } }));
-    const confirm = jest.fn().mockImplementation(() => Promise.resolve(false));
+    const confirm = jest.fn().mockImplementation(() => Promise.resolve());
     const message = jest.fn();
     store._actions['orderEntry/delete'] = [orderEntryDelete];
     const element = mount(TableSummary, { store, localVue, i18n });

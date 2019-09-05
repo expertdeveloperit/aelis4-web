@@ -1,71 +1,109 @@
 <template>
   <span>
-    <el-button type="success" plain @click="dialogVisible = true" size="mini" class="dialog-btn">
+    <el-button type="success" plain @click="handleOpenDialog" size="mini" class="dialog-btn">
       <v-icon class="el-icon-search header-info-dialog-value icon-action" icon="el-icon-plus"></v-icon>
     </el-button>
     <el-dialog
       :close-on-click-modal="false"
       :title="$t('extensionRequest.extensionDetails')"
       :visible.sync="dialogVisible"
-      max-width="400px"
+      width="60%"
       class="extension-dialog"
     >
-      <!-- :before-close="handleClose" -->
       <el-form ref="form" v-circular-tab-navigation-dialog label-position="top" size="mini">
-        <div class="detail-wrp">
-          <div class="ex-detail">
-            <p>
-              {{$t('extensionRequest.caseHash')}}
-              <span>60471</span>
-            </p>
-            <p>
-              {{$t('extensionRequest.shipperAccountColumn')}}
-              <span>M000254</span>
-            </p>
-            <p>
-              {{$t('extensionRequest.shipperName')}}
-              <span>Halls Distribution centre</span>
-            </p>
-            <p>
-              {{$t('extensionRequest.emailAddress')}}
-              <span>fjaramillo@hallsdistributioncentre.com</span>
-            </p>
-            <ul>
-              <li>
-                <img src="@/assets/svg/Extension-Request.svg" alt="Extension-Request" />
-                <strong>
-                  {{$t('extensionRequest.extensionTimecolumn')}}
-                  <span>13:45</span>
-                </strong>
-              </li>
-              <li>
-                <img src="@/assets/svg/Extension-Request.svg" alt="Extension-Request" />
-                <strong>
-                  {{$t('extensionRequest.totalBoxes')}}
-                  <span>48</span>
-                </strong>
-              </li>
-            </ul>
-          </div>
-          <div class="ex-button">
-            <div class="ex-button-wrp">
-              <span>{{$t('extensionRequest.status')}}</span>
-              <el-button type="primary" @click="dialogVisible = false" class="pending-btn">
-                <img src="@/assets/svg/Clock-Logo.svg" alt="Clock-Logo" />
-                {{$t('extensionRequest.pending')}}
-              </el-button>
-            </div>
-          </div>
-        </div>
+        <el-col :span="6" class="list-name">
+          <label class="margin-bottom-small-list">{{ $t('extensionRequest.extensionHash') }}</label>
+        </el-col>
+        <el-col :span="6" class="list-name">
+          <span class="span-small-list">{{ extensionRequest.headerUnitList.number }}</span>
+        </el-col>
+
+        <el-col :span="6" class="list-name">
+          <label class="margin-bottom-small-list">{{ $t('extensionRequest.status') }}</label>
+        </el-col>
+        <el-col :span="6" class="list-name">
+          <span
+            class="span-small-list"
+          >{{extensionRequest.headerUnitList.status === 0 ? $t('extensionRequest.pending'):extensionRequest.headerUnitList.status === 1 ? $t('extensionRequest.approved') : $t('extensionRequest.deny')}}</span>
+        </el-col>
+
+        <el-col :span="6" class="list-name">
+          <label class="margin-bottom-small-list">{{ $t('extensionRequest.shipper') }}</label>
+        </el-col>
+        <el-col :span="6" class="list-name">
+          <span class="span-small-list">{{ extensionRequest.headerUnitList.shipperAccountName }}</span>
+        </el-col>
+
+        <el-col :span="6" class="list-name">
+          <label class="margin-bottom-small-list">{{ $t('extensionRequest.shippingHour') }}</label>
+        </el-col>
+        <el-col :span="6" class="list-name">
+          <span class="span-small-list">{{ extensionRequest.headerUnitList.shippingHour }}</span>
+        </el-col>
+
+        <el-col :span="6" class="list-name">
+          <label class="margin-bottom-small-list">{{ $t('extensionRequest.applicantName') }}</label>
+        </el-col>
+        <el-col :span="18" class="list-name">
+          <span class="span-small-list">{{ extensionRequest.headerUnitList.applicantName }}</span>
+        </el-col>
+
+        <el-col :span="6" class="list-name">
+          <label class="margin-bottom-small-list">{{ $t('extensionRequest.email') }}</label>
+        </el-col>
+        <el-col :span="6" class="list-name">
+          <span class="span-small-list">{{ extensionRequest.headerUnitList.email }}</span>
+        </el-col>
+
+        <el-col :span="6" class="list-name">
+          <label class="margin-bottom-small-list">{{ $t('extensionRequest.shipperContact') }}</label>
+        </el-col>
+        <el-col :span="6" class="list-name">
+          <span class="span-small-list">{{ extensionRequest.headerUnitList.contactNumber }}</span>
+        </el-col>
+
+        <el-col :span="6" class="list-name">
+          <label class="margin-bottom-small-list">{{ $t('extensionRequest.notes') }}</label>
+        </el-col>
+        <el-col :span="18">
+          <span class="span-small-list scroll-div">{{ extensionRequest.headerUnitList.notes }}</span>
+        </el-col>
+
+        <el-col :span="6" class="list-name">
+          <label class="margin-bottom-small-list">{{ $t('extensionRequest.boxes') }}</label>
+        </el-col>
+        <el-col :span="18" class="list-name">
+          <span class="span-small-list">{{ extensionRequest.headerUnitList.numberUnits }}</span>
+        </el-col>
+
         <div>
           <span class="shipment-table">{{$t('extensionRequest.shipmentDetails')}}</span>
-          <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="Consignee" :label="$t('extensionRequest.consignee')"></el-table-column>
-            <el-table-column prop="Dimensions" :label="$t('extensionRequest.dimensions')"></el-table-column>
-            <el-table-column prop="Units" :label="$t('extensionRequest.units')"></el-table-column>
+          <el-table
+            :data="extensionRequest.searchUnitResponse.data"
+            style="width: 100%"
+            class="td-grid"
+          >
+            <el-table-column prop="Consignee" :label="$t('extensionRequest.consignee')">
+              <template slot-scope="scope">
+                <span class="font-size-14px">{{ scope.row.consigneeAccountName }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="Dimensions" :label="$t('extensionRequest.dimensions')">
+              <template slot-scope="scope">
+                <span
+                  class="font-size-14px"
+                >{{ scope.row.length }}x{{ scope.row.width }}x{{ scope.row.height }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="Units" :label="$t('extensionRequest.units')">
+              <template slot-scope="scope">
+                <span class="font-size-14px">{{ scope.row.numberUnits }}</span>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
       </el-form>
+      <span></span>
       <span slot="footer" class="dialog-footer footer-btn">
         <el-button @click="dialogVisible = false" class="deny-btn">
           <img src="@/assets/svg/Deny-Logo.svg" alt="Deny-Logo" />
@@ -78,78 +116,83 @@
         <div class="block pag">
           <span class="demonstration"></span>
           <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage3"
-            :page-size="10"
-            layout="prev,pager, next, jumper"
-            :total="10"
+            v-show="extensionRequest.total > 0"
+            @size-change="handleSearchChangeLimit"
+            :page-sizes="sizes"
+            :page-size="extensionRequest.actualFilters.rows"
+            :current-page.sync="extensionRequest.actualFilters.page"
+            @current-change="handleSearchChangePage"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="extensionRequest.total"
           ></el-pagination>
         </div>
       </span>
     </el-dialog>
   </span>
 </template>
-
 <script>
-
 import { mapGetters } from 'vuex';
+import constants from '@/utils/constants';
 
 export default {
   computed: {
-    ...mapGetters(['orderEntry'])
+    ...mapGetters(['orderEntry',
+      'extensionRequest'
+    ])
+  },
+  props: {
+    extensionNo: {
+      type: Number,
+      default: null
+    }
   },
   data() {
     return {
-      tableData: [{
-        Consignee: 'Bello Blossom LLC',
-        Dimensions: '40*10*5',
-        Units: '3'
-      }, {
-        Consignee: 'Bello Blossom LLC',
-        Dimensions: '40*10*5',
-        Units: '15'
-      }, {
-        Consignee: 'Bello Blossom LLC',
-        Dimensions: '40*10*5',
-        Units: '12'
-      }, {
-        Consignee: 'Bello Blossom LLC',
-        Dimensions: '40*10*5',
-        Units: '4'
-      }, {
-        Consignee: 'Bello Blossom LLC',
-        Dimensions: '40*10*5',
-        Units: '8'
-      }, {
-        Consignee: 'Bello Blossom LLC',
-        Dimensions: '40*10*5',
-        Units: '3'
-      }, {
-        Consignee: 'Bello Blossom LLC',
-        Dimensions: '40*10*5',
-        Units: '3'
-      }, {
-        Consignee: 'Bello Blossom LLC',
-        Dimensions: '40*10*5',
-        Units: '3'
-      }],
-      currentPage3: 1,
       dialogVisible: false
     };
   },
   methods: {
-    handleSizeChange(val) {
-      console.log(`${val} items per page`);
+    handleClose(done) {
+      this.$store.dispatch('extensionRequest/search', {});
+      done();
     },
-    handleCurrentChange(val) {
-      console.log(`current page: ${val}`);
+    handleSearchChangePage(val) {
+      this.$store.dispatch('extensionRequest/search', { page: val });
     },
+    handleSearchChangeLimit(val) {
+      this.$store.dispatch('extensionRequest/search', { rows: val, page: constants.TABLES.DEFAULT_PAGE });
+    },
+    handleOpenDialog() {
+      this.dialogVisible = true;
+      this.findExtensionsByShipper(constants.TABLES.DEFAULT_PAGE);
+    },
+    findExtensionsByShipper(page) {
+      const loading = this.$loading(constants.LOADING.DEFAULT_CONFIG);
+      return this.$store.dispatch('extensionRequest/findUnits', { extensionNo: this.extensionNo, page }).then(() => {
+        loading.close();
+      }).catch((error) => {
+        this.$message({
+          showClose: true,
+          message: error.response.data.message,
+          type: 'error',
+          duration: constants.duration
+        });
+        loading.close();
+      });
+    }
   }
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
 
+body {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Open Sans, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-weight: 400;
+}
   .dialog-btn {
         background: transparent !important;
         border: 0 !important;
@@ -159,10 +202,32 @@ export default {
     color : #01355F;
     float: left;
     padding-bottom: 10px;
-    font-weight: bold;
+
   }
   .extension-dialog .el-dialog {
-    width: 450px;
+   width: 400px;
+     font-family: Open Sans, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  }
+    .td-grid {
+ td{
+   .cell{
+     font-size: 14px !important;
+   color:#606266 ;
+   }
+ }
+ th  {
+  .cell{
+     font-size: 11px !important;
+  }
+ }
+}
+
+.scroll-div {
+     overflow-y: auto;
+   white-space: normal;
+   text-overflow: unset;
+    max-width: 470px;
+    max-height: 43px;
 }
 .detail-wrp {
     display: flex;
@@ -186,16 +251,18 @@ export default {
                 border: 1px solid #d19d4c;
                 font-size: 11px;
                     width: 100px;
+                    margin-left: 12px;
               display: flex;
                 span {
                     display: flex;
                     align-items: center;
-                     font-size: 11px;
-                         margin: auto;
+                     font-size: 14px;
+                         margin-left: 15px;
+
                 }
                 img {
                     height: 13px;
-                    margin-right: 7px
+                    margin-right: 14px
                 }
             }
         }
@@ -204,7 +271,7 @@ export default {
         width: 70%;
         border-right: 3px solid #01355F;
         p {
-            font-size: 11px;
+            font-size: 14px;
             text-align: left;
             margin: 0;
         }
@@ -217,7 +284,7 @@ export default {
         li {
             list-style: none;
             text-align: left;
-            font-size: 11px;
+            font-size: 14px;
             padding-left: 0;
             display: flex;
             align-items: center;
@@ -230,33 +297,45 @@ export default {
             }
         }
     }
-
 }
 .footer-btn {
-      .deny-btn, .approved-btn {
-        padding: 9px 0;
-        background: #ffd7d8;
-        color: #a32327;
-        border: 1px solid #a32327;
-        font-size: 11px;
-            width: 100px;
-    display: inline-flex;
-        span {
-            display: flex;
-            align-items: center;
-              font-size: 11px;
-                  margin: auto;
-        }
-        img {
-            height: 13px;
-            margin-right: 7px
-        }
+     &.footer-wrp {
+       display: block;
+       margin-top: 15px  !important;
+   }
+     .deny-btn, .approved-btn {
+       padding: 9px 0;
+       background: #ffd7d8;
+       color: #a32327;
+       border: 1px solid #a32327;
+       font-size: 11px;
+       width: 100px;
+       display: inline-flex;
+       margin-left: 15px !important;
+       span {
+         display: flex;
+         align-items: center;
+         font-size: 11px;
+         margin: auto;
+       }
+       img {
+         height: 13px;
+         margin-right: 7px
+       }
+     }
+     .approved-btn  {
+       background: #d8ecda;
+       color: #52ac64;
+       border: 1px solid #52ac64;
+     }
+   }
+    @media only screen and (max-width: 992px) {
+      .extension-dialog .el-dialog {
+        width:500px;
       }
-      .approved-btn  {
-        background: #d8ecda;
-        color: #52ac64;
-        border: 1px solid #52ac64;
-      }
+      .list-name {
+            width: 50%;
+        }
     }
     @media only screen and (max-width: 480px) {
      .extension-dialog {
@@ -274,9 +353,14 @@ export default {
       }
         .ex-button {
           width: 100%;
-          padding-top: 10px;
+          padding-top: 7px;
         }
       }
+      .list-name  {
+      .margin-bottom-small-list, .span-small-list {
+        font-size: 8px;
+      }
+    }
     }
 
 </style>

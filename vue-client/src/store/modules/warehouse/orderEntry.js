@@ -1,9 +1,7 @@
 import { Loading, Message } from 'element-ui';
 import moment from 'moment';
-import constants from '../../../utils/constants';
-import orderApiService from '../../../api/orderService';
-// import constants from '@/utils/constants';
-// import orderApiService from '@/api/orderService';
+import constants from '@/utils/constants';
+import orderApiService from '@/api/orderService';
 
 const searchSection = ['search-section'];
 
@@ -11,12 +9,19 @@ const orderEntry = {
   namespaced: true,
   state: {
     settings: {
-      shipperAccountId: null,
-      minCubesPerBox: null
+      shipperAccountId: null
     },
     orderAddSuccess: false,
     orderUpdateSuccess: false,
     isEditingRow: false,
+    filtersOpen: searchSection,
+    filterShipDateDisabled: false,
+    isCreatingExtension: false,
+    shipDatePickerOptions: {
+      disabledDate(time) {
+        return moment(time.getTime()).isBefore(Date.now(), 'day');
+      }
+    },
     actualFilters: {
       shipDate: null,
       status: null,
@@ -28,22 +33,13 @@ const orderEntry = {
       shipperAccountId: null,
       pageResults: true,
       orderField: null,
-      orderDirection: null,
-      receivingDate: null,
-      shipper: null,
-      aelTerminal: null,
+      orderDirection: null
     },
     loadingSearch: false,
-    filtersOpen: searchSection,
     cutoff: {
       isClosed: false,
       limitDateMillis: 0,
       limitDateMillisNewShipDate: 0
-    },
-    shipDatePickerOptions: {
-      disabledDate(time) {
-        return moment(time.getTime()).isBefore(Date.now(), 'day');
-      }
     },
     actualFiltersUnits: {
       rows: constants.TABLES.DEFAULT_LIMIT,
@@ -85,9 +81,9 @@ const orderEntry = {
     SET_CUTOFF_CLOSED: (state, isCLosed) => {
       state.cutoff.isClosed = isCLosed;
     },
-    SET_CUTOFF_LIMIT_DATE: (state, cutoffLimitDate) => {
-      if (cutoffLimitDate) {
-        const cutoffLimitDateMillis = moment(cutoffLimitDate).valueOf() - moment().valueOf();
+    SET_CUTOFF_LIMIT_DATE: (state, { cutoffDateTime, currentDateTime }) => {
+      if (cutoffDateTime) {
+        const cutoffLimitDateMillis = moment(cutoffDateTime).valueOf() - moment(currentDateTime).valueOf();
         state.cutoff.limitDateMillis = cutoffLimitDateMillis > 0 ? cutoffLimitDateMillis : 0;
         state.cutoff.isClosed = state.cutoff.limitDateMillis === 0 || false;
       } else {
@@ -95,9 +91,9 @@ const orderEntry = {
         state.cutoff.isClosed = true;
       }
     },
-    SET_CUTOFF_LIMIT_DATE_NEW_SHIP_DATE: (state, cutoffLimitDate) => {
-      if (cutoffLimitDate) {
-        const cutoffLimitDateMillis = moment(cutoffLimitDate).valueOf() - moment().valueOf();
+    SET_CUTOFF_LIMIT_DATE_NEW_SHIP_DATE: (state, { cutoffDateTime, currentDateTime }) => {
+      if (cutoffDateTime) {
+        const cutoffLimitDateMillis = moment(cutoffDateTime).valueOf() - moment(currentDateTime).valueOf();
         state.cutoff.limitDateMillisNewShipDate = cutoffLimitDateMillis > 0 ? cutoffLimitDateMillis : 0;
       } else {
         state.cutoff.limitDateMillisNewShipDate = 0;
@@ -109,7 +105,7 @@ const orderEntry = {
       state.shipDatePickerOptions = {
         disabledDate(time) {
           return moment(time.getTime()).isBefore(Date.now(), 'day')
-            || moment(time.getTime()).isAfter(moment().add(settings[constants.SETTINGS.shipDateFutureDays] || 0, 'days'), 'day');
+          || moment(time.getTime()).isAfter(moment().add(settings[constants.SETTINGS.shipDateFutureDays] || 0, 'days'), 'day');
         }
       };
     },
@@ -117,6 +113,12 @@ const orderEntry = {
       state.actualFiltersUnits = filters;
       state.headerUnitList = data.unitsConsolidate;
       state.searchUnitResponse = data.searchResponse;
+    },
+    SET_FILTER_SHIP_DATE_DISABLED: (state, filterShipDateDisabled) => {
+      state.filterShipDateDisabled = filterShipDateDisabled;
+    },
+    SET_IS_CREATING_EXTENSION: (state, isCreatingExtension) => {
+      state.isCreatingExtension = isCreatingExtension;
     }
   },
   actions: {
@@ -209,7 +211,7 @@ const orderEntry = {
           commit('SET_CUTOFF_LIMIT_DATE', data);
           resolve(response);
         }).catch((error) => {
-          commit('SET_CUTOFF_LIMIT_DATE', null);
+          commit('SET_CUTOFF_LIMIT_DATE', {});
           reject(error);
         });
       });
@@ -222,7 +224,7 @@ const orderEntry = {
           commit('SET_CUTOFF_LIMIT_DATE_NEW_SHIP_DATE', data);
           resolve(response);
         }).catch((error) => {
-          commit('SET_CUTOFF_LIMIT_DATE_NEW_SHIP_DATE', null);
+          commit('SET_CUTOFF_LIMIT_DATE_NEW_SHIP_DATE', {});
           reject(error);
         });
       });
@@ -239,24 +241,14 @@ const orderEntry = {
         });
       });
     },
-    // getTerminalData({ rootGetters, commit }) {
-    //   return new Promise((resolve, reject) => {
-    //     orderApiService.getSettings(rootGetters.user.shipperAccountNumber).then((response) => {
-    //       const { data } = response;
-    //       commit('SET_SETTINGS', data);
-    //       resolve(data);
-    //     }).catch((error) => {
-    //       commit('SET_SETTINGS', {});
-    //       reject(error);
-    //     });
-    //   });
-    // },
     findUnits({ commit, state }, filters) {
       commit('SET_LOADING', true);
       return new Promise((resolve, reject) => {
         const filtersToSend = Object.assign(state.actualFiltersUnits, filters);
         orderApiService.findUnits(filtersToSend).then((response) => {
           const { data } = response;
+          console.log('Units Data:', response.data);
+          console.log('units response', response.data);
           commit('SET_UNIT_DETAILS', { data, filters: filtersToSend });
           commit('SET_LOADING', false);
           resolve(response);
@@ -290,6 +282,20 @@ const orderEntry = {
       loading.close();
       return response;
     },
+    async printShippingManifest({ commit, state }) {
+      commit('SET_EDIT', false);
+      Message.closeAll();
+      const loading = Loading.service(constants.LOADING.SHIPPING_MANIFEST_CONFIG);
+      const response = await orderApiService.printShippingManifest(state.actualFilters);
+      loading.close();
+      return response;
+    },
+    setFilterShipDateDisabled({ commit }, filterShipDateDisabled) {
+      commit('SET_FILTER_SHIP_DATE_DISABLED', filterShipDateDisabled);
+    },
+    setIsCreatingExtension({ commit }, isCreatingExtension) {
+      commit('SET_IS_CREATING_EXTENSION', isCreatingExtension);
+    }
   }
 };
 

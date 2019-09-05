@@ -7,11 +7,13 @@ import constants from '@/utils/constants';
 const user = {
   state: {
     name: '',
+    email: '',
     avatar: '',
     roles: [],
     permissions: [],
     /* The groups are shippers Number/Code Associated. */
     groups: [],
+    isGoogleAppsUser: false,
     shipperAccountNumber: null,
     shipperAccountLabel: '',
     successfullyCreatedUser: false
@@ -19,6 +21,9 @@ const user = {
   mutations: {
     SET_NAME: (state, name) => {
       state.name = name;
+    },
+    SET_EMAIL: (state, email) => {
+      state.email = email;
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar;
@@ -31,6 +36,9 @@ const user = {
     },
     SET_GROUPS: (state, groups) => {
       state.groups = groups;
+    },
+    SET_IS_GOOGLE_APPS_USER: (state, isGoogleAppsUser) => {
+      state.isGoogleAppsUser = isGoogleAppsUser;
     },
     SET_SHIPPER_ACCOUNT: (state, { number, name }) => {
       state.shipperAccountNumber = number;
@@ -45,10 +53,12 @@ const user = {
   actions: {
     setUserInfo({ commit }, userInfo) {
       commit('SET_NAME', userInfo.name);
+      commit('SET_EMAIL', userInfo.email);
       commit('SET_AVATAR', userInfo.picture);
       commit('SET_PERMISSIONS', userInfo[authConfig.permissionsNamespace]);
       commit('SET_ROLES', userInfo[authConfig.rolesNamespace]);
       commit('SET_GROUPS', userInfo[authConfig.groupsNamespace]);
+      commit('SET_IS_GOOGLE_APPS_USER', userInfo.sub.includes(authConfig.googleAppsConnection));
     },
     setUserShipperAccount({ commit }, shipperAccount) {
       commit('SET_SHIPPER_ACCOUNT', shipperAccount);

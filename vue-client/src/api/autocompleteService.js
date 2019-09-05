@@ -1,5 +1,5 @@
-import request from '../utils/request';
-import constants from '../utils/constants';
+import request from '@/utils/request';
+import constants from '@/utils/constants';
 
 const autocompleteService = {
   getList(url, searchString, shipperAccountId) {

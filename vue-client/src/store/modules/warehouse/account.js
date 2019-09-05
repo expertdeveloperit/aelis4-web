@@ -1,5 +1,5 @@
-import accountApiService from '../../../api/accountService';
-import constants from '../../../utils/constants';
+import accountApiService from '@/api/accountService';
+import constants from '@/utils/constants';
 
 const getDefaultStateShippers = () => ({
   filters: {

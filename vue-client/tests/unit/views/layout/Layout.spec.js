@@ -15,6 +15,7 @@ describe('@/views/layout/Layout', () => {
 
     const element = shallowMount(Layout, { store, localVue, router });
     expect(element.find('.app-wrapper').exists()).toBe(true);
+    window.dispatchEvent(new Event('resize'));
 
     // We tests that method handleClickOutside calls the action.
     element.vm.handleClickOutside();

@@ -58,7 +58,7 @@ export default {
   common: {
     actions: 'Actions',
     options: 'Options',
-    unitID: 'UnitID',
+    unit: 'Unit',
     consigneeAccount: 'Consignee Account',
     consigneeName: 'Consignee Name',
     daysOfService: 'Days of Service',
@@ -93,7 +93,8 @@ export default {
     submit: 'Submit',
     closeDialogGenericMessage: 'Are you sure to close this dialog?',
     notAbleToFindRecords: 'It seems that we\'re not able to find any records. Please try different filters',
-    delete: 'Delete'
+    delete: 'Delete',
+    moreActions: 'More Actions'
   },
   uploadXmlFiles: {
     uploadShipmentTitle: 'Upload Shipment',
@@ -144,7 +145,7 @@ export default {
       length: 'Length',
       width: 'Width',
       height: 'Height',
-      product: 'Prod.',
+      product: 'Prod. Code',
       productLong: 'Product',
       productDescription: 'Product Description',
       poNumber: 'PO #',
@@ -185,6 +186,7 @@ export default {
       unitDeleteConfirmation: 'You are about to delete unit [id] from [shipDate]. Are you sure you want to continue?',
       lastUnitDeleteConfirmation: 'You are about to delete the last unit in this order. This will also delete the order. Are you sure you want to continue?',
       unitsDetailTitle: 'Details',
+      printShippingManifest: 'Print as PDF',
       extensions: {
         titleSummary: 'Select the Shipments to extend',
         noShipmentsSelected: 'No shipments selected.',
@@ -195,7 +197,8 @@ export default {
         selectDetails: 'Select Details to extend',
         selectShipmentsFirst: 'Select the Shipments to extend',
         confirmCancel: 'Are you sure you want to cancel this extension request?',
-        confirmSubmitExplanation: 'You are about to request an extension for late boxes arriving after the cut-off today. Sending this extension request does not mean that your extension request has been approved.  You will be contacted shorty with the status of your request.</br></br> Are you sure you want to request an extension?.'
+        confirmSubmitExplanation: 'You are about to request an extension for late boxes arriving after the cut-off today. Sending this extension request does not mean that your extension request has been approved.  You will be contacted shorty with the status of your request.</br></br> Are you sure you want to request an extension?',
+        notes: 'Reason for Extension/Notes'
       },
       error: {
         warehouseIsClosed: 'The Warehouse is Closed.',
@@ -209,7 +212,8 @@ export default {
         numberUnitsRequired: 'The Number of Units is required',
         hourRequired: 'The Hour is required',
         applicantNameRequired: 'The Applicant Name is required',
-        contactNumberRequired: 'The Contact Number is required'
+        contactNumberRequired: 'The Contact Number is required',
+        minValueValidationError: '[unit] units will be charged at [minValue] cubes since they are less than the minimum cubes allowed to be transported.'
       }
     }
   },
@@ -230,23 +234,26 @@ export default {
     shipperAccount: 'Shipper Account',
     extensionTime: 'Extension Time',
     units: 'Units',
-    shipperContact: 'Shipper Contact',
+    shipperContact: 'Contact phone number',
     requestDate: 'Request Date',
     status: 'Status',
     options: 'Options',
-    extensionDetails: 'Extension Details',
+    extensionDetails: 'Extension Request',
     pending: 'Pending',
     deny: 'Deny',
     approved: 'Approved',
     shipmentDetails: 'Shipment Details',
     consignee: 'Consignee',
     dimensions: 'Dimensions',
-    extensionTimecolumn: 'Extension Time:',
+    shippingHour: 'Hour',
     totalBoxes: 'Total Boxes:',
-    caseHash: 'Case #:',
+    ExtensionHash: 'Extension #:',
     shipperAccountColumn: 'Shipper Account:',
     shipperName: 'Shipper Name:',
-    emailAddress: 'Email Address:'
+    email: 'Contact email address',
+    applicantName: 'Applicant Name',
+    boxes: 'Total Number of Boxes',
+    notes: 'Reason for extension/Notes'
   },
   shipperComponent: {
     shipperList: 'Shipper List'
@@ -267,6 +274,9 @@ export default {
       passwordCheck: 'Enter your Password again',
       confirm: 'Confirm your Password'
     },
+    resetPassword: 'Reset password',
+    passwordResetConfirmation: 'Are you sure you want to reset your password?',
+    resetPasswordSendLinkSuccess: 'A password reset link has been sent to your email address.',
     errors: {
       passwordRequired: 'The Password is required',
       passwordCheckRequired: 'Please input the password again',

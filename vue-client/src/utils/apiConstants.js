@@ -9,18 +9,24 @@ const apiConstants = {
       SETTINGS: '/data-entry/web-form/shipments/settings',
       CHANGE_SHIP_DATE: '/data-entry/web-form/shipments/change-ship-date',
       PRINT_UNIT: '/data-entry/web-form/shipments/units/print-label',
-      PRINT_UNIT_CONSOLIDTAE: '/data-entry/web-form/shipments/print-labels'
+      PRINT_UNIT_CONSOLIDTAE: '/data-entry/web-form/shipments/print-labels',
+      PRINT_SHIPPING_MANIFEST: '/data-entry/web-form/shipments/print-shipping-manifest'
     },
     ACCOUNTS: {
       DEFAULT: '/accounts',
       CONSIGNEE_BY_TYPE: '/accounts/consignees-by-shipper-type',
       CONSIGNEE_BY_SHIPPER: '/accounts/consignees-by-shipper',
       SHIPPERS: '/accounts/shippers',
-      SIGN_UP_USER_SHIPPER: '/accounts/users'
+      SIGN_UP_USER_SHIPPER: '/accounts/users',
+      FARM_NAME_SEARCH: '/accounts/farm-shippers'
     },
-    EXTENSION_REQUEST: {
-      TERMINAL_CODES: '/receiving/warehouse-codes',
-      GRID_SUMMARY: '/receiving/extension-request',
+    EXTENSIONS: {
+      SUBMIT: '/receiving/extensions',
+      SIGN_UP_USER_SHIPPER: '/accounts/users',
+      SEARCH_EXTENSIONS: '/receiving/extensions'
+    },
+    WAREHOUSE: {
+      WAREHOUSE_CODES: '/warehouse/warehouse-codes'
     }
   }
 };

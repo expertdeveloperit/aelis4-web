@@ -24,7 +24,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-new': 'off',
     'no-await-in-loop': 'off',
-    'no-restricted-syntax': ['error', 'ForInStatement', 'LabeledStatement', 'WithStatement']
+    'no-restricted-syntax': ['error', 'LabeledStatement', 'WithStatement']
   },
   parserOptions: {
     parser: 'babel-eslint',

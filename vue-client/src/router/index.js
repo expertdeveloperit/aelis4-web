@@ -117,10 +117,7 @@ export const constantRouterMap = [
         name: 'uploadXmlFiles',
         component: () => import('@/views/warehouse/uploadXml/index'),
         meta: {
-          title: 'uploadXmlFiles',
-          icon: 'XML',
-          requiresAuth: true,
-          roles: [authRoles.INTERNAL, authRoles.SHIPPER, authRoles.ADMIN]
+          title: 'uploadXmlFiles', icon: 'XML', requiresAuth: true, roles: [authRoles.INTERNAL, authRoles.SHIPPER, authRoles.ADMIN]
         }
       },
       {
@@ -131,7 +128,7 @@ export const constantRouterMap = [
           title: 'extensionRequest',
           icon: 'Extension-Request',
           requiresAuth: true,
-          roles: [authRoles.INTERNAL]
+          roles: [authRoles.INTERNAL, authRoles.SHIPPER, authRoles.ADMIN]
         }
       },
       {

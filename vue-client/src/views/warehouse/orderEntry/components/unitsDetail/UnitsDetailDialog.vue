@@ -3,90 +3,90 @@
     <i class="el-icon-search header-info-dialog-value icon-action" id="btn-units-detail" @click="handleOpenDialog" size="mini" icon="el-icon-plus"></i>
     <el-dialog
     :close-on-click-modal="false"
-    :title="$t('warehouse.orderEntry.unitsDetailTitle')"
+    :title="orderEntry.isCreatingExtension ? $t('warehouse.orderEntry.extensions.selectDetails') : $t('warehouse.orderEntry.unitsDetailTitle')"
     :visible.sync="dialogVisible"
     width="77%"
     :before-close="handleClose">
     <el-col :span="4">
-      <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.orderNumber') }}:</label>
+      <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.orderNumber') }}</label>
     </el-col>
     <el-col :span="4">
       <span class="span-small-list "> {{ orderEntry.headerUnitList.orderNumber }} </span>
     </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.shipDate') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.shipDate') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.shipDate | moment("MM/DD/YYYY") }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.consignee') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.consignee') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.consigneeName }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.height') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.height') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.height }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.length') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.length') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.length }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.width') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.width') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.width }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.productLong') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.productLong') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.productCode }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.productDescription') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.productDescription') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.productDescription }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.numberOfUnits') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.numberOfUnits') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.numberUnits }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.unitOfMeasure') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.unitOfMeasure') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.unitOfMeasureName }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.measure') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.measure') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.measure }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.poNumber') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.poNumber') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list"> {{ orderEntry.headerUnitList.poNumber }} </span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.status') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.status') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list">{{ $t('warehouse.orderEntry.finalized') }}</span>
       </el-col>
       <el-col :span="4">
-        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.farmBroker') }}:</label>
+        <label class="margin-bottom-small-list">{{ $t('warehouse.orderEntry.farmBroker') }}</label>
       </el-col>
       <el-col :span="4">
         <span class="span-small-list">{{ orderEntry.headerUnitList.farmName }}</span>
@@ -95,7 +95,7 @@
         <span class="title-list">{{ $t('warehouse.orderEntry.units') }}</span>
         <div>
           <el-col :span="3" class="search-unitid-div">
-            <label class="margin-bottom-small-list label-search-unitid">{{ $t('warehouse.orderEntry.findUnit') }}:</label>
+            <label class="margin-bottom-small-list label-search-unitid">{{ $t('warehouse.orderEntry.findUnit') }}</label>
           </el-col>
           <el-col :span="4">
             <div>
@@ -113,6 +113,7 @@
                 ></el-input>
             </div>
           </el-col>
+          <el-button id="btn-ok-dialog-extensions-top" class="btn-ok-dialog-extensions" type="primary" size="mini" @click="dialogVisible = false" v-if="orderEntry.isCreatingExtension"> {{ $t('common.ok') }}</el-button>
         </div>
       </div>
         <el-table
@@ -128,7 +129,7 @@
           :data="orderEntry.searchUnitResponse.data">
           <el-table-column
               prop="unitId"
-              :label="$t('common.unitID')"
+              :label="$t('common.unit')"
               align="center"
               min-width="100">
               <template slot-scope="scope">
@@ -137,7 +138,8 @@
           </el-table-column>
           <el-table-column
             align="center" min-width="100"
-            :label="$t('common.actions')">
+            :label="$t('common.options')"
+            v-if="!orderEntry.isCreatingExtension">
             <template slot-scope="scope">
               <el-tooltip class="item" effect="dark" :content="$t('warehouse.orderEntry.print')" placement="top-start">
                 <print-unit-label :unitId="scope.row.unitId" :labelPrinted.sync="scope.row.labelPrinted" />
@@ -145,6 +147,14 @@
               <el-tooltip class="item" effect="dark" :content="$t('warehouse.orderEntry.delete')" placement="top-start">
                 <i v-if="showDeleteButton()" class="el-icon-delete icon-action" type="primary" size="mini" @click="handleDelete(scope.row.unitId, scope.row.shipDate, orderEntry.searchUnitResponse.data)"></i>
               </el-tooltip>
+            </template>
+          </el-table-column>
+          <el-table-column
+            align="center" min-width="100"
+            :label="$t('warehouse.orderEntry.extensions.requestExtension')"
+            v-if="orderEntry.isCreatingExtension">
+            <template slot-scope="scope">
+                <el-checkbox :value="isCheckedExtension(scope.row.id)" @change="handleUpdateSelectedUnitConsolidate(scope.row.id)"  label="" class="green-indeterminate-checkbox"></el-checkbox>
             </template>
           </el-table-column>
       </el-table>
@@ -157,9 +167,7 @@
         layout="total, sizes, prev, pager, next, jumper"
         :total="orderEntry.searchUnitResponse.totalRows">
       </el-pagination>
-    <span slot="footer" class="dialog-footer">
-        &nbsp;
-    </span>
+      <el-button id="btn-ok-dialog-extensions-bottom" class="btn-ok-dialog-extensions" type="primary" size="mini" @click="dialogVisible = false" v-if="orderEntry.isCreatingExtension"> {{ $t('common.ok') }}</el-button>
     </el-dialog>
 </span>
 </template>
@@ -173,11 +181,16 @@ export default {
   components: { PrintUnitLabel },
   computed: {
     ...mapGetters([
-      'orderEntry'
+      'orderEntry',
+      'extensions'
     ])
   },
   props: {
     unitsConsolidateId: {
+      type: Number,
+      default: null
+    },
+    consigneeAccountId: {
       type: Number,
       default: null
     }
@@ -206,8 +219,15 @@ export default {
     },
     findUnitsByConsignee(page) {
       const loading = this.$loading(constants.LOADING.DEFAULT_CONFIG);
-      this.$store.dispatch('orderEntry/findUnits', { unitsConsolidateId: this.unitsConsolidateId, unitId: this.search, page }).then(() => {
+      return this.$store.dispatch('orderEntry/findUnits', {
+        unitsConsolidateId: this.unitsConsolidateId, unitId: this.search, page, returnAllUnitIds: this.getReturnAllUnitIdsExtensions()
+      }).then(({ data }) => {
         loading.close();
+        // if we are in extensions mode and unitIds comes, then we need to update the unitIds selected for consolidate,
+        // this happens when it checks the consolidate, then when we open this detail dialog the selected unitIds are filled.
+        if (this.orderEntry.isCreatingExtension && data.unitIds) {
+          this.$store.dispatch('extensions/updateUnitsAfterLoadDetail', { consolidateId: this.unitsConsolidateId, consigneeAccountId: this.consigneeAccountId, unitIds: data.unitIds });
+        }
       }).catch((error) => {
         this.$message({
           showClose: true,
@@ -261,6 +281,44 @@ export default {
            || this.$can(this.permissions.DATA_ENTRY.DELETE_BEFORE_CUTOFF_FINALIZED, this.orderEntry.headerUnitList.status)
            || this.$can(this.permissions.DATA_ENTRY.DELETE_BEFORE_CUTOFF_PENDING, this.orderEntry.headerUnitList.status);
       return hasDeletePermission;
+    },
+    getActualConsolidateExtensions() {
+      if (Object.prototype.hasOwnProperty.call(this.extensions.selectedByConsignee, this.consigneeAccountId)) {
+        const consolidationSelected = this.extensions.selectedByConsignee[this.consigneeAccountId].consolidations.find(c => c.id === this.unitsConsolidateId);
+        return consolidationSelected;
+      }
+      return null;
+    },
+    getReturnAllUnitIdsExtensions() {
+      let returnAllUnitIds = false;
+      if (this.orderEntry.isCreatingExtension) {
+        const consolidationSelectedExists = this.getActualConsolidateExtensions();
+        if (consolidationSelectedExists) {
+          returnAllUnitIds = consolidationSelectedExists.allDetailsCheckedInitially;
+        }
+      }
+      return returnAllUnitIds;
+    },
+    isCheckedExtension(unitId) {
+      const consolidationSelectedExists = this.getActualConsolidateExtensions();
+      if (consolidationSelectedExists) {
+        const unitIdSelected = consolidationSelectedExists.units.find(u => u === unitId);
+        if (unitIdSelected) {
+          return true;
+        }
+        return false;
+      }
+      return false;
+    },
+    handleUpdateSelectedUnitConsolidate(unitId) {
+      const unitConsolidationSelected = {
+        consigneeAccountId: this.orderEntry.headerUnitList.consigneeAccountId,
+        consigneeAccountName: this.orderEntry.headerUnitList.consigneeName,
+        consolidateId: this.unitsConsolidateId,
+        consolidateTotal: this.orderEntry.headerUnitList.numberUnits,
+        unitId
+      };
+      this.$store.dispatch('extensions/updateSelecteUnit', unitConsolidationSelected);
     }
   }
 };
@@ -273,5 +331,8 @@ export default {
 
   .label-search-unitid {
     text-align: left !important;
+  }
+  .btn-ok-dialog-extensions {
+    float: right;
   }
 </style>

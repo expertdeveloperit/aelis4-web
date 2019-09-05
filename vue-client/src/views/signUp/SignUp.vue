@@ -81,7 +81,7 @@ export default {
   },
   data() {
     /* Custom Validators for Password */
-    const expressionCheckPasswordSafety = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const expressionCheckPasswordSafety = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})');
     const validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error(this.$t('signUp.errors.passwordRequired')));

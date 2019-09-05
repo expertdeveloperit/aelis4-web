@@ -58,6 +58,27 @@ describe('@/utils/auth/auth0Service', () => {
     expect.assertions(4);
   });
 
+  it('Should calls WebAuth.changePassword when Auth0Service.changePassword method its called', async () => {
+    const responseChangePassword = 'We send an email to reset password.';
+    const changePassword = jest.fn((config, cb) => cb(null, responseChangePassword));
+    WebAuth.prototype.changePassword = changePassword;
+    const response = await auth0Service.changePassword();
+    expect(changePassword).toHaveBeenCalled();
+    expect(response).toEqual(responseChangePassword);
+    expect.assertions(2);
+  });
+
+  it('Should calls WebAuth.changePassword when Auth0Service.changePassword method its called with error', async () => {
+    const err = new Error('We cant send an email to reset password.');
+    const changePassword = jest.fn((config, cb) => cb(err, null));
+    WebAuth.prototype.changePassword = changePassword;
+    try {
+      await auth0Service.changePassword();
+    } catch (error) {
+      expect(err).toEqual(error);
+    }
+  });
+
   it('Should return the token by Auth0Service.getAccessToken method', async () => {
     const checkSession = jest.fn().mockImplementation(() => Promise.resolve(authResult));
     WebAuth.prototype.checkSession = checkSession;
@@ -116,7 +137,7 @@ describe('@/utils/auth/auth0Service', () => {
   });
 
   it('Should calls WebAuth.parseHash when Auth0Service.handleAuthentication method its called with error', async () => {
-    const err = new Error();
+    const err = { message: 'unauthorized', error: 'unauthorized' };
     const parseHash = jest.fn(cb => cb(err, null));
     WebAuth.prototype.parseHash = parseHash;
     try {

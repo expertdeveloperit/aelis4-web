@@ -1,6 +1,6 @@
-<template>
+  <template>
   <el-col :span="24">
-    <el-collapse v-model="orderEntry.filtersOpen">
+    <el-collapse v-model="extensionRequest.filtersOpen">
       <el-collapse-item
         :title="$t('extensionRequest.searchSection')"
         name="search-section"
@@ -16,8 +16,8 @@
         >
           <el-form-item
             :label="$t('extensionRequest.shipper')"
-            prop="shipper"
-            class="consignee-filter consignee-wrp"
+            prop="shipperAccountId"
+            class="shipper-filter shipper-wrp"
           >
             <autocomplete
               :model.sync="searchForm.shipper"
@@ -25,9 +25,12 @@
               :url="urlShipper"
               labelField="name"
               labelFieldLastWithDash="number"
+              :selectAction="handleSearch"
+              :enterKeyAction="handleSearch"
+              :clearAction="handleSearch"
+              :classCss="null"
               valueField="id"
-              :maxlength="8"
-              id="searchForm-shipper-list"
+              id="searchForm-shipper"
               ref="search-shipper-list"
             />
           </el-form-item>
@@ -38,15 +41,15 @@
           >
             <el-select
               v-model="searchForm.aelTerminal"
-              id="searchForm-ael-Terminal"
-              ref="filter-status"
+              id="searchForm-aelTerminal"
+              ref="filter-aelTerminal"
               @change="handleSearch"
             >
               <el-option
-                v-for="item in wareHouseCodes"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in searchFilerData"
+                :key="item"
+                :label="item.code"
+                :value="item.id"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -61,7 +64,7 @@
               v-model="searchForm.shipDate"
               format="MM/dd/yyyy"
               clearable
-              :picker-options="orderEntry.shipDatePickerOptions"
+              :picker-options="extensionRequest.shipDatePickerOptions"
               class="el-dropdown-new drop-sp date-dob"
               type="date"
               id="searchForm-ship-date"
@@ -73,8 +76,7 @@
             class="title-input"
           >
             <el-select
-              :placeholder="$t('extensionRequest.none')"
-              v-model="searchForm.placeholder"
+              v-model="searchForm.status"
               id="searchForm-status"
               ref="filter-status"
               @change="handleSearch"
@@ -89,28 +91,23 @@
           </el-form-item>
           <el-form-item
             :label="$t('extensionRequest.extensionHash')"
-            prop="orderNumber"
+            prop="extensionNumber"
             class="el-input--mini-new-status ordernumber"
           >
             <el-input
-              v-model="searchForm.orderNumber"
+              v-model="searchForm.extensionNumber"
               ref="filter-order-number"
               v-alphanumeric-validation
               maxlength="25"
               clearable
-              @clear="handleSearch"
               v-on:keyup.enter.native="handleSearch"
+              @clear="handleSearch"
               class="inline-input"
               id="searchForm-order-number"
             ></el-input>
           </el-form-item>
           <span>
-            <el-tooltip
-              class="item"
-              effect="dark"
-              :content="$t('warehouse.orderEntry.search')"
-              placement="top-start"
-            >
+            <el-tooltip class="item" effect="dark" :content="$t('Search')" placement="top-start">
               <el-button
                 id="form-search-button"
                 @click="handleSearch"
@@ -131,102 +128,111 @@ import { mapGetters } from 'vuex';
 import constants from '@/utils/constants';
 import apiConstants from '@/utils/apiConstants';
 import Autocomplete from '@/components/Autocomplete';
-import orderApiService from '@/api/orderService';
+import extensionService from '../../../api/extensionService';
 
 export default {
   name: 'SearchFilters',
   components: { Autocomplete },
   computed: {
     ...mapGetters([
-      'orderEntry',
-      'user',
-      'shippers'
+      'extensionRequest'
     ])
   },
   data() {
     return {
       searchForm: {
         shipper: '',
+        shipperAccountId: '',
         aelTerminal: '',
         shipDate: new Date(),
-        status: constants.ORDER_ENTRY.ORDER_STATUS[0].value,
-        orderNumber: null,
+        status: constants.EXTENSION_REQUEST.EXTENSIONS_STATUS[0].value,
+        extensionNumber: null
+
       },
       activeCollapsibleName: ['search-section'],
-      orderStatusOptions: constants.ORDER_ENTRY.ORDER_STATUS,
+      orderStatusOptions: constants.EXTENSION_REQUEST.EXTENSIONS_STATUS,
       urlShipper: apiConstants.END_POINTS.ACCOUNTS.SHIPPERS,
-      wareHouseCodes: apiConstants.END_POINTS.EXTENSION_REQUEST.TERMINAL_CODES
+      searchFilerData: constants.EXTENSION_REQUEST.searchFilterData
     };
   },
-  mounted() {
-    this.orderApiService.getTerminalData((res) => {
-      console.log(res);
-    });
-  },
   methods: {
-    async getTerminalData() {
-      const response = await orderApiService.getTerminalData(this.searchForm.aelTerminal);
-      console.log(response);
+    handleSearch() {
+      this.searchForm.shipper = this.$refs['search-shipper-list'].getLocalModel();
+      this.$store.dispatch('extensionRequest/search', this.searchForm).then((res) => {
+        constants.EXTENSION_REQUEST.SUMMARY_DATA = [];
+        res.forEach((element) => {
+          const ob = {
+            extensionHash: element[0],
+            shipperNameAndAccount: `${element[1]}-${element[3]}`,
+            extensionTime: element[4],
+            units: element[5],
+            shipperContact: element[6],
+            requestDate: element[7]
+          };
+          constants.EXTENSION_REQUEST.SUMMARY_DATA.push(ob);
+        });
+      });
     },
-    // handleSearch() {
-    //   this.searchForm.aelTerminal = this.$refs['filter-consignee'].getLocalModel();
-    //   this.$store.dispatch('orderEntry/search', this.searchForm).then(() => {
-    //     this.$store.dispatch('orderEntry/getCutoffLimitDate');
-    //   });
-    // },
-    // handleChangeDate() {
-    //   this.handleSearch();
-    //   this.$refs['filter-status'].focus();
-    // }
+    /* The datepicker has an issue when change manually, the focus lost. */
+    handleChangeDate() {
+      this.handleSearch();
+      this.$refs['filter-status'].focus();
+    }
+  },
+  created() {
+    extensionService.getWarehouse().then((response) => {
+      this.searchFilerData = response.data;
+      this.handleSearch();
+    });
   }
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-#search {
+  #search {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding-left: 5px;
-    .consignee-filter {
-        width: 30%;
-        white-space: nowrap;
-        margin-right: 0;
-        padding-right: 10px;
-        .el-form-item__content {
-            width: calc(100% - 64px);
-            .el-autocomplete {
-              width: 100%;
-            }
+    .shipper-filter {
+      width: 30%;
+      white-space: nowrap;
+      margin-right: 0;
+      padding-right: 10px;
+      .el-form-item__content {
+        width: calc(100% - 64px);
+        .el-autocomplete {
+          width: 100%;
         }
+      }
     }
     .aelTerminal {
-      width: 13%;
+      width: 15%;
       margin-right: 0 !important;
       padding-right: 10px;
       display: flex !important;
       .el-form-item__content {
-         width: calc(100% - 70px);
-         .el-input__icon {
-               width: 16px;
-         }
-         .el-input__inner {
-            padding-right: 20px;
-          }
+        width: calc(100% - 70px);
+        .el-input__icon {
+          width: 16px;
+        }
+        .el-input__inner {
+          padding-right: 20px;
+        }
       }
     }
     .receivingDate {
-        width: 17%;
-         margin-right: 0 !important;
+      width: 17%;
+      margin-right: 0 !important;
       padding-right: 10px;
       display: flex !important;
-        .el-form-item__content {
-         width: calc(100% - 77px);
-         .date-dob input {
-           width: 100%;
-               padding-right: 10px;
-         }
+      .el-form-item__content {
+        width: calc(100% - 77px);
+        .date-dob input {
+          width: 100%;
+          padding-right: 10px;
         }
+      }
     }
     .title-input {
       width: 14%;
@@ -238,7 +244,7 @@ export default {
       }
     }
     .ordernumber {
-         width:  calc(25% - 55px);
+      width:  calc(25% - 55px);
       margin: 0 !important;
       margin-right: auto;
       .el-form-item__content{
@@ -251,48 +257,48 @@ export default {
     .receivingDate .el-date-editor.el-input{
       width: 100%;
     }
-}
-@media only screen and (max-width: 1365px) {
-  #search{
-    .consignee-filter {
+  }
+  @media only screen and (max-width: 1365px) {
+    #search{
+      .shipper-filter {
         width: 100%;
         padding-right: 0;
-    }
-    .aelTerminal {
-      width: 25%;
-    }
-    .receivingDate {
-      width: 25%;
-    }
-    .title-input {
-      width: 20%;
+      }
+      .aelTerminal {
+        width: 25%;
+      }
+      .receivingDate {
+        width: 25%;
+      }
+      .title-input {
+        width: 20%;
       }
       .ordernumber {
         width: calc(30% - 55px);
       }
     }
-}
-@media only screen and (max-width: 992px) {
-  #search {
-    .consignee-filter {
-      display: flex;
-    }
-    .aelTerminal, .receivingDate, .title-input, .aelTerminal .el-form-item__content .el-select, .receivingDate .el-date-editor, .title-input .el-select {
-         width: 100% !important;
-         padding-right: 0;
-    }
-    .ordernumber {
-      width: calc(100% - 55px);
-      padding-top: 18px;
-    }
-    #form-search-button {
-      margin-top: 18px;
   }
+  @media only screen and (max-width: 992px) {
+    #search {
+      .shipper-filter {
+        display: flex;
+      }
+      .aelTerminal, .receivingDate, .title-input, .aelTerminal .el-form-item__content .el-select, .receivingDate .el-date-editor, .title-input .el-select {
+        width: 100% !important;
+        padding-right: 0;
+      }
+      .ordernumber {
+        width: calc(100% - 55px);
+        padding-top: 18px;
+      }
+      #form-search-button {
+        margin-top: 18px;
+      }
+    }
+    #search .aelTerminal .el-form-item__content, #search .receivingDate .el-form-item__content,  #search .shipper-filter .el-form-item__content, #search .title-input .el-form-item__content  {
+      width: calc(100% - 92px);
+      margin-left: auto;
+    }
   }
-  #search .aelTerminal .el-form-item__content, #search .receivingDate .el-form-item__content,  #search .consignee-filter .el-form-item__content, #search .title-input .el-form-item__content  {
-    width: calc(100% - 92px);
-    margin-left: auto;
-  }
-}
 
 </style>

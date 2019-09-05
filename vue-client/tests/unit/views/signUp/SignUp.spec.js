@@ -96,8 +96,6 @@ describe('@/views/SignUp', () => {
 
     // The form is succes and is-error not extist.
     expect(element.find(isErrorClass).exists()).toBe(false);
-    console.log(element.find(isErrorClass));
-    console.log(response);
 
     // Then will call signUpAction.
     expect(signUpAction).toHaveBeenCalledWith(form);
