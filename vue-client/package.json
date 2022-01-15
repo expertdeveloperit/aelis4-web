@@ -59,7 +59,7 @@
     "path-to-regexp": "2.4.0",
     "sass-loader": "7.0.3",
     "semver": "5.5.0",
-    "shelljs": "0.8.2",
+    "shelljs": "0.8.5",
     "vue-template-compiler": "2.6.10"
   },
   "gitHooks": {
